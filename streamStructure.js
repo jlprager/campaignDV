@@ -10,10 +10,10 @@ var Twit = require("twit");
 
 // Twitter dev information, using a temporary twitter account for this application. Do not need to change
 var T = new Twit({
-    consumer_key: "n37Pkz2GxSTsd9WCalaKLrHhQ",
-    consumer_secret: "qYXPpzvzDSzpgqpt0gEF4e4TkmuF3p06I7eofIBIrM6bZJKmpg",
-    access_token: "3219700082-ZHK1alLaY1GQPHGYPPlGwFAN9G1Yys6qzQIcRaN",
-    access_token_secret: "Wj9eCdaofbO7HhXgocio0KpjAg02pASq1oZ2bEiWThtKD"
+    consumer_key: "VeUfUr7ZJTG2NtEtUX91JywQS",
+    consumer_secret: "07PkUHFTwcohOUV4xxZHK1opCuuFnJUO6ZgHKAXlrfBjlggyCg",
+    access_token: "4666061954-EcLI5yeDCx9qmfJUxLXvmesub4YdnC7MLyIklbd",
+    access_token_secret: "Qbv6B3SUjRZMOgcgVrpuXCkvwub4BujaD7xmXSZ05oX9t"
 });
 
 var Tweet = require("./models/tweet.js");
