@@ -1,5 +1,6 @@
 "use strict";
 let express = require('express');
+let helmet = require("helmet");
 let bodyParser = require('body-parser');
 let app = express();
 let port = process.env.PORT || 3000;
@@ -15,6 +16,9 @@ app.set('view options', {
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(helmet());
 
 app.get('/*', function(req, res) {
 	res.render('index');
