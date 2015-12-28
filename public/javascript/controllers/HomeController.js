@@ -5,6 +5,5 @@
 
 	function HomeController() {
 		var vm = this;
-		vm.title = 'Welcome to our App!';
 	}
 })();
