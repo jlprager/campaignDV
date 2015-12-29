@@ -11,4 +11,18 @@ let auth = jwt({
   secret: process.env.JWTsecret
 });
 
+router.get('/', (req, res, next) => {
+  Candidate.find({})
+  .populate('name', 'sentiment', 'dateCreated')
+  .exec((err, result) => {
+    if (err) return next(err);
+    res.send(result);
+  });
+});
+
+router.post('/', auth, (req, res, next) => {
+  if 
+  let candidate = new Candidate(req.body);
+})
+
 module.exports = router;

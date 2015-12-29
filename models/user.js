@@ -7,6 +7,12 @@ let UserSchema = new mongoose.Schema({
 	comments : [{ type : mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 	candidate: { type : mongoose.Schema.Types.ObjectId, ref: "Candidate"},
 	premiumStatus: { type : boolean, default : false },
+	politicalLeaning: String,
+	UScitizen: Boolean,
+	bio: String,
+	profilePic: String,
+	age: Number,
+	gender: String,
 	emailRegis: {
 		name: String,
 		userName: String,
@@ -35,7 +41,7 @@ let UserSchema = new mongoose.Schema({
 
 	},
 	//URI : api.tumblr.com/v2/user/info
-	//** Maybe not tumblr. API doesn't produce enough info. 
+	//** Maybe not tumblr. API doesn't produce enough info.
 	tumblr: {
 		displayName: String
 	}
