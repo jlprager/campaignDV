@@ -31,7 +31,7 @@ router.post('/:id', auth, (req, res, next) => {
     if(!result) return next('Could not create that comment');
     User.update({ _id : req.payload.id }, { $push: { comments: result._id }}, (err, user) => {
       if(err) return next(err);
-      Candidate.update({ _id : req.params.id }, { $push: { comments: result._id }, $inc : {'numComments':1} }, (err, candidate) => {
+      Candidate.update({ _id : req.params.id }, { $push: { comments: result._id }}, (err, candidate) => {
         if(err) return next(err);
         res.send(result);
       });
@@ -44,7 +44,6 @@ router.delete('/:id', (req, res, next) => {
     if(err) return next(err);
     Candidate.findOneAndUpdate({ 'comments' : req.params.id }, { $pull : { comments : req.params.id }}, (err, result) => {
       if(err) return next(err);
-      result.numComments--;
       result.save();
       User.findOneAndUpdate({ 'comments' : req.params.id }, { $pull : { comments : req.params.id }}, (err, result) => {
         if(err) return next(err);

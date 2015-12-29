@@ -9,8 +9,7 @@ let CandidateSchema = new mongoose.Schema({
 	},
 	dateCreated: { type : Date, default: Date.now },
 	user: { type : mongoose.Schema.Types.ObjectId, ref: "User" },
-	comments: [{ type : mongoose.Schema.Types.ObjectId, ref: "Comment" }],
-	numComments: { type : Number, default: 0 }
+	comments: [{ type : mongoose.Schema.Types.ObjectId, ref: "Comment" }]
 });
 
 module.exports = mongoose.model("Candidate", CandidateSchema);
