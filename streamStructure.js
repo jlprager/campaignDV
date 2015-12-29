@@ -3,8 +3,9 @@
  */
 
 // List of keywords to be captured
-var keywords = ["#FeelTheBern", "#Bernie2016", "#NoBernie", "#ScrewSanders" ];
-var keywords2 = ["#Trump2016", "#DumpTrump"];
+var sentiment = require('sentiment');
+var keywords = ["#Bernie2016"];
+var keywords2 = ["#Trump2016"];
 
 var Twit = require("twit");
 
@@ -50,26 +51,52 @@ var waitForTweets = function(db) {
 
     // Start the stream, and store the JSON information in data
     stream.on("tweet", function(data) {
-        // Create the tweet object
-        var tweet = new Tweet({
-            id: data.id,
-            raw: data,
-            user: data.user.screen_name,
-            description: data.text,
-            timestamp: data.timestamp_ms,
-            created_at: data.created_at
-        });
+        sentiment(data.text, function(err, result) {
+            // Create the tweet object
+            var tweet = new Tweet({
+                id: data.id,
+                raw: data,
+                user: data.user.screen_name,
+                description: data.text,
+                sentiment: result.score,
+                timestamp: data.timestamp_ms,
+                created_at: data.created_at
+            });
 
-        // Store the tweet in the database
-        tweet.save(function(err, tweet) {
-            if (err) return console.error(err);
-            console.log("(" + tweet.created_at + ") " + tweet.user + ": " + tweet.description);
-            console.log("");
-        })
+            // Store the tweet in the database
+            tweet.save(function(err, tweet) {
+                if (err) return console.error(err);
+                console.log("(" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
+                console.log("");
+            });
+        });
     })
+
+    stream2.on("tweet", function(data) {
+        sentiment(data.text, function(err, result) {
+            // Create the tweet object
+            var tweet = new Tweet({
+                id: data.id,
+                raw: data,
+                user: data.user.screen_name,
+                description: data.text,
+                sentiment: result.score,
+                timestamp: data.timestamp_ms,
+                created_at: data.created_at
+            });
+
+            // Store the tweet in the database
+            tweet.save(function(err, tweet) {
+                if (err) return console.error(err);
+                console.log("(" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
+                console.log("");
+            });
+        });
+    })
+
 
     // Start the stream, and store the JSON information in data
-    stream2.on("tweet", function(data) {
+    /*stream2.on("tweet", function(data) {
         // Create the tweet object
         var tweet = new Tweet({
             id: data.id,
@@ -83,9 +110,8 @@ var waitForTweets = function(db) {
         // Store the tweet in the database
         tweet.save(function(err, tweet) {
             if (err) return console.error(err);
-            console.log("(" + tweet.created_at + ") " + tweet.user + ": " + tweet.description);
+            console.log("(" + tweet.created_at + ") scored " + sentiment(tweet.description) + ": " + tweet.description);
             console.log("");
         })
-    })
-
+    })*/
 }
