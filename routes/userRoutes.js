@@ -5,6 +5,7 @@ let mongoose = require("mongoose");
 let passport = require("passport");
 let User = mongoose.model("User");
 let jwt = require("express-jwt");
+let GOOGLE_SCOPES = ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'];
 
 router.get("/auth/facebook", passport.authenticate("facebook", {
   scope: ['email']
@@ -27,6 +28,17 @@ router.get('/auth/twitter/callback',
     res.redirect('/?code=' + req.user.generateJWT());
 });
 
+router.get('/auth/google',
+  passport.authenticate('google', { scope: GOOGLE_SCOPES.join(" ") }
+));
+
+router.get("/auth/google/callback", 
+  passport.authenticate("google"), (req, res) => {
+    if(req.newAccount) {
+      return res.redirect(`/welcome?code=${req.user.generateJWT()}`);
+    }
+    res.redirect(`/?code=${req.user.generateJWT()}`);
+  });
 
 router.post('/register', (req, res, next) => {
   let user = new User();

@@ -3,7 +3,8 @@ let passport = require("passport");
 let LocalStrategy = require("passport-local").Strategy;
 let FacebookStrategy = require("passport-facebook").Strategy;
 let TwitterStrategy = require("passport-twitter").Strategy;
-let GooglePlusStrategy = require("passport-google-plus").Strategy;
+// let GooglePlusStrategy = require("passport-google-plus").Strategy;
+let GoogleStrategy = require("passport-google-oauth2").Strategy;
 let mongoose = require("mongoose");
 let User = mongoose.model("User");
 let request = require("request");
@@ -97,25 +98,34 @@ passport.use(new TwitterStrategy({
     });
 }));
 
-// passport.use(new GooglePlusStrategy({
-//     clientId: process.env.GOOGLE_CLIENT_ID,
-//     clientSecret: process.env.GOOGLE_CLIENT_SECRET
-//   },
-//   (tokens, profile, done) => {
-//     User.findOne({ googleId: profile.id }, (err, user) => {
-//       if(err) return done(err);
-//       if(user) return done(null, user);
-//       else {
-//         var user = new User();
-//         user.google.id = profile.id;
-//         user.google.email = profile.emails[0].value;
-//         user.name = profile.givenName + " " + profile.familyName;
-//         user.save((err, user) => {
-//           if(err) return done(err);
-//           return done(null, user);
-//         })
-//       }
-//     })
-//     done(null, profile, tokens);
-//   }
-// ));
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.GOOGLE_RETURN_URL,
+  passReqToCallback: true
+}, (req, token, refreshToken, profile, done) => {
+  process.nextTick(() => {
+    User.findOne({
+      "google.id" : profile.id
+    }, (err, user) => {
+      if(err) return done(err);
+      if(user) {
+        req.user = user;
+        return done(null, user);
+      }
+      else {
+        var user = new User();
+        user.google.id = profile.id;
+        user.google.token = token;
+        user.google.name = profile.displayName;
+        user.google.email = profile.emails[0].value;
+        user.save((err, user) => {
+          if(err) return done(err);
+          req.user = user;
+          req.newAccount = true;
+          return done(null, user);
+        });
+      }
+    });
+  });
+}));
