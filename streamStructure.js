@@ -11,8 +11,8 @@ var Twit = require("twit");
 
 // Twitter dev information, using a temporary twitter account for this application. Do not need to change
 var T = new Twit({
-    consumer_key: "VeUfUr7ZJTG2NtEtUX91JywQS",
-    consumer_secret: "07PkUHFTwcohOUV4xxZHK1opCuuFnJUO6ZgHKAXlrfBjlggyCg",
+    consumer_key: "1771lhLof6UPZr41zfG1MIdKm",
+    consumer_secret: "LL21BgUf1kBayum52YGYB01MAMgj1JphSqJuQOaNNndoik1KWQ",
     access_token: "4666061954-EcLI5yeDCx9qmfJUxLXvmesub4YdnC7MLyIklbd",
     access_token_secret: "Qbv6B3SUjRZMOgcgVrpuXCkvwub4BujaD7xmXSZ05oX9t"
 });
@@ -50,7 +50,9 @@ var waitForTweets = function(db) {
     });
 
     // Start the stream, and store the JSON information in data
+    console.log("Stream on")
     stream.on("tweet", function(data) {
+        console.log("before sentiment")
         sentiment(data.text, function(err, result) {
             // Create the tweet object
             var tweet = new Tweet({

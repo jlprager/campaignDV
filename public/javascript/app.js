@@ -9,12 +9,14 @@
 			url: '/',
 			templateUrl: '/templates/home.html',
 			controller: 'HomeController as vm'
-		})
-		.state('About', {
+		}).state("Welcome", {
+			url: "/welcome",
+			templateUrl: "/templates/welcome.html",
+			controller: "WelcomeController as vm"
+		}).state('About', {
 		    url: '/about',
 		    templateUrl: '/templates/about.html'
-		})
-		.state('Candidate', {
+		}).state('Candidate', {
 		    url: '/candidate/:id',
 		    templateUrl: '/templates/candidate.html',
 		    controller: 'CandidateController as vm'

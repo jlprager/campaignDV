@@ -3,80 +3,129 @@ let passport = require("passport");
 let LocalStrategy = require("passport-local").Strategy;
 let FacebookStrategy = require("passport-facebook").Strategy;
 let TwitterStrategy = require("passport-twitter").Strategy;
-let GooglePlusStrategy = require("passport-google-plus").Strategy;
+// let GooglePlusStrategy = require("passport-google-plus").Strategy;
+let GoogleStrategy = require("passport-google-oauth2").Strategy;
 let mongoose = require("mongoose");
+let User = mongoose.model("User");
 let request = require("request");
 
 passport.serializeUser((user, done) => {
-	done(null, user);
+  done(null, user._id);
 });
 
-passport.deserializeUser((obj, done) => {
-	done(null, obj);
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => {
+    done(err, user);
+  });
 });
+
+passport.use(new LocalStrategy({
+    usernameField: "email"
+}, (email, password, done) => {
+    User.findOne({
+        "emailRegis.email": email
+    }, (err, user) => {
+        if (err) return done(err);
+        if (!user) return done(`Cannot find this user`);
+        user.validatePassword(password, user.emailRegis.password, (err, isMatch) => {
+            if (err) return done(err);
+            if (!isMatch) return done(`Incorrect login information`);
+            return done(null, user);
+        });
+    });
+}));
 
 passport.use(new FacebookStrategy({
-    clientID: "164683670557913",
-    clientSecret: "2a724c8f26c19495d24a4ef26dd9f9f2",
-    callbackURL: "http://localhost:3000/auth/facebook/callback",
-    profileFields: ["emails", "name", "id"]
-    enableProof: false
-  },
-  (accessToken, refreshToken, profile, done) => {
-    User.findOne({ facebookId: profile.id }.exec, (err, user) => {
-      if(err) return done(err) 
-      if(user){
-      	req.user = user;
-      	return done(null, user);
-      }
-      else{
-      	let user = new User();
-      	user.facebook.id = profile.id,;
-      	user.facebook.token = accessToken;
-      	user.facebook.email = profile.emails[0].value;
-      	user.facebook.name = profile.name
-      	user.save((err, user) => {
-      		if(err) return done(err);
-      		return done(null, user);
-      	})
-
-
-      }
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL: process.env.FACEBOOK_RETURN_URL,
+    profileFields: ["emails", "name", "id"],
+    enableProof: false,
+    passReqToCallback: true
+}, (req, accessToken, refreshToken, profile, done) => {
+    User.findOne({
+        'facebook.id': profile.id
+    }.exec, (err, user) => {
+        if (err) return done(err)
+        if (user) {
+            req.user = user;
+            return done(null, user);
+        } else {
+            let user = new User();
+            user.facebook.id = profile.id;
+            user.facebook.token = accessToken;
+            user.facebook.email = profile.emails[0].value;
+            user.facebook.name = profile.name.givenName + " " + profile.name.familyName;
+            user.save((err, user) => {
+                if (err) return done(err);
+                req.user = user;
+                req.newAccount = true;
+                return done(null, user);
+            })
+        }
     });
-  }
-));
+}));
 
 passport.use(new TwitterStrategy({
-    consumerKey: "VeUfUr7ZJTG2NtEtUX91JywQS",
-    consumerSecret: "07PkUHFTwcohOUV4xxZHK1opCuuFnJUO6ZgHKAXlrfBjlggyCg",
-    callbackURL: "http://localhost:3000/auth/twitter/callback",
-    profileFields: ["name", "screen_name"]
-  },
-  (token, tokenSecret, profile, done) => {
-    User.findOne({ twitterId: profile.id }, (err, user) => {
-    	if(err) return done(err);
-    	if(user) return done(null, user);
-    	else{
-    		var user = new User();
-    		user.twitter.id = profile.id;
-    		user.twitter.token = accessToken;
-    		user.twitter.name = name[0] + " " + name[1];
-    		user.twitter.displayName = profile.displayName;
-    		user.save((err, user) => {
-    			if(err) return done(err);
-    			return done(null, user);
-    		})
-    	}
+    consumerKey: process.env.TWITTER_CONSUMER_KEY,
+    consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+    callbackURL: process.env.TWITTER_RETURN_URL,
+    profileFields: ["name", "screen_name"],
+    passReqToCallback: true
+}, (req, token, tokenSecret, profile, done) => {
+    process.nextTick(() => {
+        User.findOne({
+            'twitter.id': profile.id
+        }, (err, user) => {
+            if (err) return done(err);
+            if (user) {
+                req.user = user;
+                return done(null, user);
+            } else {
+                var user = new User();
+                user.twitter.id = profile.id;
+                user.twitter.token = token;
+                // user.twitter.name = profile.name[0] + " " + profile.name[1];
+                user.twitter.displayName = profile.displayName;
+                user.save((err, user) => {
+                    if (err) return done(err);
+                    req.user = user;
+                    req.newAccount = true;
+                    return done(null, user);
+                })
+            }
+        });
     });
-  }
-));
+}));
 
-passport.use(new GooglePlusStrategy({
-    clientId: "619876648270-0pr1jg9a05nhvio1efkmcrvhhe4em47h.apps.googleusercontent.com",
-    clientSecret: "EZIW6lpYvWpa9l3sTrLfX1UG"
-  },
-  function(tokens, profile, done) {
-    // Create or update user, call done() when complete...
-    done(null, profile, tokens);
-  }
-));
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.GOOGLE_RETURN_URL,
+  passReqToCallback: true
+}, (req, token, refreshToken, profile, done) => {
+  process.nextTick(() => {
+    User.findOne({
+      "google.id" : profile.id
+    }, (err, user) => {
+      if(err) return done(err);
+      if(user) {
+        req.user = user;
+        return done(null, user);
+      }
+      else {
+        var user = new User();
+        user.google.id = profile.id;
+        user.google.token = token;
+        user.google.name = profile.displayName;
+        user.google.email = profile.emails[0].value;
+        user.save((err, user) => {
+          if(err) return done(err);
+          req.user = user;
+          req.newAccount = true;
+          return done(null, user);
+        });
+      }
+    });
+  });
+}));

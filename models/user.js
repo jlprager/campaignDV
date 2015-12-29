@@ -36,9 +36,7 @@ let UserSchema = new mongoose.Schema({
 		id: String,
 		token: String,
 		email: String,
-		firstName: String,
-		lastName: String
-
+		name: String
 	},
 	//URI : api.tumblr.com/v2/user/info
 	//** Maybe not tumblr. API doesn't produce enough info.
@@ -47,13 +45,32 @@ let UserSchema = new mongoose.Schema({
 	}
 });
 
-UserSchema.methods.generateJWT = function(){
-	return jwt.sign({
-		_id : this._id,
-		name: this.name,
-		password: this.password,
-		email: this.email
-	}, process.env.JWTsecret);
+UserSchema.methods.CreateHash = function(password, cb){
+  let SALT_ROUNDS = 10;
+  if(process.env.NODE_ENV === 'test') SALT_ROUNDS = 1;
+  bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
+    if(err) return cb(err);
+    bcrypt.hash(password, salt, (err, hash) => {
+      if(err) return cb(err);
+      cb(null, hash);
+    });
+  });
+};
+
+UserSchema.methods.validatePassword = function(password, hash, cb){
+  bcrypt.compare(password, hash, (err, res) => {
+    if(err) return cb(err);
+    cb(null, res);
+  });
+};
+
+UserSchema.methods.generateJWT = function() {
+    return jwt.sign({
+        _id: this._id,
+        name: this.name,
+        password: this.password,
+        email: this.email
+    }, "weSecretlyLoveBernie");
 };
 
 
