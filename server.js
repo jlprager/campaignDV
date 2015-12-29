@@ -9,6 +9,9 @@ let mongoose = require("mongoose");
 let passport = require("passport");
 let session = require('express-session');
 require("./models/user");
+require('./models/candidate');
+require('./models/tweet');
+require('./models/comment');
 require("./config/passport");
 mongoose.connect(process.env.MONGO_URL);
 
@@ -33,9 +36,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(helmet());
 
-let userRoutes = require("./routes/userRoutes");
+let userRoutes = require('./routes/userRoutes');
+let candidateRoutes = require('./routes/candidateRoutes');
+let tweetRoutes = require('./routes/tweetRoutes');
+let commentRoutes = require('./routes/commentRoutes');
 
-app.use("/users", userRoutes);
+app.use('/api/v1/users/', userRoutes);
+app.use('/api/v1/candidates/', candidateRoutes);
+app.use('/api/v1/tweets/', tweetRoutes);
+app.use('/api/v1/comments/', commentRoutes);
 
 app.get('/*', function(req, res) {
 	res.render('index');

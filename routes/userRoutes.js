@@ -27,4 +27,29 @@ router.get('/auth/twitter/callback',
     res.redirect('/?code=' + req.user.generateJWT());
 });
 
+
+router.post('/register', (req, res, next) => {
+  let user = new User();
+  user.emailRegis.userName = req.body.username;
+  user.emailRegis.email = req.body.email;
+  user.emailRegis.name = req.body.name;
+  user.CreateHash(req.body.password, (err, hash)=> {
+    if(err) return next(err);
+    user.emailRegis.password = hash;
+    user.save((err, result) => {
+      if(err) return next(err);
+      if(!result) return next('Error creating user');
+      res.send({ token : result.generateJWT() });
+    });
+  });
+});
+
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user) => {
+    if(err) return next(err);
+    res.send({ token : user.generateJWT() });
+  })(req, res, next);
+});
+
+
 module.exports = router;

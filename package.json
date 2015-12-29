@@ -21,6 +21,8 @@
     "passport-facebook": "^2.0.0",
     "passport-google-plus": "^0.5.1",
     "passport-local": "^1.0.0",
-    "passport-twitter": "^1.0.3"
+    "passport-twitter": "^1.0.3",
+    "sentiment": "^1.0.3",
+    "twit": "^2.1.1"
   }
 }
