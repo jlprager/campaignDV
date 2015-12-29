@@ -22,7 +22,38 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', auth, (req, res, next) => {
+  if (req.payload.premiumStatus === false) return next('You must register for a premium account');
   let candidate = new Candidate(req.body);
-})
+  candidate.name = req.body.name;
+  candidate.user = req.payload._id;
+  candidate.save((err, result) => {
+    if(err) return next(err);
+    if(!result) return next('Could not add that person');
+    User.update({ _id : req.payload._id }, { $push: { candidates : result._id }}, (err, user) => {
+      if(err) return next(err);
+      if(!user) return next('Could add candidate to user object');
+      res.send(result);
+    });
+  });
+});
+
+router.delete('/:id', (req, res, next) => {
+  Candidate.remove({ _id : req.params.id }, (err, result) => {
+    if(err) return next('Could not delete that candidate');
+    User.findOneAndUpdate({ 'candidates': req.params.id}, { $pull: { candidates: req.params.id }}, (err, result) => {
+      if(err) return next(err);
+      res.send(result);
+    });
+  });
+});
+
+router.put('/:id', (req, res, next) => {
+  //Use this for adding hashtags?
+  Candidate.update({ _id : req.params.id }, req.body, (err, result) => {
+    if(err) return next('Could not update candidate');
+    if(!result) return next('Candidate not found');
+    res.send(result);
+  });
+});
 
 module.exports = router;

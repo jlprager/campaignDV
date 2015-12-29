@@ -5,7 +5,7 @@ let CandidateSchema = new mongoose.Schema({
 	name: String,
 	sentiment: {
 		tweets: [{  type : mongoose.Schema.Types.ObjectId, ref: "Tweet" }],
-		sentiment: Number
+		score: Number
 	},
 	dateCreated: { type : Date, default: Date.now },
 	user: { type : mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -13,4 +13,3 @@ let CandidateSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Candidate", CandidateSchema);
-
