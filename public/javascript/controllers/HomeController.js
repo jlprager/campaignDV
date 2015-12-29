@@ -3,8 +3,13 @@
 	angular.module('app')
 	.controller('HomeController', HomeController);
 
-	function HomeController() {
+	function HomeController($state, $location, UserFactory) {
 		var vm = this;
-		vm.title = 'Welcome to our App!';
+		var url = $location.search();
+
+		if(url.code){
+			UserFactory.setToken(url.code);
+			$location.search("code", null);
+		}
 	}
 })();

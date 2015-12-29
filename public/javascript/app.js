@@ -8,6 +8,10 @@
 			url: '/',
 			templateUrl: '/templates/home.html',
 			controller: 'HomeController as vm'
+		}).state("Welcome", {
+			url: "/welcome",
+			templateUrl: "/templates/welcome.html",
+			controller: "WelcomeController as vm"
 		});
 		$urlRouterProvider.otherwise('/');
 		$urlMatcherFactoryProvider.caseInsensitive(true);
