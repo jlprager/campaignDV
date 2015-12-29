@@ -2,12 +2,10 @@
 let mongoose = require("mongoose");
 
 let TweetSchema = mongoose.Schema({
-	id : Number,
-	raw : JSON,
+	candidate: String,
     user : String,
     description : String,
 	sentiment: Number,
-    timestamp : Number,
     created_at : Date
 });
 

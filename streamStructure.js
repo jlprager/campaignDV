@@ -3,9 +3,10 @@
  */
 
 // List of keywords to be captured
+// function startTweets() {
 var sentiment = require('sentiment');
-var keywords = ["#Bernie2016"];
-var keywords2 = ["#Trump2016"];
+var bernieTags = ["#Bernie2016"];
+var trumpTags = ["#Trump2016"];
 
 var Twit = require("twit");
 
@@ -41,11 +42,11 @@ var waitForTweets = function(db) {
 
     // Track tweets with the keyword "#FeelTheBern"
     var stream = T.stream("statuses/filter", {
-        track: keywords,
+        track: bernieTags,
         language: "en"
     })
     var stream2 = T.stream("statuses/filter", {
-        track: keywords2,
+        track: trumpTags,
         language: "en"
     });
 
@@ -64,6 +65,11 @@ var waitForTweets = function(db) {
                 timestamp: data.timestamp_ms,
                 created_at: data.created_at
             });
+
+            // var sentimentArray = [];
+            // sentimentArray.push(tweet.sentiment.result.score);
+
+            //timer -- every 5 seconds, take avg of array and push to client for dv
 
             // Store the tweet in the database
             tweet.save(function(err, tweet) {
@@ -95,25 +101,5 @@ var waitForTweets = function(db) {
             });
         });
     })
-
-
-    // Start the stream, and store the JSON information in data
-    /*stream2.on("tweet", function(data) {
-        // Create the tweet object
-        var tweet = new Tweet({
-            id: data.id,
-            raw: data,
-            user: data.user.screen_name,
-            description: data.text,
-            timestamp: data.timestamp_ms,
-            created_at: data.created_at
-        });
-
-        // Store the tweet in the database
-        tweet.save(function(err, tweet) {
-            if (err) return console.error(err);
-            console.log("(" + tweet.created_at + ") scored " + sentiment(tweet.description) + ": " + tweet.description);
-            console.log("");
-        })
-    })*/
 }
+
