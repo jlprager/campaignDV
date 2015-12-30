@@ -29,10 +29,22 @@
 			console.log(vm.berniePosRating);
 			console.log(vm.trumpPosRating);
 
-			var x = 300;
-			var y = res.bernie;
-			x = (x + (x * y));
-			document.getElementById("this").height = x;
+			var bernieImg = 100;
+			var hillaryImg = 100;
+			var trumpImg = 100;
+			var bushImg = 100;
+			var bernieResize = res.bernie;
+			var hillaryResize = res.clinton;
+			var trumpResize = res.trump;
+			var bushResize = res.bush;
+			bernieImg = (bernieImg + (bernieImg * bernieResize));
+			hillaryImg = (hillaryImg + (hillaryImg * hillaryResize));
+			trumpImg = (trumpImg + (trumpImg * trumpResize));
+			bushImg = (bushImg + (bushImg * bushResize));
+			document.getElementById("bernie").height = bernieImg;
+			document.getElementById("hillary").height = hillaryImg;
+			document.getElementById("trump").height = trumpImg;
+			document.getElementById("bush").height = bushImg;
 
 		}, function(err) {
 			//

@@ -26,7 +26,7 @@
                         <button ui-sref="Home" class="pure-button pure-button-active"><i class="fa fa-home"></i></button>
                     </li>
                     <li class="pure-menu-item pure-menu-selected">
-                        <button class="pure-button pure-button-active">Register</button>
+                        <button ui-sref="Reg" class="pure-button pure-button-active">Register</button>
                     </li>
                     <li class="pure-menu-item pure-menu-selected">
                         <button class="pure-button pure-button-active">About Us</button>
@@ -34,7 +34,7 @@
                     <li class="pure-button pure-button-active pure-menu-item pure-menu-has-children pure-menu-allow-hover">
                         <a href="#" id="menuLink1" class="pure-menu-link">Sign In</a>
                         <ul class="pure-menu-children">
-                            <li class="pure-menu-link">Email</li>
+                            <li ui-sref="Log" class="pure-menu-link">Email</li>
                             <li class="pure-menu-item"><a href="/api/v1/users/auth/facebook" target="_self" class="pure-menu-link">Facebook</a></li>
                             <li class="pure-menu-item"><a href="/api/v1/users/auth/twitter" target="_self" class="pure-menu-link">Twitter</a></li>
                             <li class="pure-menu-item"><a href="/api/v1/users/auth/google" target="_self" class="pure-menu-link">Google</a></li>
@@ -72,9 +72,9 @@
     <button ui-sref="About">About</button>
     <button>Log In</button>
     <button>Register</button> -->
-
+<!-- 
     <button ui-sref="Log">Log In</button>
-    <button ui-sref="Reg">Register</button>
+    <button ui-sref="Reg">Register</button> -->
     <button ng-click="nav.logout();">Log Out</button>
     <ui-view></ui-view>
     <!-- External Libraries -->
