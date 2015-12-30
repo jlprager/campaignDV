@@ -18,6 +18,12 @@
 			vm.clinton = res.clinton;
 			vm.trump = res.trump;
 			vm.bush = res.bush;
+
+			var x = 300;
+			var y = res.bernie;
+			x = (x + (x * y));
+			document.getElementById("this").height = x;
+
 		}, function(err) {
 			//
 		});
