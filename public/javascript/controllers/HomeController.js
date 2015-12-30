@@ -17,9 +17,6 @@
 		vm.posTrump; vm.negTrump; vm.neutTrump;
 		vm.posBush; vm.negBush; vm.neutBush;
 
-		vm.berniePosRating = ((vm.posBernie.length) / (vm.posBernie.length + vm.negBernie.length + vm.neutBernie.length));
-		vm.trumpPosRating = ((vm.posTrump.length) / (vm.posTrump.length + vm.negTrump.length + vm.neutTrump.length));
-
 		if(url.code){
 			UserFactory.setToken(url.code);
 			$location.search("code", null);
@@ -38,11 +35,15 @@
 				vm.posTrump = res.posTrump; vm.negTrump = res.negTrump; vm.neutTrump = res.neutTrump;
 				vm.posBush = res.posBush; vm.negBush = res.negBush; vm.neutBush = res.neutBush;
 
-				vm.berniePosRating = ((vm.posBernie.length) / (vm.posBernie.length + vm.negBernie.length + vm.neutBernie.length));
+				//////////////////////////////////////////////////////////////////////////////////
+				// Do percentage calculations on server side and pass the end result to the client
+				//////////////////////////////////////////////////////////////////////////////////
+
+				/*vm.berniePosRating = ((vm.posBernie.length) / (vm.posBernie.length + vm.negBernie.length + vm.neutBernie.length));
 				vm.trumpPosRating = ((vm.posTrump.length) / (vm.posTrump.length + vm.negTrump.length + vm.neutTrump.length));
 
 				console.log(vm.berniePosRating);
-				console.log(vm.trumpPosRating);
+				console.log(vm.trumpPosRating);*/
 
 				var x = 300;
 				var y = res.bernie;
