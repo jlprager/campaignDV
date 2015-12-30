@@ -1,12 +1,4 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-</head>
-<body>
+
 <h1>HOME</h1>
 
 <h1>Candidate sentiment (over the past 5 minutes for testing -- changeable to whatever time period we want in tweetRoutes.js)</h1>
@@ -16,14 +8,4 @@
 <h2>Trump's sentiment: {{vm.trump}}</h2>
 <h2>Bush's sentiment: {{vm.bush}}</h2>
 
-<img id="this" src="http://cdn2.thr.com/sites/default/files/imagecache/675x380/2014/09/too_good_for_grumpy_cat.jpg">
-</body>
-</html>
-<script>
-var x = 300;
-var y = 3;
-y = y / 10;
-x = (x + (x * y));
-
-	document.getElementById("this").height=x;
-</script>
+<img id="this" ng-src="http://cdn2.thr.com/sites/default/files/imagecache/675x380/2014/09/too_good_for_grumpy_cat.jpg">

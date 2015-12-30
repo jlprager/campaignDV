@@ -20,6 +20,12 @@
 		    url: '/candidate/:id',
 		    templateUrl: '/templates/candidate.html',
 		    controller: 'CandidateController as vm'
+		}).state('Reg',{
+			url: '/reg',
+			templateUrl: '/templates/testreg.html'
+		}).state('Log',{
+			url: '/login',
+			templateUrl: '/templates/testlogin.html'
 		});
 		$urlRouterProvider.otherwise('/');
 		$urlMatcherFactoryProvider.caseInsensitive(true);
