@@ -39,10 +39,12 @@ app.use(helmet());
 let userRoutes = require('./routes/userRoutes');
 let candidateRoutes = require('./routes/candidateRoutes');
 let commentRoutes = require('./routes/commentRoutes');
+let tweetRoutes = require('./routes/tweetRoutes');
 
 app.use('/api/v1/users/', userRoutes);
 app.use('/api/v1/candidates/', candidateRoutes);
 app.use('/api/v1/comments/', commentRoutes);
+app.use('/api/v1/tweets/', tweetRoutes);
 
 app.get('/*', function(req, res) {
 	res.render('index');
