@@ -131,7 +131,7 @@ var waitForTweets = function(db) {
         sentiment(data.text, function(err, result) {
             // Create the tweet object
             var tweet = new Tweet({
-            	candidate: "Bernie",
+            	candidate: "bernie",
                 user: data.user.screen_name,
                 description: data.text,
                 sentiment: result.score,
@@ -152,7 +152,7 @@ var waitForTweets = function(db) {
         sentiment(data.text, function(err, result) {
             // Create the tweet object
             var tweet = new Tweet({
-            	candidate: "Cliton",
+            	candidate: "clinton",
                 user: data.user.screen_name,
                 description: data.text,
                 sentiment: result.score,
@@ -160,7 +160,7 @@ var waitForTweets = function(db) {
             });
 
             clintonCount++;
-            
+
             tweet.save(function(err, tweet) {
                 if (err) return console.error(err);
                 console.log(tweet.candidate + "(" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
@@ -173,7 +173,7 @@ var waitForTweets = function(db) {
         sentiment(data.text, function(err, result) {
             // Create the tweet object
             var tweet = new Tweet({
-                candidate: "Trump",
+                candidate: "trump",
                 user: data.user.screen_name,
                 description: data.text,
                 sentiment: result.score,
@@ -195,7 +195,7 @@ var waitForTweets = function(db) {
         sentiment(data.text, function(err, result) {
             // Create the tweet object
             var tweet = new Tweet({
-                candidate: "Bush",
+                candidate: "bush",
                 user: data.user.screen_name,
                 description: data.text,
                 sentiment: result.score,
