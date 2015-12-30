@@ -6,7 +6,7 @@ let jwt = require("jsonwebtoken");
 let UserSchema = new mongoose.Schema({
 	comments : [{ type : mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 	candidates: { type : mongoose.Schema.Types.ObjectId, ref: "Candidate"},
-	premiumStatus: { type : boolean, default : false },
+	premiumStatus: { type : Boolean, default : false },
 	politicalLeaning: String,
 	UScitizen: Boolean,
 	bio: String,

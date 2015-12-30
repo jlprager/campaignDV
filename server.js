@@ -38,12 +38,10 @@ app.use(helmet());
 
 let userRoutes = require('./routes/userRoutes');
 let candidateRoutes = require('./routes/candidateRoutes');
-let tweetRoutes = require('./routes/tweetRoutes');
 let commentRoutes = require('./routes/commentRoutes');
 
 app.use('/api/v1/users/', userRoutes);
 app.use('/api/v1/candidates/', candidateRoutes);
-app.use('/api/v1/tweets/', tweetRoutes);
 app.use('/api/v1/comments/', commentRoutes);
 
 app.get('/*', function(req, res) {
@@ -160,7 +158,7 @@ var waitForTweets = function(db) {
             });
 
             clintonCount++;
-            
+
             tweet.save(function(err, tweet) {
                 if (err) return console.error(err);
                 console.log(tweet.candidate + "(" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
