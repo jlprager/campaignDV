@@ -5,7 +5,6 @@ let mongoose = require('mongoose');
 let jwt = require("express-jwt");
 let Candidate = mongoose.model('Candidate');
 let Comment = mongoose.model('Comment');
-let Tweet = mongoose.model('Tweet');
 let User = mongoose.model('User');
 let auth = jwt({
   userProperty: 'payload',

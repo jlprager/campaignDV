@@ -4,6 +4,7 @@ let bcrypt = require("bcrypt");
 let jwt = require("jsonwebtoken");
 
 let UserSchema = new mongoose.Schema({
+	email : String,
 	comments : [{ type : mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 	candidates: { type : mongoose.Schema.Types.ObjectId, ref: "Candidate"},
 	premiumStatus: { type : Boolean, default : false },

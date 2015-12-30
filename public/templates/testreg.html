@@ -12,10 +12,10 @@
 <body>
 
 <h3>REGISTRATION</h3>
-<form class="pure-form">
+<form class="pure-form" ng-submit="nav.register()">
     <fieldset>
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
+        <input type="email" ng-model="nav.user.email" placeholder="Email">
+        <input type="password" ng-model="nav.user.password" placeholder="Password">
 
         <button type="submit" class="pure-button pure-button-primary">Sign in</button>
     </fieldset>

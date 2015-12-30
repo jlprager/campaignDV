@@ -52,6 +52,7 @@ passport.use(new FacebookStrategy({
             return done(null, user);
         } else {
             let user = new User();
+            user.email = profile.emails[0].value;
             user.facebook.id = profile.id;
             user.facebook.token = accessToken;
             user.facebook.email = profile.emails[0].value;
@@ -83,6 +84,7 @@ passport.use(new TwitterStrategy({
                 return done(null, user);
             } else {
                 var user = new User();
+                //user.email = ? is there a email property in the twitter oauth object?
                 user.twitter.id = profile.id;
                 user.twitter.token = token;
                 // user.twitter.name = profile.name[0] + " " + profile.name[1];
@@ -115,6 +117,7 @@ passport.use(new GoogleStrategy({
       }
       else {
         var user = new User();
+        user.email = profile.emails[0];
         user.google.id = profile.id;
         user.google.token = token;
         user.google.name = profile.displayName;
