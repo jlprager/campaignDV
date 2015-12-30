@@ -33,25 +33,49 @@ router.get('/:candidate', (req, res, next) => {
 });
 
 function sentimentByCandidate(tweets) {
-    let bernie = [];
-    let clinton = [];
-    let trump = [];
-    let bush = [];
+    let bernie = []; let posBernie = []; let negBernie = []; let neutBernie = [];
+    let clinton = []; let posClinton = []; let negClinton = []; let neutClinton = [];
+    let trump = []; let posTrump = []; let negTrump = []; let neutTrump = [];
+    let bush = []; let posBush = []; let negBush = []; let neutBush = [];
     for (var i = 0; i < tweets.length; i++) {
-        if (tweets[i].candidate === 'bernie')
+        if (tweets[i].candidate === 'bernie') {
             bernie.push(tweets[i].sentiment);
-        else if (tweets[i].candidate === 'clinton')
+            if (tweets[i].sentiment > 0) { posBernie.push(tweets[i].user) }
+            else if (tweets[i].sentiment < 0) { negBernie.push(tweets[i].user) }
+            else { neutBernie.push(tweets[i].user) }
+        }
+
+        else if (tweets[i].candidate === 'clinton') {
             clinton.push(tweets[i].sentiment);
-        else if (tweets[i].candidate === 'trump')
+            if (tweets[i].sentiment > 0) { posClinton.push(tweets[i].user) }
+            else if (tweets[i].sentiment < 0) { negClinton.push(tweets[i].user) }
+            else { neutClinton.push(tweets[i].user) }
+        }
+
+        else if (tweets[i].candidate === 'trump') {
             trump.push(tweets[i].sentiment);
-        else if (tweets[i].candidate === 'bush')
+            if (tweets[i].sentiment > 0) { posTrump.push(tweets[i].user) }
+            else if (tweets[i].sentiment < 0) { negTrump.push(tweets[i].user) }
+            else { neutTrump.push(tweets[i].user) }
+        }
+
+        else if (tweets[i].candidate === 'bush') {
             bush.push(tweets[i].sentiment);
+            if (tweets[i].sentiment > 0) { posBush.push(tweets[i].user) }
+            else if (tweets[i].sentiment < 0) { negBush.push(tweets[i].user) }
+            else { neutBush.push(tweets[i].user) }
+        }
+
     }
     return {
         bernie: averageSentiment(bernie),
         clinton: averageSentiment(clinton),
         trump: averageSentiment(trump),
-        bush: averageSentiment(bush)
+        bush: averageSentiment(bush),
+        posBernie: posBernie, negBernie: negBernie, neutBernie: neutBernie,
+        posClinton: posClinton, negClinton: negClinton, neutClinton: neutClinton,
+        posTrump: posTrump, negTrump: negTrump, neutTrump: neutTrump,
+        posBush: posBush, negBush: negBush, neutBush: neutBush
     }
 }
 
@@ -65,5 +89,6 @@ function averageSentiment(arr) {
     let average = sum / arr.length;
     return Number(Math.round(average + 'e2') + 'e-2');
 }
+
 
 module.exports = router;
