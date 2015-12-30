@@ -123,13 +123,12 @@ var waitForTweets = function(db) {
     })
 
     // Start the stream, and store the JSON information in data
-    console.log("Stream on")
+    console.log("BERNIE on");
     bernieStream.on("tweet", function(data) {
-        console.log("before sentiment")
         sentiment(data.text, function(err, result) {
             // Create the tweet object
             var tweet = new Tweet({
-            	candidate: "Bernie",
+            	candidate: "bernie",
                 user: data.user.screen_name,
                 description: data.text,
                 sentiment: result.score,
@@ -146,11 +145,12 @@ var waitForTweets = function(db) {
         });
     })
 
+    console.log("CLINTON on");
     clintonStream.on("tweet", function(data) {
         sentiment(data.text, function(err, result) {
             // Create the tweet object
             var tweet = new Tweet({
-            	candidate: "Cliton",
+            	candidate: "clinton",
                 user: data.user.screen_name,
                 description: data.text,
                 sentiment: result.score,
@@ -167,11 +167,12 @@ var waitForTweets = function(db) {
         });
     })
 
+    console.log("TRUMP on");
     trumpStream.on("tweet", function(data) {
         sentiment(data.text, function(err, result) {
             // Create the tweet object
             var tweet = new Tweet({
-                candidate: "Trump",
+                candidate: "trump",
                 user: data.user.screen_name,
                 description: data.text,
                 sentiment: result.score,
@@ -189,11 +190,13 @@ var waitForTweets = function(db) {
         });
     })
 
+
+    console.log("BUSH on");
     bushStream.on("tweet", function(data) {
         sentiment(data.text, function(err, result) {
             // Create the tweet object
             var tweet = new Tweet({
-                candidate: "Bush",
+                candidate: "bush",
                 user: data.user.screen_name,
                 description: data.text,
                 sentiment: result.score,
