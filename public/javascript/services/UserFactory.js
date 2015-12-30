@@ -24,7 +24,7 @@
 		o.setUser = function(){
 			var token = JSON.parse(atob(o.getToken().split(".")[1]));
 			o.status._id = token._id;
-			o.status.steamID = token.steamID;
+			o.status.email = token.email;
 			o.status.displayName = token.displayName;
 		};
 
