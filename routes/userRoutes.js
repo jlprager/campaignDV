@@ -42,6 +42,7 @@ router.get("/auth/google/callback",
 
 router.post('/register', (req, res, next) => {
   let user = new User();
+  user.email = req.body.email;
   user.emailRegis.userName = req.body.username;
   user.emailRegis.email = req.body.email;
   user.emailRegis.name = req.body.name;
