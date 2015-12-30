@@ -12,6 +12,13 @@
 		vm.clinton = 0;
 		vm.trump = 0;
 		vm.bush = 0;
+		vm.posBernie; vm.negBernie; vm.neutBernie;
+		vm.posClinton; vm.negClinton; vm.neutClinton;
+		vm.posTrump; vm.negTrump; vm.neutTrump;
+		vm.posBush; vm.negBush; vm.neutBush;
+
+		vm.berniePosRating = ((vm.posBernie.length) / (vm.posBernie.length + vm.negBernie.length + vm.neutBernie.length));
+		vm.trumpPosRating = ((vm.posTrump.length) / (vm.posTrump.length + vm.negTrump.length + vm.neutTrump.length));
 
 		if(url.code){
 			UserFactory.setToken(url.code);
@@ -25,6 +32,17 @@
 				vm.clinton = res.clinton;
 				vm.trump = res.trump;
 				vm.bush = res.bush;
+
+				vm.posBernie = res.posBernie; vm.negBernie = res.negBernie; vm.neutBernie = res.neutBernie;
+				vm.posClinton = res.posClinton; vm.negClinton = res.negClinton; vm.neutClinton =  res.neutClinton;
+				vm.posTrump = res.posTrump; vm.negTrump = res.negTrump; vm.neutTrump = res.neutTrump;
+				vm.posBush = res.posBush; vm.negBush = res.negBush; vm.neutBush = res.neutBush;
+
+				vm.berniePosRating = ((vm.posBernie.length) / (vm.posBernie.length + vm.negBernie.length + vm.neutBernie.length));
+				vm.trumpPosRating = ((vm.posTrump.length) / (vm.posTrump.length + vm.negTrump.length + vm.neutTrump.length));
+
+				console.log(vm.berniePosRating);
+				console.log(vm.trumpPosRating);
 
 				var x = 300;
 				var y = res.bernie;

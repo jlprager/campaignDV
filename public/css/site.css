@@ -1,0 +1,22 @@
+body {
+	font-family: "Lato";
+}
+
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+    /* Set your content font stack here: */
+    font-family: "Lato" !important;
+}
+
+#navBar {
+	text-align: center;
+	background-color: #8B8C8C !important;
+}
+
+#btnMenu {
+	margin-top: 10px;
+}
+
+#menuLink1 {
+	color: rgba(0,0,0,.8);
+}
