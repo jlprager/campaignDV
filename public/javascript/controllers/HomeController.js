@@ -3,7 +3,7 @@
 	angular.module('app')
 	.controller('HomeController', HomeController);
 
-	function HomeController($state, $location, UserFactory, TweetFactory) {
+	function HomeController($state, $location, $timeout, UserFactory, TweetFactory) {
 		var vm = this;
 		var url = $location.search();
 
@@ -20,5 +20,6 @@
 		}, function(err) {
 			//
 		});
+
 	}
 })();

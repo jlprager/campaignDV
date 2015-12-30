@@ -3,7 +3,7 @@
     angular.module('app')
     .factory('TweetFactory', TweetFactory);
 
-    function TweetFactory($http, $q) {
+    function TweetFactory($http, $q, $timeout) {
         var o = {};
 
         o.getRecentTweets = function() {
