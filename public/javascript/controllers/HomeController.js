@@ -6,6 +6,7 @@
 	function HomeController($state, $location, $timeout, UserFactory, TweetFactory) {
 		var vm = this;
 		var url = $location.search();
+		var size = 0;
 
 		if(url.code){
 			UserFactory.setToken(url.code);

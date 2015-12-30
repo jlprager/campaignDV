@@ -38,12 +38,10 @@ app.use(helmet());
 
 let userRoutes = require('./routes/userRoutes');
 let candidateRoutes = require('./routes/candidateRoutes');
-let tweetRoutes = require('./routes/tweetRoutes');
 let commentRoutes = require('./routes/commentRoutes');
 
 app.use('/api/v1/users/', userRoutes);
 app.use('/api/v1/candidates/', candidateRoutes);
-app.use('/api/v1/tweets/', tweetRoutes);
 app.use('/api/v1/comments/', commentRoutes);
 
 app.get('/*', function(req, res) {
@@ -125,9 +123,8 @@ var waitForTweets = function(db) {
     })
 
     // Start the stream, and store the JSON information in data
-    console.log("Stream on")
+    console.log("BERNIE on");
     bernieStream.on("tweet", function(data) {
-        console.log("before sentiment")
         sentiment(data.text, function(err, result) {
             // Create the tweet object
             var tweet = new Tweet({
@@ -148,6 +145,7 @@ var waitForTweets = function(db) {
         });
     })
 
+    console.log("CLINTON on");
     clintonStream.on("tweet", function(data) {
         sentiment(data.text, function(err, result) {
             // Create the tweet object
@@ -169,6 +167,7 @@ var waitForTweets = function(db) {
         });
     })
 
+    console.log("TRUMP on");
     trumpStream.on("tweet", function(data) {
         sentiment(data.text, function(err, result) {
             // Create the tweet object
@@ -191,6 +190,8 @@ var waitForTweets = function(db) {
         });
     })
 
+
+    console.log("BUSH on");
     bushStream.on("tweet", function(data) {
         sentiment(data.text, function(err, result) {
             // Create the tweet object
