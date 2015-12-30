@@ -9,14 +9,15 @@
     <link rel="stylesheet" type="text/css" href="/css/site.css">
 </head>
 
-<body>
+<body ng-controller="GlobalController as nav">
     <a href="/api/v1/users/auth/facebook" target="_self">FACEBOOK</a>
     <a href="/api/v1/users/auth/twitter" target="_self">TWITTER</a>
     <a href="/api/v1/users/auth/google" target="_self">GOOGLE</a>
     <button ui-sref="Home">Home</button>
     <button ui-sref="About">About</button>
-    <button>Log In</button>
-    <button>Register</button>
+    <button ui-sref="Log">Log In</button>
+    <button ui-sref="Reg">Register</button>
+    <button ng-click="nav.logout();">Log Out</button>
     <ui-view></ui-view>
     <!-- External Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
