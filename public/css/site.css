@@ -1,9 +1,10 @@
 body {
 	font-family: "Lato";
+	background-color: #b3a7a5
 }
 
 img {
-	
+	max-height: 250px !important;
 }
 
 html, button, input, select, textarea,
@@ -19,6 +20,12 @@ html, button, input, select, textarea,
 
 #btnMenu {
 	margin-top: 10px;
+}
+
+#multiViz {
+	text-align: center;
+	margin-left: 5%;
+	margin-right: 5%;
 }
 
 #menuLink1 {
