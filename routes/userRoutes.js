@@ -21,7 +21,7 @@ router.get("/auth/facebook/callback",
 
 router.get('/auth/twitter', passport.authenticate('twitter'));
 
-router.get('/auth/twitter/callback', 
+router.get('/auth/twitter/callback',
 	passport.authenticate('twitter', {
   failureRedirect: '/Login'
 }), (req, res) => {
@@ -32,7 +32,7 @@ router.get('/auth/google',
   passport.authenticate('google', { scope: GOOGLE_SCOPES.join(" ") }
 ));
 
-router.get("/auth/google/callback", 
+router.get("/auth/google/callback",
   passport.authenticate("google"), (req, res) => {
     if(req.newAccount) {
       return res.redirect(`/welcome?code=${req.user.generateJWT()}`);
@@ -41,6 +41,8 @@ router.get("/auth/google/callback",
   });
 
 router.post('/register', (req, res, next) => {
+  console.log('req:');
+  console.log(req.body);
   let user = new User();
   user.email = req.body.email;
   user.emailRegis.userName = req.body.username;
@@ -50,6 +52,8 @@ router.post('/register', (req, res, next) => {
     if(err) return next(err);
     user.emailRegis.password = hash;
     user.save((err, result) => {
+      console.log('result:');
+      console.log(result);
       if(err) return next(err);
       if(!result) return next('Error creating user');
       res.send({ token : result.generateJWT() });

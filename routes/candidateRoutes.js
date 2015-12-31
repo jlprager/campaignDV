@@ -20,6 +20,22 @@ router.get('/', (req, res, next) => {
   });
 });
 
+router.get('/presidential', (req, res, next) => {
+  Candidate.find({ $or: [ { name: 'Bernie Sanders' }, { name: 'Hillary Clinton' }, { name: 'Donald Trump' }, { name: 'Jeb Bush' } ] }).exec((err, result) => {
+    if(err) return next(err);
+    if(!result) return('Could not find presidential candidates.');
+    res.send(result);
+  });
+});
+
+router.get('/:id', (req, res, next) => {
+  Candidate.findOne({ _id: req.params.id }).exec((err, result) => {
+    if(err) return next(err);
+    if(!result) return('Could not find candidate.');
+    res.send(result);
+  });
+});
+
 router.post('/', auth, (req, res, next) => {
   if (req.payload.premiumStatus === false) return next('You must register for a premium account');
   let candidate = new Candidate(req.body);
