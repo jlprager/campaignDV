@@ -6,6 +6,8 @@
 		o.status = {};
 
 		o.register = function(user) {
+			console.log('factory:');
+			console.log(user);
 			var q = $q.defer();
 			$http.post('/api/v1/users/register', user).then(function(res) {
 				o.setToken(res.data.token);

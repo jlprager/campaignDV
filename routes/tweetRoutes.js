@@ -37,8 +37,10 @@ function sentimentByCandidate(tweets) {
     let clinton = []; let posClinton = []; let negClinton = []; let neutClinton = [];
     let trump = []; let posTrump = []; let negTrump = []; let neutTrump = [];
     let bush = []; let posBush = []; let negBush = []; let neutBush = [];
-    let berniePosPercent, bernieNegPercent, bernieNeutPercent, clintonPosPercent, clintonNegPercent, clintonNeutPercent,
-        trumpPosPercent, trumpNegPercent, trumpNeutPercent, bushPosPercent, bushNegPercent, bushNeutPercent;
+    // let poolSizeBernie, berniePosPercent, bernieNegPercent, bernieNeutPercent,
+    //     poolSizeClinton, clintonPosPercent, clintonNegPercent, clintonNeutPercent,
+    //     poolSizeTrump, trumpPosPercent, trumpNegPercent, trumpNeutPercent,
+    //     poolSizeBush, bushPosPercent, bushNegPercent, bushNeutPercent;
 
     for (var i = 0; i < tweets.length; i++) {
         if (tweets[i].candidate === 'bernie') {
@@ -71,18 +73,22 @@ function sentimentByCandidate(tweets) {
 
     }
 
-    berniePosPercent = ((posBernie.length) / (posBernie.length + negBernie.length + neutBernie.length));
-    bernieNegPercent = ((negBernie.length) / (posBernie.length + negBernie.length + neutBernie.length));
-    bernieNeutPercent = ((neutBernie.length) / (posBernie.length + negBernie.length + neutBernie.length));
-    clintonPosPercent = ((posClinton.length) / (posClinton.length + negClinton.length + neutClinton.length));
-    clintonNegPercent = ((negClinton.length) / (posClinton.length + negClinton.length + neutClinton.length));
-    clintonNeutPercent = ((neutClinton.length) / (posClinton.length + negClinton.length + neutClinton.length));
-    trumpPosPercent = ((posTrump.length) / (posTrump.length + negTrump.length + neutTrump.length));
-    trumpNegPercent = ((negTrump.length) / (posTrump.length + negTrump.length + neutTrump.length));
-    trumpNeutPercent = ((neutTrump.length) / (posTrump.length + negTrump.length + neutTrump.length));
-    bushPosPercent = ((posBush.length) / (posBush.length + negBush.length + neutBush.length));
-    bushNegPercent = ((negBush.length) / (posBush.length + negBush.length + neutBush.length));
-    bushNeutPercent = ((neutBush.length) / (posBush.length + negBush.length + neutBush.length));
+    // poolSizeBernie = (posBernie.length + negBernie.length + neutBernie.length);
+    // berniePosPercent = ((posBernie.length) / (poolSizeBernie);
+    // bernieNegPercent = ((negBernie.length) / (poolSizeBernie);
+    // bernieNeutPercent = ((neutBernie.length) / (poolSizeBernie);
+    // poolSizeClinton = (posClinton.length + negClinton.length + neutClinton.length);
+    // clintonPosPercent = ((posClinton.length) / (poolSizeClinton));
+    // clintonNegPercent = ((negClinton.length) / (poolSizeClinton));
+    // clintonNeutPercent = ((neutClinton.length) / (poolSizeClinton));
+    // poolSizeTrump = (posTrump.length + negTrump.length + neutTrump.length);
+    // trumpPosPercent = ((posTrump.length) / (poolSizeTrump));
+    // trumpNegPercent = ((negTrump.length) / (poolSizeTrump));
+    // trumpNeutPercent = ((neutTrump.length) / (poolSizeTrump));
+    // poolSizeBush = (posBush.length + negBush.length + neutBush.length);
+    // bushPosPercent = ((posBush.length) / (poolSizeBush));
+    // bushNegPercent = ((negBush.length) / (poolSizeBush));
+    // bushNeutPercent = ((neutBush.length) / (poolSizeBush));
 
 
     return {
@@ -90,10 +96,10 @@ function sentimentByCandidate(tweets) {
         clinton: averageSentiment(clinton),
         trump: averageSentiment(trump),
         bush: averageSentiment(bush),
-        posBernie: berniePosPercent, negBernie: bernieNegPercent, neutBernie: bernieNeutPercent,
-        posClinton: clintonPosPercent, negClinton: clintonNegPercent, neutClinton: clintonNeutPercent,
-        posTrump: trumpPosPercent, negTrump: trumpNegPercent, neutTrump: trumpNeutPercent,
-        posBush: bushPosPercent, negBush: bushNegPercent, neutBush: bushNeutPercent
+        // posBernie: berniePosPercent, negBernie: bernieNegPercent, neutBernie: bernieNeutPercent, berniePool: poolSizeBernie,
+        // posClinton: clintonPosPercent, negClinton: clintonNegPercent, neutClinton: clintonNeutPercent, clintonPool: poolSizeClinton,
+        // posTrump: trumpPosPercent, negTrump: trumpNegPercent, neutTrump: trumpNeutPercent, trumpPool: poolSizeTrump,
+        // posBush: bushPosPercent, negBush: bushNegPercent, neutBush: bushNeutPercent, bushPool: poolSizeBush
     }
 }
 
