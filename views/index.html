@@ -7,8 +7,9 @@
     <base href="/" />
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="/css/site.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/css/site.css">
 </head>
 
 <body ng-controller="GlobalController as nav">
@@ -32,7 +33,7 @@
                         <button class="pure-button pure-button-active">About Us</button>
                     </li>
                     <li class="pure-button pure-button-active pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                        <a href="#" id="menuLink1" class="pure-menu-link">Sign In</a>
+                        <button id="menuLink1" class="pure-menu-link pure-button pure-button-active">Sign In</button>
                         <ul class="pure-menu-children">
                             <li ui-sref="Log" class="pure-menu-link">Email</li>
                             <li class="pure-menu-item"><a href="/api/v1/users/auth/facebook" target="_self" class="pure-menu-link">Facebook</a></li>

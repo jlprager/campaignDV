@@ -41,17 +41,19 @@ router.get("/auth/google/callback",
   });
 
 router.post('/register', (req, res, next) => {
+  console.log('req:');
   console.log(req.body);
   let user = new User();
   user.email = req.body.email;
   user.emailRegis.userName = req.body.username;
   user.emailRegis.email = req.body.email;
   user.emailRegis.name = req.body.name;
-  console.log(user);
   user.CreateHash(req.body.password, (err, hash)=> {
     if(err) return next(err);
     user.emailRegis.password = hash;
     user.save((err, result) => {
+      console.log('result:');
+      console.log(result);
       if(err) return next(err);
       if(!result) return next('Error creating user');
       res.send({ token : result.generateJWT() });

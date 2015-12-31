@@ -13,7 +13,7 @@ require('./models/candidate');
 require('./models/tweet');
 require('./models/comment');
 require("./config/passport");
-mongoose.connect('process.env.MONGO_URL');
+mongoose.connect(process.env.MONGO_URL);
 
 app.set('views', './views');
 app.engine('.html', require('ejs').renderFile);
