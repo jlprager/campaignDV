@@ -102,4 +102,3 @@ var waitForTweets = function(db) {
         });
     })
 }
-

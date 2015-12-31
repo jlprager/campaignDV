@@ -37,6 +37,9 @@ function sentimentByCandidate(tweets) {
     let clinton = []; let posClinton = []; let negClinton = []; let neutClinton = [];
     let trump = []; let posTrump = []; let negTrump = []; let neutTrump = [];
     let bush = []; let posBush = []; let negBush = []; let neutBush = [];
+    let berniePosPercent, bernieNegPercent, bernieNeutPercent, clintonPosPercent, clintonNegPercent, clintonNeutPercent,
+        trumpPosPercent, trumpNegPercent, trumpNeutPercent, bushPosPercent, bushNegPercent, bushNeutPercent;
+
     for (var i = 0; i < tweets.length; i++) {
         if (tweets[i].candidate === 'bernie') {
             bernie.push(tweets[i].sentiment);
@@ -67,15 +70,30 @@ function sentimentByCandidate(tweets) {
         }
 
     }
+
+    berniePosPercent = ((posBernie.length) / (posBernie.length + negBernie.length + neutBernie.length));
+    bernieNegPercent = ((negBernie.length) / (posBernie.length + negBernie.length + neutBernie.length));
+    bernieNeutPercent = ((neutBernie.length) / (posBernie.length + negBernie.length + neutBernie.length));
+    clintonPosPercent = ((posClinton.length) / (posClinton.length + negClinton.length + neutClinton.length));
+    clintonNegPercent = ((negClinton.length) / (posClinton.length + negClinton.length + neutClinton.length));
+    clintonNeutPercent = ((neutClinton.length) / (posClinton.length + negClinton.length + neutClinton.length));
+    trumpPosPercent = ((posTrump.length) / (posTrump.length + negTrump.length + neutTrump.length));
+    trumpNegPercent = ((negTrump.length) / (posTrump.length + negTrump.length + neutTrump.length));
+    trumpNeutPercent = ((neutTrump.length) / (posTrump.length + negTrump.length + neutTrump.length));
+    bushPosPercent = ((posBush.length) / (posBush.length + negBush.length + neutBush.length));
+    bushNegPercent = ((negBush.length) / (posBush.length + negBush.length + neutBush.length));
+    bushNeutPercent = ((neutBush.length) / (posBush.length + negBush.length + neutBush.length));
+
+
     return {
         bernie: averageSentiment(bernie),
         clinton: averageSentiment(clinton),
         trump: averageSentiment(trump),
         bush: averageSentiment(bush),
-        posBernie: posBernie, negBernie: negBernie, neutBernie: neutBernie,
-        posClinton: posClinton, negClinton: negClinton, neutClinton: neutClinton,
-        posTrump: posTrump, negTrump: negTrump, neutTrump: neutTrump,
-        posBush: posBush, negBush: negBush, neutBush: neutBush
+        posBernie: berniePosPercent, negBernie: bernieNegPercent, neutBernie: bernieNeutPercent,
+        posClinton: clintonPosPercent, negClinton: clintonNegPercent, neutClinton: clintonNeutPercent,
+        posTrump: trumpPosPercent, negTrump: trumpNegPercent, neutTrump: trumpNeutPercent,
+        posBush: bushPosPercent, negBush: bushNegPercent, neutBush: bushNeutPercent
     }
 }
 
