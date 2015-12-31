@@ -3,10 +3,16 @@
     angular.module('app')
     .controller('CandidateController', CandidateController);
 
-    function CandidateController($scope, $timeout, TweetFactory) {
+    function CandidateController($scope, $timeout, $stateParams, TweetFactory, CandidateFactory) {
         var vm = this;
         vm.tweets;
         vm.timeoutHandler;
+
+        CandidateFactory.getCandidateById($stateParams.id).then(function(res) {
+            vm.candidate = res;
+        }, function(err) {
+            //
+        });
 
         // Updating client side every 15 seconds(this function). Pulling from last 15 seconds of data(tweetRoutes.js)
         (function tick() {
