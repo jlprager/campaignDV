@@ -6,6 +6,19 @@ let passport = require("passport");
 let User = mongoose.model("User");
 let jwt = require("express-jwt");
 let GOOGLE_SCOPES = ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'];
+let stripe = require('stripe')('sk_test_aZxji5VxZFfOuGjwInh6ElGn');
+
+router.post('/charge', (req, res, next) => {
+  console.log(req.body);
+  stripe.charges.create({
+    amount: 2000,
+    currency: 'usd',
+    source: req.body.token,
+    description: 'One time account upgrade for user # ' + req.body.uuid
+  }, function(err, charge) {
+    if (err) return next(err);
+  })
+});
 
 router.get("/auth/facebook", passport.authenticate("facebook", {
   scope: ['email']
