@@ -34,17 +34,8 @@
         <img id="bush" src="https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg">
     </div>
 </div>
-<div class="pure-g" id="multiVizBtn">
+<div class="pure-g" id="multiVizBtn" ng-repeat="candidate in vm.candidates">
     <div class="pure-u-1-4 pure-u-md-1-4">
-        <button class="pure-button pure-button-active">See Bernie</button>
-    </div>
-    <div class="pure-u-1-4 pure-u-md-1-4">
-        <button class="pure-button pure-button-active">See Hillary</button>
-    </div>
-    <div class="pure-u-1-4 pure-u-md-1-4">
-        <button class="pure-button pure-button-active">See Trump</button>
-    </div>
-    <div class="pure-u-1-4 pure-u-md-1-4">
-        <button class="pure-button pure-button-active">See Bush</button>
+        <button ui-sref="Candidate({id: candidate._id})"class="pure-button pure-button-active">See {{candidate.name}}</button>
     </div>
 </div>

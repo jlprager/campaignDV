@@ -3,7 +3,7 @@
 	angular.module('app')
 	.controller('HomeController', HomeController);
 
-	function HomeController($scope, $state, $location, $timeout, UserFactory, TweetFactory) {
+	function HomeController($scope, $state, $location, $timeout, UserFactory, TweetFactory, CandidateFactory) {
 		var vm = this;
 		var url = $location.search();
 		var size = 0;
@@ -16,6 +16,13 @@
 		vm.posClinton; vm.negClinton; vm.neutClinton;
 		vm.posTrump; vm.negTrump; vm.neutTrump;
 		vm.posBush; vm.negBush; vm.neutBush;
+
+		CandidateFactory.getPresidentialCandidates().then(function(res) {
+			vm.candidates = res;
+		}, function(err) {
+			//
+		});
+
 
 		if(url.code){
 			UserFactory.setToken(url.code);
