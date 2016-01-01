@@ -1,8 +1,8 @@
 <form stripe:form="vm.stripeCallback" name="checkoutForm">
-    <input placeholder="Card Number" data-stripe="number" payments-validate="card" name="card" />
-    <input placeholder="Expiration" data-stripe="exp-month" payments-validate="expiry" name="expiry" />
-    <input placeholder="Expiration" data-stripe="exp-year" payments-validate="expiry" name="expiry" />
-    <input placeholder="CVC" data-stripe="cvc" payments-validate="cvc" name="cvc" />
+    <input placeholder="4242424242424242" data-stripe="number" payments-validate="card" name="card" />
+    <input placeholder="11" data-stripe="exp-month" payments-validate="expiry" name="expiry" />
+    <input placeholder="2010" data-stripe="exp-year" payments-validate="expiry" name="expiry" />
+    <input placeholder="333" data-stripe="cvc" payments-validate="cvc" name="cvc" />
     <button type="submit">Submit</button>
 </form>
 <div ng-if="checkoutForm.card.$invalid">

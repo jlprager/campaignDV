@@ -9,7 +9,7 @@
           vm.stripeCallback = function(status, response) {
             alert("Got Stripe token: " + response.id);
             UserFactory.postCharge(response.id).then(function(res) {
-              console.log(res)
+              console.log(res);
             	$state.go('Home');//add some kind of toast here 'Account upgraded to Premium Status'
             });
           };

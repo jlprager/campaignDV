@@ -39,6 +39,7 @@
 			o.status._id = null;
 			o.status.steamID = null;
 			o.status.displayName = null;
+			o.status.uuid = null;
 		};
 
 		o.setUser = function(){
