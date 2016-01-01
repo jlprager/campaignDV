@@ -8,6 +8,7 @@ let port = process.env.PORT || 3000;
 let mongoose = require("mongoose");
 let passport = require("passport");
 let session = require('express-session');
+
 require("./models/user");
 require('./models/candidate');
 require('./models/tweet');
@@ -40,11 +41,13 @@ let userRoutes = require('./routes/userRoutes');
 let candidateRoutes = require('./routes/candidateRoutes');
 let commentRoutes = require('./routes/commentRoutes');
 let tweetRoutes = require('./routes/tweetRoutes');
+let emailRoutes = require('./routes/emailRoutes');
 
 app.use('/api/v1/users/', userRoutes);
 app.use('/api/v1/candidates/', candidateRoutes);
 app.use('/api/v1/comments/', commentRoutes);
 app.use('/api/v1/tweets/', tweetRoutes);
+app.use('/api/v1/contact/', emailRoutes);
 
 app.get('/*', function(req, res) {
 	res.render('index');
@@ -216,8 +219,6 @@ var waitForTweets = function(db) {
         });
     })
 }
-
-
 
 app.use((err, req, res, next) => {
 	if(process.env.NODE_ENV !== "test") {console.log(err)}
