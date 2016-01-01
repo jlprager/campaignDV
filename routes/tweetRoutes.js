@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
     });
 });
 
-//GET /api/v1/tweets/bernie
+//GET /api/v1/tweets/:candidate
 router.get('/:candidate', (req, res, next) => {
     let timer = new Date(new Date().getTime() - (15 * 1000));
     Tweet.find({ $and: [ { created_at: { $gte: timer } }, { candidate: req.params.candidate } ] }).exec((err, result) => {
