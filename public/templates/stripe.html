@@ -1,7 +1,16 @@
-<button stripe-checkout="vm.doCheckout"
-            data-key="pk_test_bI1AnQTe8bcz1Wxfh2Hls1SS"
-            data-name="Simple Example"
-            data-description="Five dollahs!"
-            data-amount="500">
-      Buy
-</button>
+<form stripe:form="vm.stripeCallback" name="checkoutForm">
+    <input placeholder="Card Number" data-stripe="number" payments-validate="card" name="card" />
+    <input placeholder="Expiration" data-stripe="exp-month" payments-validate="expiry" name="expiry" />
+    <input placeholder="Expiration" data-stripe="exp-year" payments-validate="expiry" name="expiry" />
+    <input placeholder="CVC" data-stripe="cvc" payments-validate="cvc" name="cvc" />
+    <button type="submit">Submit</button>
+</form>
+<div ng-if="checkoutForm.card.$invalid">
+    Error: invalid card number!
+</div>
+<div ng-if="checkoutForm.expiry.$invalid">
+    Error: invalid expiration date!
+</div>
+<div ng-if="checkoutForm.cvc.$invalid">
+    Error: invalid cvc!
+</div>
