@@ -8,6 +8,7 @@ let port = process.env.PORT || 3000;
 let mongoose = require("mongoose");
 let passport = require("passport");
 let session = require('express-session');
+let stripe = require('stripe')('sk_test_aZxji5VxZFfOuGjwInh6ElGn');
 
 require("./models/user");
 require('./models/candidate');
