@@ -26,6 +26,10 @@
 		}).state('Log',{
 			url: '/login',
 			templateUrl: '/templates/testlogin.html'
+		}).state("Contact", {
+			url: "/contact",
+			templateUrl: "/templates/contact.html",
+			controller: "ContactFormController as vm"
 		});
 		$urlRouterProvider.otherwise('/');
 		$urlMatcherFactoryProvider.caseInsensitive(true);

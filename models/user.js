@@ -2,9 +2,11 @@
 let mongoose = require("mongoose");
 let bcrypt = require("bcrypt");
 let jwt = require("jsonwebtoken");
+let uuid = require('node-uuid');
 
 let UserSchema = new mongoose.Schema({
-	email : String,
+	uuid : { type : String, default : uuid.v4() },
+	//email : String,
 	comments : [{ type : mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 	candidates: { type : mongoose.Schema.Types.ObjectId, ref: "Candidate"},
 	premiumStatus: { type : Boolean, default : false },
