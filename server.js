@@ -150,17 +150,20 @@ var waitForTweets = function(db) {
                 if (err) return console.error(err);
 								if(tweet.sentiment > 0) {
 									console.log('bernie positive push');
-									DailyStat.update({ candidate: "Bernie Sanders"}, { $push: { positive: tweet.user}}, (err, result) => {
-										if (err) console.log(err);
+									DailyStat.update({ candidate: "Bernie Sanders"},
+										{ $push: { positive: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
+											if (err) console.log(err);
 									});
 								}
 								else if (tweet.sentiment < 0) {
-									DailyStat.update({ candidate: "Bernie Sanders"}, { $push: { negative: tweet.user}}, (err, result) => {
-										if (err) console.log(err);
+									DailyStat.update({ candidate: "Bernie Sanders"},
+										{ $push: { negative: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
+											if (err) console.log(err);
 									});
 								}
-								else DailyStat.update({ candidate: "Bernie Sanders"}, { $push: { neutral: tweet.user}}, (err, result) => {
-									if (err) console.log(err);
+								else DailyStat.update({ candidate: "Bernie Sanders"},
+									{ $push: { neutral: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
+										if (err) console.log(err);
 								});
                 console.log(tweet.candidate + " (" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
                 console.log("");
@@ -186,17 +189,20 @@ var waitForTweets = function(db) {
                 if (err) return console.error(err);
 								if(tweet.sentiment > 0) {
 								console.log('clinton positive');
-								DailyStat.update({ candidate: "Hillary Clinton"}, { $push: { positive: tweet.user}}, (err, result) => {
-									if (err) console.log(err);
+								DailyStat.update({ candidate: "Hillary Clinton"},
+									{ $push: { positive: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
+										if (err) console.log(err);
 								});
 							}
 							else if (tweet.sentiment < 0) {
-								DailyStat.update({ candidate: "Hillary Clinton"}, { $push: { negative: tweet.user}}, (err, result) => {
-									if (err) console.log(err);
+								DailyStat.update({ candidate: "Hillary Clinton"},
+									{ $push: { negative: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
+										if (err) console.log(err);
 								});
 							}
-							else DailyStat.update({ candidate: "Hillary Clinton"}, { $push: { neutral: tweet.user}}, (err, result) => {
-								if (err) console.log(err);
+							else DailyStat.update({ candidate: "Hillary Clinton"},
+								{ $push: { neutral: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
+									if (err) console.log(err);
 							});
                 console.log(tweet.candidate + "(" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
                 console.log("");
@@ -222,17 +228,20 @@ var waitForTweets = function(db) {
             tweet.save(function(err, tweet) {
                 if (err) return console.error(err);
 								if(tweet.sentiment > 0) {
-									DailyStat.update({ candidate: "Donald Trump"}, { $push: { positive: tweet.user}}, (err, result) => {
-										if (err) console.log(err);
+									DailyStat.update({ candidate: "Donald Trump"},
+										{ $push: { positive: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
+											if (err) console.log(err);
 									});
 								}
 								else if (tweet.sentiment < 0) {
-									DailyStat.update({ candidate: "Donald Trump"}, { $push: { negative: tweet.user}}, (err, result) => {
-										if (err) console.log(err);
+									DailyStat.update({ candidate: "Donald Trump"},
+										{ $push: { negative: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
+											if (err) console.log(err);
 									});
 								}
-								else DailyStat.update({ candidate: "Donald Trump"}, { $push: { neutral: tweet.user}}, (err, result) => {
-									if (err) console.log(err);
+								else DailyStat.update({ candidate: "Donald Trump"},
+									{ $push: { neutral: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
+										if (err) console.log(err);
 								});
                 console.log(tweet.candidate + "(" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
                 console.log("");
@@ -259,17 +268,20 @@ var waitForTweets = function(db) {
             tweet.save(function(err, tweet) {
                 if (err) return console.error(err);
 								if(tweet.sentiment > 0) {
-									DailyStat.update({ candidate: "Jeb Bush"}, { $push: { positive: tweet.user}}, (err, result) => {
-										if (err) console.log(err);
+									DailyStat.update({ candidate: "Jeb Bush"},
+										{ $push: { positive: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
+											if (err) console.log(err);
 									});
 								}
 								else if (tweet.sentiment < 0) {
-									DailyStat.update({ candidate: "Jeb Bush"}, { $push: { negative: tweet.user}}, (err, result) => {
-										if (err) console.log(err);
+									DailyStat.update({ candidate: "Jeb Bush"},
+										{ $push: { negative: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
+											if (err) console.log(err);
 									});
 								}
-								else DailyStat.update({ candidate: "Jeb Bush"}, { $push: { neutral: tweet.user}}, (err, result) => {
-									if (err) console.log(err);
+								else DailyStat.update({ candidate: "Jeb Bush"},
+									{ $push: { neutral: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
+										if (err) console.log(err);
 								});
                 console.log(tweet.candidate + "(" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
                 console.log("");
