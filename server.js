@@ -132,7 +132,7 @@ var waitForTweets = function(db) {
 
     var bernie = new Candidate({
         name: "Bernie Sanders",
-        sentiment: 0
+        sentiment: 1
     })
 
     bernie.save(function(err, bernie) {
