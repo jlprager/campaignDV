@@ -39,6 +39,7 @@
 			o.status._id = null;
 			o.status.steamID = null;
 			o.status.displayName = null;
+			o.status.uuid = null;
 		};
 
 		o.setUser = function(){
@@ -46,6 +47,22 @@
 			o.status._id = token._id;
 			o.status.email = token.email;
 			o.status.displayName = token.displayName;
+			o.status.uuid = token.uuid;
+		};
+
+		o.postCharge = function(token){
+			console.log('hit factory');
+			var q = $q.defer();
+			var chargeObject = {};
+			chargeObject.uuid = o.status.uuid;
+			chargeObject.token = token;
+			$http.post('api/v1/users/charge', chargeObject).then(function (res) {
+				q.resolve(res.data);
+			}, function(err) {
+				q.reject();
+			});
+			return q.promise;
+
 		};
 
 		if(o.getToken()) o.setUser();

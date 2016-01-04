@@ -28,7 +28,7 @@
 
         o.dailyClear = function() {
           var q = $q.defer();
-          $http.post('/api/v1/candidates/clear').then(function(res) {
+          $http.put('/api/v1/candidates/clear').then(function(res) {
             q.resolve(res.data);
           }, function(err) {
             q.reject();
