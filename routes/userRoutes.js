@@ -83,6 +83,7 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
+  console.log('hitting login route')
   passport.authenticate('local', (err, user) => {
     if(err) return next(err);
     res.send({ token : user.generateJWT() });
