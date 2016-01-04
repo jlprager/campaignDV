@@ -6,7 +6,7 @@ let passport = require("passport");
 let User = mongoose.model("User");
 let jwt = require("express-jwt");
 let GOOGLE_SCOPES = ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'];
-let stripe = require('stripe')('sk_test_aZxji5VxZFfOuGjwInh6ElGn');
+let stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KEY);
 
 router.post('/charge', (req, res, next) => {
   console.log(req.body);
@@ -19,22 +19,12 @@ router.post('/charge', (req, res, next) => {
   }, function(err, charge) {
     console.log(charge);
     if (err) return next(err);
-    // router.put('/:id', auth, (req, res) => {
 
-      User.findOneAndUpdate({uuid: req.params.id}, {premiumStatus: true}, function(err, user) {
+      User.findOneAndUpdate({uuid: req.body.uuid}, {premiumStatus: true}, function(err, user) {
         if (err) throw err;
-
         console.log(user);
-      });
-    // })
-    // User.findOne({
-    //   'uuid' : req.body.uuid
-    // }, (err, user) => {
-    //   if(err) return (err);
-    //     User.update({ uuid: })
-    //     return (null);
-    //   }
-    // })
+        res.end();
+      });    
   })
 });
 
