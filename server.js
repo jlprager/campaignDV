@@ -424,35 +424,7 @@ var waitForTweets = function(db) {
         }
 
     })
-}
-
-// (function() {
-//   'use strict';
-//   angular.module('app')
-//   .controller('ServerController', ServerController);
-//
-//   function ServerController(CandidateFactory, $timeout) {
-//     var vm = this;
-//     vm.timeoutHandler;
-//
-//     (function dailyClear() {
-//       console.log('start daily clear');
-//       console.log(berniePos);
-//       CandidateFactory.dailyClear().then(function(res) {
-//         console.log('returned to server controller');
-//         console.log(res);
-//       });
-//
-//       // USE THIS FOR TESTING:
-//       vm.timeoutHandler = $timeout(dailyClear, 10000);
-//
-//       // USE THIS FOR 24 HOUR TIMER:
-//       // vm.timeoutHandler = $timeout(dailyClear, (1000 * 60 * 60 * 24));
-//
-//     })()
-//
-//   }
-// })();
+};
 
 app.use((err, req, res, next) => {
     if (process.env.NODE_ENV !== "test") {
