@@ -22,7 +22,5 @@
 
         vm.logout = UserFactory.removeToken;
 
-
-
     }
 })();
