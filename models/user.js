@@ -73,7 +73,8 @@ UserSchema.methods.generateJWT = function() {
         uuid: this.uuid,
         name: this.name,
         password: this.password,
-        email: this.email
+        email: this.email,
+        premiumStatus: this.premiumStatus
     }, "weSecretlyLoveBernie");
 };
 

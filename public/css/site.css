@@ -1,6 +1,14 @@
 body {
 	font-family: "Lato";
-	background-color: #A9F2D1
+
+background: rgba(147,201,237,1);
+background: -moz-linear-gradient(left, rgba(147,201,237,1) 0%, rgba(147,201,237,1) 3%, rgba(220,222,250,1) 50%, rgba(230,115,115,1) 95%, rgba(230,115,115,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(147,201,237,1)), color-stop(3%, rgba(147,201,237,1)), color-stop(50%, rgba(220,222,250,1)), color-stop(95%, rgba(230,115,115,1)), color-stop(100%, rgba(230,115,115,1)));
+background: -webkit-linear-gradient(left, rgba(147,201,237,1) 0%, rgba(147,201,237,1) 3%, rgba(220,222,250,1) 50%, rgba(230,115,115,1) 95%, rgba(230,115,115,1) 100%);
+background: -o-linear-gradient(left, rgba(147,201,237,1) 0%, rgba(147,201,237,1) 3%, rgba(220,222,250,1) 50%, rgba(230,115,115,1) 95%, rgba(230,115,115,1) 100%);
+background: -ms-linear-gradient(left, rgba(147,201,237,1) 0%, rgba(147,201,237,1) 3%, rgba(220,222,250,1) 50%, rgba(230,115,115,1) 95%, rgba(230,115,115,1) 100%);
+background: linear-gradient(to right, rgba(147,201,237,1) 0%, rgba(147,201,237,1) 3%, rgba(220,222,250,1) 50%, rgba(230,115,115,1) 95%, rgba(230,115,115,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93c9ed', endColorstr='#e67373', GradientType=1 );
 }
 
 img {
@@ -10,18 +18,41 @@ img {
 
 html, button, input, select, textarea,
 .pure-g [class *= "pure-u"] {
-    /* Set your content font stack here: */
     font-family: "Lato" !important;
 }
 
 #navBar {
 	text-align: center;
-	background-color: #B7B7B7;
 	margin-bottom: 5px;
 }
 
 button {
-	background-color: #3ED08E !important;
+	background-color: rgba(0, 0, 0, 0) !important;
+}
+
+ul {
+	background-color: rgba(0, 0, 0, 0) !important;
+}
+
+#demCandidate {
+	background-color: #98B6EC;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	position: absolute;
+}
+
+
+#repCandidate {
+	background-color: #FF8C8C;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	position: absolute;
 }
 
 #btnMenu {
@@ -53,4 +84,3 @@ button {
 #menuLink1 {
 	color: rgba(0,0,0,.8);
 	background-color: #3ED08E;
-}
