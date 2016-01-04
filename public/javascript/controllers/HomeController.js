@@ -8,10 +8,10 @@
 		var url = $location.search();
 		var size = 0;
 		vm.timeoutHandler;
-		vm.bernie = 0;
-		vm.clinton = 0;
-		vm.trump = 0;
-		vm.bush = 0;
+		vm.bernie;
+		vm.clinton;
+		vm.trump;
+		vm.bush;
 		vm.posBernie; vm.negBernie; vm.neutBernie;
 		vm.posClinton; vm.negClinton; vm.neutClinton;
 		vm.posTrump; vm.negTrump; vm.neutTrump;
@@ -32,6 +32,7 @@
 		// Updating client side every 15 seconds(this function). Pulling from last 5 minutes of data(tweetRoutes.js)
 		(function tick() {
 			TweetFactory.getRecentTweets().then(function(res) {
+				console.log(res);
 				vm.bernie = res.bernie;
 				vm.clinton = res.clinton;
 				vm.trump = res.trump;
