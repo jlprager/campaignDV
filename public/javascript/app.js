@@ -39,6 +39,6 @@
 		$urlMatcherFactoryProvider.caseInsensitive(true);
     	$urlMatcherFactoryProvider.strictMode(false);
     	$locationProvider.html5Mode(true);
-    	Stripe.setPublishableKey(pk_test_bI1AnQTe8bcz1Wxfh2Hls1SS);
+    	Stripe.setPublishableKey('pk_test_bI1AnQTe8bcz1Wxfh2Hls1SS');
 	}
 })();
