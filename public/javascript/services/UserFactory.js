@@ -18,7 +18,7 @@
 
 		o.login = function(user) {
 			var q = $q.defer();
-			$http.post('/api/v1/users/register', user).then(function(res) {
+			$http.post('/api/v1/users/login', user).then(function(res) {
 				o.setToken(res.data.token);
 				q.resolve(res.data);
 			});

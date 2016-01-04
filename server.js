@@ -84,7 +84,7 @@ var trumpNeg = ["#stolenonstolen"];
 
 
 
-//array of overall tags 
+//array of overall tags
 // var candidateTags = [bernieTags, clintonTags, trumpTags, bushTags];
 
 //localcount storage
