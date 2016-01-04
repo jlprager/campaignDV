@@ -41,7 +41,7 @@ button {
 	margin-top: 5px;
 	margin-bottom: 15px;
 	margin-left: 5%;
-	margin-right: 5%;	
+	margin-right: 5%;
 }
 
 #multiVizData {
@@ -53,4 +53,9 @@ button {
 #menuLink1 {
 	color: rgba(0,0,0,.8);
 	background-color: #3ED08E;
+}
+
+.tweet-stream-div {
+	margin-top: 0px;
+	margin-bottom: 0px;
 }
