@@ -97,18 +97,12 @@ var trumpPos;
 
 var Twit = require("twit");
 
-// Twitter dev information, using a temporary twitter account for this application. Do not need to change
-// var T = new Twit({
-//     consumer_key: process.env.TWITTER_CONSUMER_KEY,
-//     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-//     access_token: process.env.TWITTER_ACCESS_TOKEN,
-//     access_token_secret: process.env.TWITTER_TOKEN_SECRET
-// });
+
 var T = new Twit({
-    consumer_key: 'n37Pkz2GxSTsd9WCalaKLrHhQ',
-    consumer_secret: 'qYXPpzvzDSzpgqpt0gEF4e4TkmuF3p06I7eofIBIrM6bZJKmpg',
-    access_token: '3219700082-ZHK1alLaY1GQPHGYPPlGwFAN9G1Yys6qzQIcRaN',
-    access_token_secret: 'Wj9eCdaofbO7HhXgocio0KpjAg02pASq1oZ2bEiWThtKD'
+    consumer_key: process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+    access_token: process.env.TWITTER_ACCESS_TOKEN,
+    access_token_secret: process.env.TWITTER_TOKEN_SECRET
 });
 
 var Tweet = require("./models/tweet.js");
