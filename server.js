@@ -1,5 +1,7 @@
 "use strict";
-require("dotenv").config({ silent : true });
+require("dotenv").config({
+    silent: true
+});
 let express = require('express');
 let helmet = require("helmet");
 let bodyParser = require('body-parser');
@@ -17,6 +19,7 @@ require('./models/comment');
 require('./models/dailyStats');
 require("./config/passport");
 let DailyStat = mongoose.model('DailyStat');
+let Candidate = mongoose.model("Candidate");
 mongoose.connect(process.env.MONGO_URL);
 
 app.set('views', './views');
@@ -25,16 +28,18 @@ app.use(express.static('./public'));
 app.use(express.static('./bower_components'));
 app.set('view engine', 'html');
 app.set('view options', {
-	layout: false
+    layout: false
 });
 
 app.use(session({
-	secret: process.env.SESSION_SECRET,
-	resave: false,
-	saveUnitialized: true
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUnitialized: true
 }));
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -55,38 +60,56 @@ app.use('/api/v1/contact/', emailRoutes);
 app.use('/api/v1/dailystats', dailyStatRoutes);
 
 app.get('/*', function(req, res) {
-	res.render('index');
+    res.render('index');
 });
 
 
-/**
- * @Original Author: Danny Gillies
- */
+//START OF TWEET STREAM
 
-// List of keywords to be captured
-// function startTweets() {
 var sentiment = require('sentiment');
 
 //tracked hashtags
-var bernieTags = ["#Bernie2016", "#FeelTheBern"];
-var clintonTags = ["#Hillary2016", "#Clinton2016"];
-var trumpTags = ["#Trump2016", "#WhyISupportTrump"];
-var bushTags = ["#Bush2016", "#Jeb2016"];
+var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", "#Trump2016", "#WhyISupportTrump", "#backtowork", "#1DHistoryVideo", "#StolenOnStolen"];
+
+var bernieTags = ["#bernie2016", "#feelthebern", "#backtowork"];
+var clintonTags = ["#hillary2016", "#clinton2016", "#1dhistoryvideo"];
+var trumpTags = ["#trump2016", "#whyisupporttrump", "#stolenonstolen"];
+
+var berniePos = ["#bernie2016", "#feelthebern"];
+var clintonPos = ["#hillary2016", "#clinton2016"];
+var trumpPos = ["#trump2016", "#whyisupporttrump"];
+
+var bernieNeg = ["#backtowork"];
+var clintonNeg = ["#1dhistoryvideo"];
+var trumpNeg = ["#stolenonstolen"];
+
+
+
+//array of overall tags 
+// var candidateTags = [bernieTags, clintonTags, trumpTags, bushTags];
 
 //localcount storage
 var bernieCount;
+var berniePos;
 var clintonCount;
+var clintonPos;
 var trumpCount;
-var bushCount;
+var trumpPos;
 
 var Twit = require("twit");
 
 // Twitter dev information, using a temporary twitter account for this application. Do not need to change
+// var T = new Twit({
+//     consumer_key: process.env.TWITTER_CONSUMER_KEY,
+//     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+//     access_token: process.env.TWITTER_ACCESS_TOKEN,
+//     access_token_secret: process.env.TWITTER_TOKEN_SECRET
+// });
 var T = new Twit({
-    consumer_key: process.env.TWITTER_CONSUMER_KEY,
-    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-    access_token: process.env.TWITTER_ACCESS_TOKEN,
-    access_token_secret: process.env.TWITTER_TOKEN_SECRET
+    consumer_key: 'n37Pkz2GxSTsd9WCalaKLrHhQ',
+    consumer_secret: 'qYXPpzvzDSzpgqpt0gEF4e4TkmuF3p06I7eofIBIrM6bZJKmpg',
+    access_token: '3219700082-ZHK1alLaY1GQPHGYPPlGwFAN9G1Yys6qzQIcRaN',
+    access_token_secret: 'Wj9eCdaofbO7HhXgocio0KpjAg02pASq1oZ2bEiWThtKD'
 });
 
 var Tweet = require("./models/tweet.js");
@@ -108,194 +131,270 @@ db.once("open", function() {
     waitForTweets(db)
 });
 
+
 var waitForTweets = function(db) {
     var collection = db.collection("tweets");
+    mongoose.connection.db.dropCollection('candidates', function(err, result) {});
 
-    // Track tweets with the keyword "#FeelTheBern"
-    var bernieStream = T.stream("statuses/filter", {
-        track: bernieTags,
-        language: "en"
+
+    var bernie = new Candidate({
+        name: "Bernie Sanders",
+        sentiment: 0
     })
 
-    var clintonStream = T.stream("statuses/filter", {
-    	track: clintonTags,
-    	language: "en"
-    })
-
-    var trumpStream = T.stream("statuses/filter", {
-        track: trumpTags,
-        language: "en"
+    bernie.save(function(err, bernie) {
+        if (err) return console.error(err)
+        console.log("INIT " + bernie.name);
     });
 
-    var bushStream = T.stream("statuses/filter", {
-    	track: bushTags,
-    	language: "en"
+    var hillary = new Candidate({
+        name: "Hillary Clinton",
+        sentiment: 0
     })
+
+    hillary.save(function(err, hillary) {
+        if (err) return console.error(err)
+        console.log("INIT " + hillary.name);
+    });
+
+    var donald = new Candidate({
+        name: "Donald Trump",
+        sentiment: 0
+    })
+
+    donald.save(function(err, donald) {
+        if (err) return console.error(err)
+        console.log("INIT " + donald.name);
+    });
+
+    var stream = T.stream("statuses/filter", {
+        track: startTags,
+        language: "en"
+    })
+
+    stream.on('connect', function(request) {
+        console.log("connect")
+            //...
+    })
+
+    stream.on('connected', function(request) {
+        console.log("finish connect")
+            //...
+    })
+
+    stream.on('disconnect', function(disconnectMessage) {
+        console.log("disconnect")
+            //...
+    })
+
+    stream.on('reconnect', function(request, response, connectInterval) {
+        console.log("reconnect - " + connectInterval + " " + JSON.stringify(response));
+    })
+
 
     // Start the stream, and store the JSON information in data
-    console.log("BERNIE on");
-    bernieStream.on("tweet", function(data) {
-        sentiment(data.text, function(err, result) {
-            // Create the tweet object
-            var tweet = new Tweet({
-            	candidate: "bernie",
-                user: data.user.screen_name,
-                description: data.text,
-                sentiment: result.score,
-                created_at: data.created_at
-            });
+    console.log("STREAM ON");
+    stream.on("tweet", function(data) {
 
-            bernieCount++;
+        //iterates through bernieTags
+        for (var i = 0; i < berniePos.length; i++) {
+            //set to lowercase and compare
+            if (data.text.toLowerCase().match(berniePos[i])) {
+                sentiment(data.text, function(err, result) {
+                    if (result.score >= 0) {
 
-            tweet.save(function(err, tweet) {
-                if (err) return console.error(err);
-								if(tweet.sentiment > 0) {
-									console.log('bernie positive push');
-									DailyStat.update({ candidate: "Bernie Sanders"},
-										{ $push: { positive: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
-											if (err) console.log(err);
-									});
-								}
-								else if (tweet.sentiment < 0) {
-									DailyStat.update({ candidate: "Bernie Sanders"},
-										{ $push: { negative: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
-											if (err) console.log(err);
-									});
-								}
-								else DailyStat.update({ candidate: "Bernie Sanders"},
-									{ $push: { neutral: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
-										if (err) console.log(err);
-								});
-                console.log(tweet.candidate + " (" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
-                console.log("");
-            });
-        });
-    })
+                        console.log("Saving to POSITIVE BERNIE")
+                            //create new tweet
+                        var tweet = new Tweet({
+                            candidate: "Bernie Sanders",
+                            user: data.user.screen_name,
+                            description: data.text,
+                            sentiment: result.score,
+                            created_at: data.created_at
+                        });
 
-    console.log("CLINTON on");
-    clintonStream.on("tweet", function(data) {
-        sentiment(data.text, function(err, result) {
-            // Create the tweet object
-            var tweet = new Tweet({
-            	candidate: "clinton",
-                user: data.user.screen_name,
-                description: data.text,
-                sentiment: result.score,
-                created_at: data.created_at
-            });
+                        //increment count (total count of tweets w/ bernieTags)
+                        bernieCount++;
+                        berniePos++;
 
-            clintonCount++;
+                        //save
+                        tweet.save(function(err, tweet) {
+                            if (err) return console.error(err)
+                            console.log(tweet.candidate + " (" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
+                            console.log("");
+                        });
+                    }
+                });
+            }
+        }
 
-            tweet.save(function(err, tweet) {
-                if (err) return console.error(err);
-								if(tweet.sentiment > 0) {
-								console.log('clinton positive');
-								DailyStat.update({ candidate: "Hillary Clinton"},
-									{ $push: { positive: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
-										if (err) console.log(err);
-								});
-							}
-							else if (tweet.sentiment < 0) {
-								DailyStat.update({ candidate: "Hillary Clinton"},
-									{ $push: { negative: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
-										if (err) console.log(err);
-								});
-							}
-							else DailyStat.update({ candidate: "Hillary Clinton"},
-								{ $push: { neutral: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
-									if (err) console.log(err);
-							});
-                console.log(tweet.candidate + "(" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
-                console.log("");
-            });
-        });
-    })
+        //iterates through bernieTags
+        for (var i = 0; i < bernieNeg.length; i++) {
+            //set to lowercase and compare
+            if (data.text.toLowerCase().match(bernieNeg[i])) {
+                sentiment(data.text, function(err, result) {
+                    if (result.score < 0) {
+                        console.log("Saving to NEGATIVE BERNIE")
+                            //create new tweet
+                        var tweet = new Tweet({
+                            candidate: "Bernie Sanders",
+                            user: data.user.screen_name,
+                            description: data.text,
+                            sentiment: result.score,
+                            created_at: data.created_at
+                        });
 
-    console.log("TRUMP on");
-    trumpStream.on("tweet", function(data) {
-        sentiment(data.text, function(err, result) {
-            // Create the tweet object
-            var tweet = new Tweet({
-                candidate: "trump",
-                user: data.user.screen_name,
-                description: data.text,
-                sentiment: result.score,
-                created_at: data.created_at
-            });
+                        //increment count (total count of tweets w/ bernieTags)
+                        bernieCount++;
 
-            trumpCount++;
+                        //save
+                        tweet.save(function(err, tweet) {
+                            if (err) return console.error(err)
+                            console.log(tweet.candidate + " (" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
+                            console.log("");
+                        });
 
-            // Store the tweet in the database
-            tweet.save(function(err, tweet) {
-                if (err) return console.error(err);
-								if(tweet.sentiment > 0) {
-									DailyStat.update({ candidate: "Donald Trump"},
-										{ $push: { positive: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
-											if (err) console.log(err);
-									});
-								}
-								else if (tweet.sentiment < 0) {
-									DailyStat.update({ candidate: "Donald Trump"},
-										{ $push: { negative: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
-											if (err) console.log(err);
-									});
-								}
-								else DailyStat.update({ candidate: "Donald Trump"},
-									{ $push: { neutral: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
-										if (err) console.log(err);
-								});
-                console.log(tweet.candidate + "(" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
-                console.log("");
-            });
-        });
-    })
+                    }
 
+                });
+            }
+        }
 
-    console.log("BUSH on");
-    bushStream.on("tweet", function(data) {
-        sentiment(data.text, function(err, result) {
-            // Create the tweet object
-            var tweet = new Tweet({
-                candidate: "bush",
-                user: data.user.screen_name,
-                description: data.text,
-                sentiment: result.score,
-                created_at: data.created_at
-            });
+        for (var i = 0; i < clintonPos.length; i++) {
+            //set to lowercase and compare
+            if (data.text.toLowerCase().match(clintonPos[i])) {
+                sentiment(data.text, function(err, result) {
+                    if (result.score >= 0) {
 
-            bushCount++;
+                        console.log("Saving to POSITIVE CLINTON")
+                            //create new tweet
+                        var tweet = new Tweet({
+                            candidate: "Hillary Clinton",
+                            user: data.user.screen_name,
+                            description: data.text,
+                            sentiment: result.score,
+                            created_at: data.created_at
+                        });
 
-            // Store the tweet in the database
-            tweet.save(function(err, tweet) {
-                if (err) return console.error(err);
-								if(tweet.sentiment > 0) {
-									DailyStat.update({ candidate: "Jeb Bush"},
-										{ $push: { positive: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
-											if (err) console.log(err);
-									});
-								}
-								else if (tweet.sentiment < 0) {
-									DailyStat.update({ candidate: "Jeb Bush"},
-										{ $push: { negative: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
-											if (err) console.log(err);
-									});
-								}
-								else DailyStat.update({ candidate: "Jeb Bush"},
-									{ $push: { neutral: { user: tweet.user, date: tweet.created_at }}}, (err, result) => {
-										if (err) console.log(err);
-								});
-                console.log(tweet.candidate + "(" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
-                console.log("");
-            });
-        });
+                        //increment count (total count of tweets w/ bernieTags)
+                        clintonCount++;
+                        clintonPos++;
+
+                        //save
+                        tweet.save(function(err, tweet) {
+                            if (err) return console.error(err)
+                            console.log(tweet.candidate + " (" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
+                            console.log("");
+                        });
+                    }
+                });
+            }
+        }
+
+        //iterates through bernieTags
+        for (var i = 0; i < clintonNeg.length; i++) {
+            //set to lowercase and compare
+            if (data.text.toLowerCase().match(clintonNeg[i])) {
+                sentiment(data.text, function(err, result) {
+                    if (result.score < 0) {
+                        console.log("Saving to NEGATIVE CLINTON")
+                            //create new tweet
+                        var tweet = new Tweet({
+                            candidate: "Hillary Clinton",
+                            user: data.user.screen_name,
+                            description: data.text,
+                            sentiment: result.score,
+                            created_at: data.created_at
+                        });
+
+                        //increment count (total count of tweets w/ bernieTags)
+                        clintonCount++;
+
+                        //save
+                        tweet.save(function(err, tweet) {
+                            if (err) return console.error(err)
+                            console.log(tweet.candidate + " (" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
+                            console.log("");
+                        });
+
+                    }
+
+                });
+            }
+        }
+        for (var i = 0; i < trumpPos.length; i++) {
+            //set to lowercase and compare
+            if (data.text.toLowerCase().match(trumpPos[i])) {
+                sentiment(data.text, function(err, result) {
+                    if (result.score >= 0) {
+
+                        console.log("Saving to POSITIVE TRUMP")
+                            //create new tweet
+                        var tweet = new Tweet({
+                            candidate: "Donald Trump",
+                            user: data.user.screen_name,
+                            description: data.text,
+                            sentiment: result.score,
+                            created_at: data.created_at
+                        });
+
+                        //increment count (total count of tweets w/ bernieTags)
+                        trumpCount++;
+                        trumpPos++;
+
+                        //save
+                        tweet.save(function(err, tweet) {
+                            if (err) return console.error(err)
+                            console.log(tweet.candidate + " (" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
+                            console.log("");
+                        });
+                    }
+                });
+            }
+        }
+
+        //iterates through bernieTags
+        for (var i = 0; i < trumpNeg.length; i++) {
+            //set to lowercase and compare
+            if (data.text.toLowerCase().match(trumpNeg[i])) {
+                sentiment(data.text, function(err, result) {
+                    if (result.score < 0) {
+                        console.log("Saving to NEGATIVE TRUMP")
+                            //create new tweet
+                        var tweet = new Tweet({
+                            candidate: "Donald Trump",
+                            user: data.user.screen_name,
+                            description: data.text,
+                            sentiment: result.score,
+                            created_at: data.created_at
+                        });
+
+                        //increment count (total count of tweets w/ bernieTags)
+                        trumpCount++;
+
+                        //save
+                        tweet.save(function(err, tweet) {
+                            if (err) return console.error(err)
+                            console.log(tweet.candidate + " (" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
+                            console.log("");
+                        });
+
+                    }
+
+                });
+            }
+        }
+
     })
 }
 
 app.use((err, req, res, next) => {
-	if(process.env.NODE_ENV !== "test") {console.log(err)}
-		res.status(500).send(err);
+    if (process.env.NODE_ENV !== "test") {
+        console.log(err)
+    }
+    res.status(500).send(err);
 });
 
 module.exports = app.listen(port, () => {
-	console.log('Example app listening at http://localhost:' + port);
+    console.log('Example app listening at http://localhost:' + port);
 });

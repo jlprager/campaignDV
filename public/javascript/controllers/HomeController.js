@@ -47,10 +47,10 @@
 			var hillaryImg = 100;
 			var trumpImg = 100;
 			var bushImg = 100;
-			var bernieResize = res.bernie;
-			var hillaryResize = res.clinton;
-			var trumpResize = res.trump;
-			var bushResize = res.bush;
+			var bernieResize = res.bernie/5;
+			var hillaryResize = res.clinton/5;
+			var trumpResize = res.trump/5;
+			var bushResize = res.bush/5;
 			bernieImg = (bernieImg + (bernieImg * bernieResize));
 			hillaryImg = (hillaryImg + (hillaryImg * hillaryResize));
 			trumpImg = (trumpImg + (trumpImg * trumpResize));
