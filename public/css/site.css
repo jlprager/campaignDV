@@ -72,7 +72,7 @@ ul {
 	margin-top: 5px;
 	margin-bottom: 15px;
 	margin-left: 5%;
-	margin-right: 5%;	
+	margin-right: 5%;
 }
 
 #multiVizData {
@@ -81,6 +81,7 @@ ul {
 	margin-right: 5%;
 }
 
-/*#menuLink1 {
-	background-color: rgba(0, 0, 0, 0) !important;
-}*/
+.tweet-stream-div {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
