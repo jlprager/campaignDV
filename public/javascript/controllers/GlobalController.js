@@ -9,8 +9,6 @@
         vm.status = UserFactory.status;
 
         vm.register = function() {
-          console.log('in controller');
-          console.log(vm.user);
           UserFactory.register(vm.user).then(function(res) {
             $state.go('Home');
           });
