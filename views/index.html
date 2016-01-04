@@ -6,19 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/" />
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+    <!--<![endif]-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="/css/site.css">
 </head>
 
-<body ng-controller="GlobalController as nav">
+<body>
+    <div ng-controller="GlobalController as nav">
     <div class="pure-g" id="navBar">
         <div class="pure-u-1-3">
-        <h4>Company Name goes here</h4>
+            <h4>Company Name goes here</h4>
         </div>
         <div class="pure-u-1-3">
-        <h4>Logo goes here</h4>
+            <h4>Logo goes here</h4>
         </div>
         <div class="pure-u-1-3">
             <div class="pure-menu pure-menu-horizontal" id="btnMenu">
@@ -48,58 +55,31 @@
             </div>
         </div>
     </div>
-    <!-- <div class="pure-menu pure-menu-horizontal">
-    <ul class="pure-menu-list">
-        <li class="pure-menu-item pure-menu-selected"><button ui-sref="Home" class="pure-menu-link"><i class="fa fa-home"></i></button></li>
-        <li class="pure-menu-item pure-menu-selected"><button class="pure-menu-link">Register</button></li>
-        <li class="pure-menu-item pure-menu-selected"><button class="pure-menu-link">About Us</button></li>
-        <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-            <a href="#" id="menuLink1" class="pure-menu-link">Sign In</a>
-            <ul class="pure-menu-children">
-                <li class="pure-menu-link">Email</li>
-                <li class="pure-menu-item"><a href="/api/v1/users/auth/facebook" class="pure-menu-link">Facebook</a></li>
-                <li class="pure-menu-item"><a href="/api/v1/users/auth/twitter" class="pure-menu-link">Twitter</a></li>
-                <li class="pure-menu-item"><a href="/api/v1/users/auth/google" class="pure-menu-link">Google</a></li>
-            </ul>
-        </li>
-    </ul>
-</div> -->
-    <!--     <a href="/api/v1/users/auth/facebook" target="_self">FACEBOOK</a>
-    <link rel="stylesheet" type="text/css" href="/css/site.css">
-</head>
+<button ng-click="nav.logout();">Log Out</button>
+<button ui-sref='Stripe'>Upgrade Account</button>
+<ui-view></ui-view>
+<!-- External Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+<script src="https://js.stripe.com/v2/"></script>
+<script src="/stripe-angular/stripe-angular.js"></script>
+<!-- Modules -->
+<script src="/javascript/app.js"></script>
+<!-- Services -->
+<script src="/javascript/services/UserFactory.js"></script>
+<script src="/javascript/services/SentimentFactory.js"></script>
+<script src="/javascript/services/TweetFactory.js"></script>
+<script src="/javascript/services/EmailFactory.js"></script>
+<script src="/javascript/services/CandidateFactory.js"></script>
 
-<body ng-controller="GlobalController as nav">
-    <a href="/api/v1/users/auth/facebook" target="_self">FACEBOOK</a>
-    <a href="/api/v1/users/auth/twitter" target="_self">TWITTER</a>
-    <a href="/api/v1/users/auth/google" target="_self">GOOGLE</a>
-    <button ui-sref="Home">Home</button>
-    <button ui-sref="About">About</button>
-    <button>Log In</button>
-    <button>Register</button> -->
-<!--
-    <button ui-sref="Log">Log In</button>
-    <button ui-sref="Reg">Register</button> -->
-    <button ng-click="nav.logout();">Log Out</button>
-    <ui-view></ui-view>
-    <!-- External Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-    <!-- Modules -->
-    <script src="/javascript/app.js"></script>
-    <!-- Services -->
-    <script src="/javascript/services/UserFactory.js"></script>
-    <script src="/javascript/services/SentimentFactory.js"></script>
-    <script src="/javascript/services/TweetFactory.js"></script>
-    <script src="/javascript/services/EmailFactory.js"></script>
-    <script src="/javascript/services/CandidateFactory.js"></script>
-
-    <!-- Controllers -->
-    <script src="/javascript/controllers/GlobalController.js"></script>
-    <script src="/javascript/controllers/HomeController.js"></script>
-    <script src="/javascript/controllers/WelcomeController.js"></script>
-    <script src="/javascript/controllers/ProfileController.js"></script>
-    <script src="/javascript/controllers/CandidateController.js"></script>
-    <script src="/javascript/controllers/ContactFormController.js"></script>
+<!-- Controllers -->
+<script src="/javascript/controllers/GlobalController.js"></script>
+<script src="/javascript/controllers/HomeController.js"></script>
+<script src="/javascript/controllers/WelcomeController.js"></script>
+<script src="/javascript/controllers/ProfileController.js"></script>
+<script src="/javascript/controllers/CandidateController.js"></script>
+<script src="/javascript/controllers/ContactFormController.js"></script>
+<script src="/javascript/controllers/StripeController.js"></script>
 </body>
 
 </html>
