@@ -17,7 +17,7 @@
         CandidateFactory.getCandidateById($stateParams.id).then(function(res) {
             vm.candidate = res;
             candidateName = res.name;
-            console.log(res);
+            console.log(candidateName);
         }, function(err) {
             //
         });
