@@ -65,7 +65,7 @@ router.post('/register', (req, res, next) => {
   console.log('req:');
   console.log(req.body);
   let user = new User();
-  user.email = req.body.email;
+  // user.email = req.body.email;
   user.emailRegis.userName = req.body.username;
   user.emailRegis.email = req.body.email;
   user.emailRegis.name = req.body.name;
