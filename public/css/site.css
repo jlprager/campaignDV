@@ -5,6 +5,7 @@ body {
 
 img {
 	max-height: 250px !important;
+	min-height: 20px !important;
 }
 
 html, button, input, select, textarea,
