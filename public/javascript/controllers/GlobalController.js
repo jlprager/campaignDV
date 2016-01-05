@@ -20,7 +20,10 @@
           });
         };
 
-        vm.logout = UserFactory.removeToken;
+        vm.logout = function() {
+          UserFactory.removeToken();
+          $state.go('Home');
+        };
 
     }
 })();
