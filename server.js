@@ -50,18 +50,22 @@ let candidateRoutes = require('./routes/candidateRoutes');
 let commentRoutes = require('./routes/commentRoutes');
 let tweetRoutes = require('./routes/tweetRoutes');
 let emailRoutes = require('./routes/emailRoutes');
+let smsRoutes = require('./routes/smsRoutes');
 
 app.use('/api/v1/users/', userRoutes);
 app.use('/api/v1/candidates/', candidateRoutes);
 app.use('/api/v1/comments/', commentRoutes);
 app.use('/api/v1/tweets/', tweetRoutes);
 app.use('/api/v1/contact/', emailRoutes);
+app.use('/api/v1/sms/', smsRoutes);
 
 app.get('/*', function(req, res) {
     res.render('index');
 });
 
 // dailyTimer();
+
+
 
 //START OF TWEET STREAM
 /*

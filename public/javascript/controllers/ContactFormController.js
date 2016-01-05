@@ -3,8 +3,18 @@
     angular.module('app')
     .controller('ContactFormController', ContactFormController);
 
-    function ContactFormController(EmailFactory, $state, $stateParams) {
+    function ContactFormController(EmailFactory, SMSFactory, $state, $stateParams) {
         var vm = this;
+        vm.sms = {};
+
+        vm.sendSMS = function() {
+          SMSFactory.sendSMS(vm.sms).then(function(res) {
+            $state.go('ContactMessageConfirmation');
+          }, function(err) {
+        //
+        });
+      };
+
         vm.sendMail = function() {
           var data = ({
               contactName :   vm.contactName,
@@ -12,9 +22,10 @@
               contactMsg :    vm.contactMsg
           });
           EmailFactory.sendMail(data).then(function(res) {
-              $state.go('Contact');
+              $state.go('ContactMessageConfirmation');
           }, function(err) {
           });
         };
+
     }
 })();
