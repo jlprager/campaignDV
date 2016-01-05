@@ -8,7 +8,7 @@
 
         o.getPresidentialCandidates = function() {
             var q = $q.defer();
-            $http.get('api/v1/candidates/presidential').then(function(res) {
+            $http.get('/api/v1/candidates/presidential').then(function(res) {
                 q.resolve(res.data);
             }, function(err) {
                 q.reject();
@@ -18,7 +18,7 @@
 
         o.getCandidateById = function(id) {
             var q = $q.defer();
-            $http.get('api/v1/candidates/' + id).then(function(res) {
+            $http.get('/api/v1/candidates/' + id).then(function(res) {
                 q.resolve(res.data);
             }, function(err) {
                 q.reject();
