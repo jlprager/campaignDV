@@ -30,6 +30,16 @@
 			url: "/contact",
 			templateUrl: "/templates/contact.html",
 			controller: "ContactFormController as vm"
+		}).state("PasswordReset", {
+			url: "/passwordReset",
+			templateUrl: "/templates/passwordReset.html",
+			controller: "PasswordResetController as vm"
+		}).state("ContactMessageConfirmation", {
+			url: "/contactMessageConfirmation",
+			templateUrl: "/templates/contactMessageConfirmation.html",
+		}).state("PasswordResetConfirmation", {
+			url: "/passwordResetConfirmation",
+			templateUrl: "/templates/passwordResetConfirmation.html",
 		});
 		$urlRouterProvider.otherwise('/');
 		$urlMatcherFactoryProvider.caseInsensitive(true);
