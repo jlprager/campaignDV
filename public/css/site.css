@@ -1,6 +1,6 @@
 body {
 	font-family: "Lato";
-	
+
 background: rgba(147,201,237,1);
 background: -moz-linear-gradient(left, rgba(147,201,237,1) 0%, rgba(147,201,237,1) 3%, rgba(220,222,250,1) 50%, rgba(230,115,115,1) 95%, rgba(230,115,115,1) 100%);
 background: -webkit-gradient(left top, right top, color-stop(0%, rgba(147,201,237,1)), color-stop(3%, rgba(147,201,237,1)), color-stop(50%, rgba(220,222,250,1)), color-stop(95%, rgba(230,115,115,1)), color-stop(100%, rgba(230,115,115,1)));
@@ -114,6 +114,7 @@ ul {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+
 
 footer {
 	position: absolute;
