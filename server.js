@@ -61,9 +61,11 @@ app.get('/*', function(req, res) {
     res.render('index');
 });
 
-dailyTimer();
+// dailyTimer();
 
 //START OF TWEET STREAM
+/*
+var sentiment = require('sentiment');
 
 //tracked hashtags
 var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", "#Trump2016", "#WhyISupportTrump", "#backtowork", "#1DHistoryVideo", "#StolenOnStolen"];
@@ -425,6 +427,8 @@ var waitForTweets = function(db) {
 
     })
 };
+
+*/
 
 app.use((err, req, res, next) => {
     if (process.env.NODE_ENV !== "test") {

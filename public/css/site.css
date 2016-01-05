@@ -1,6 +1,6 @@
 body {
 	font-family: "Lato";
-	
+
 background: rgba(147,201,237,1);
 background: -moz-linear-gradient(left, rgba(147,201,237,1) 0%, rgba(147,201,237,1) 3%, rgba(220,222,250,1) 50%, rgba(230,115,115,1) 95%, rgba(230,115,115,1) 100%);
 background: -webkit-gradient(left top, right top, color-stop(0%, rgba(147,201,237,1)), color-stop(3%, rgba(147,201,237,1)), color-stop(50%, rgba(220,222,250,1)), color-stop(95%, rgba(230,115,115,1)), color-stop(100%, rgba(230,115,115,1)));
@@ -26,6 +26,11 @@ html, button, input, select, textarea,
 	margin-bottom: 5px;
 }
 
+#companyName {
+	text-align: left;
+	padding-left: 10px;
+}
+
 button {
 	background-color: rgba(0, 0, 0, 0) !important;
 }
@@ -33,6 +38,13 @@ button {
 ul {
 	background-color: rgba(0, 0, 0, 0) !important;
 }
+
+/*#THISUL li {
+	text-align: center;
+	border-bottom: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+}*/
 
 #demCandidate {
 	background-color: #98B6EC;
@@ -57,6 +69,16 @@ ul {
 
 #btnMenu {
 	margin-top: 5px;
+	text-align: right;
+	padding-right: 20px;
+}
+
+.dropdown {
+	text-align: left;
+}
+
+#viz {
+	margin-top: 80px;
 }
 
 #multiViz {
@@ -81,7 +103,31 @@ ul {
 	margin-right: 5%;
 }
 
+#bernie,
+#hillary,
+#trump,
+#bush {
+	margin-top: 50%;
+}
+
 .tweet-stream-div {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+
+
+footer {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+#registration {
+	text-align: center;
+}
+
+
+
+
