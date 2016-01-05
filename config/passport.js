@@ -52,6 +52,7 @@ passport.use(new FacebookStrategy({
             return done(null, user);
         } else {
             let user = new User();
+            // user.email = profile.emails[0].value;
             user.facebook.id = profile.id;
             user.facebook.token = accessToken;
             user.facebook.email = profile.emails[0].value;
@@ -115,6 +116,7 @@ passport.use(new GoogleStrategy({
       }
       else {
         var user = new User();
+        // user.email = profile.emails[0].value;
         user.google.id = profile.id;
         user.google.token = token;
         user.google.name = profile.displayName;

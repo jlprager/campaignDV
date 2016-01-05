@@ -21,7 +21,7 @@
         };
 
         vm.logout = function() {
-          UserFactory.removeToken;
+          UserFactory.removeToken();
           $state.go('Home');
         };
 
