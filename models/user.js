@@ -5,9 +5,9 @@ let jwt = require("jsonwebtoken");
 let uuid = require('node-uuid');
 
 let UserSchema = new mongoose.Schema({
-	uuid : { type : String, default : uuid.v4() },
-	//email : String,
-	comments : [{ type : mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+	uuid: { type : String, default : uuid.v4() },
+	// email : String,
+	comments: [{ type : mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 	candidates: { type : mongoose.Schema.Types.ObjectId, ref: "Candidate"},
 	premiumStatus: { type : Boolean, default : false },
 	politicalLeaning: String,
@@ -70,9 +70,11 @@ UserSchema.methods.validatePassword = function(password, hash, cb){
 UserSchema.methods.generateJWT = function() {
     return jwt.sign({
         _id: this._id,
+        uuid: this.uuid,
         name: this.name,
         password: this.password,
-        email: this.email
+        email: this.email,
+        premiumStatus: this.premiumStatus
     }, "weSecretlyLoveBernie");
 };
 

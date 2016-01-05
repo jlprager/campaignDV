@@ -10,6 +10,7 @@ let port = process.env.PORT || 3000;
 let mongoose = require("mongoose");
 let passport = require("passport");
 let session = require('express-session');
+let stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KEY);
 
 require("./models/user");
 require('./models/candidate');
@@ -68,7 +69,7 @@ app.get('/*', function(req, res) {
 
 
 //START OF TWEET STREAM
-
+/*
 var sentiment = require('sentiment');
 
 //tracked hashtags
@@ -384,6 +385,8 @@ var waitForTweets = function(db) {
 
     })
 }
+
+*/
 
 app.use((err, req, res, next) => {
     if (process.env.NODE_ENV !== "test") {

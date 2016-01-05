@@ -1,41 +1,36 @@
-<h1>HOME</h1>
-<h1>Candidate sentiment (over the past 5 minutes for testing -- changeable to whatever time period we want in tweetRoutes.js)</h1>
-<p>Updating client side every 15 seconds. Pulling from last 5 minutes of data.</p>
-<div class="pure-g" id="multiVizData">
-    <div class="pure-u-1-4">
-        <h2>Bernie's sentiment: {{vm.bernie}}</h2>
+<div id="viz">
+    <div class="pure-g" id="multiVizData">
+        <div class="pure-u-1-4">
+            <h4>Bernie Sanders: <br> {{vm.bernie}}</h4>
+        </div>
+        <div class="pure-u-1-4">
+            <h4>Hillary Clinton: <br> {{vm.clinton}}</h4>
+        </div>
+        <div class="pure-u-1-4">
+            <h4>Donald Trump: <br> {{vm.trump}}</h4>
+        </div>
+        <div class="pure-u-1-4">
+            <h4>Jeb Bush: <br> {{vm.bush}}</h4>
+        </div>
     </div>
-    <div class="pure-u-1-4">
-        <h2>Clintons's sentiment: {{vm.clinton}}</h2>
+
+    <div id="multiViz" class="pure-g">
+        <div class="pure-u-1-4 pure-u-md-1-4">
+            <img id="bernie" src="http://vignette4.wikia.nocookie.net/fantendo/images/6/6e/Small-mario.png/revision/latest?cb=20120718024112">
+        </div>
+        <div class="pure-u-1-4 pure-u-md-1-4">
+            <img id="hillary" src="http://vignette4.wikia.nocookie.net/fantendo/images/6/6e/Small-mario.png/revision/latest?cb=20120718024112">
+        </div>
+        <div class="pure-u-1-4 pure-u-md-1-4">
+            <img id="trump" src="http://vignette4.wikia.nocookie.net/fantendo/images/6/6e/Small-mario.png/revision/latest?cb=20120718024112">
+        </div>
+        <div class="pure-u-1-4 pure-u-md-1-4">
+            <img id="bush" src="http://vignette4.wikia.nocookie.net/fantendo/images/6/6e/Small-mario.png/revision/latest?cb=20120718024112">
+        </div>
     </div>
-    <div class="pure-u-1-4">
-        <h2>Trump's sentiment: {{vm.trump}}</h2>
-    </div>
-    <div class="pure-u-1-4">
-        <h2>Bush's sentiment: {{vm.bush}}</h2>
-    </div>
-</div>
-<!-- <img id="this" ng-src="http://cdn2.thr.com/sites/default/files/imagecache/675x380/2014/09/too_good_for_grumpy_cat.jpg"> -->
-<div id="multiViz" class="pure-g">
-    <div class="pure-u-1-4 pure-u-md-1-4">
-        <h3>Bernie Cat</h3>
-        <img id="bernie" src="http://cbssports.com/images/visual/whatshot/USATSI_8607271.jpg">
-    </div>
-    <div class="pure-u-1-4 pure-u-md-1-4">
-        <h3>Hillary Cat</h3>
-        <img id="hillary" src="https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg">
-    </div>
-    <div class="pure-u-1-4 pure-u-md-1-4">
-        <h3>Trump Cat</h3>
-        <img id="trump" src="https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg">
-    </div>
-    <div class="pure-u-1-4 pure-u-md-1-4">
-        <h3>Bush Cat</h3>
-        <img id="bush" src="https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg">
-    </div>
-</div>
-<div class="pure-g" id="multiVizBtn" ng-repeat="candidate in vm.candidates">
-    <div class="pure-u-1-4 pure-u-md-1-4">
-        <button ui-sref="Candidate({id: candidate._id})"class="pure-button pure-button-active">See {{candidate.name}}</button>
+    <div class="pure-g" id="multiVizBtn">
+        <div class="pure-u-1-4 pure-u-md-1-4" ng-repeat="candidate in vm.candidates">
+            <button ui-sref="Candidate({id: candidate._id})" class="pure-button pure-button-active">See {{candidate.name}}</button>
+        </div>
     </div>
 </div>

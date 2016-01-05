@@ -6,6 +6,27 @@ let passport = require("passport");
 let User = mongoose.model("User");
 let jwt = require("express-jwt");
 let GOOGLE_SCOPES = ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'];
+let stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KEY);
+let auth = jwt({
+  userProperty: 'payload',
+  secret: process.env.JWTsecret
+})
+
+router.post('/charge', auth, (req, res, next) => {
+  console.log(req.body);
+  stripe.charges.create({
+    amount: 2000,
+    currency: 'usd',
+    source: req.body.token,
+    description: 'One time account upgrade for user # ' + req.body.uuid,
+  }, function(err, charge) {
+    if (err) return next(err);
+      User.findOneAndUpdate({uuid: req.body.uuid}, {premiumStatus: true}, function(err, user) {
+        if (err) throw err;
+        res.end();
+      });    
+  })
+});
 
 router.get("/auth/facebook", passport.authenticate("facebook", {
   scope: ['email']
@@ -44,7 +65,7 @@ router.post('/register', (req, res, next) => {
   console.log('req:');
   console.log(req.body);
   let user = new User();
-  user.email = req.body.email;
+  // user.email = req.body.email;
   user.emailRegis.userName = req.body.username;
   user.emailRegis.email = req.body.email;
   user.emailRegis.name = req.body.name;
@@ -62,6 +83,7 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
+  console.log('hitting login route')
   passport.authenticate('local', (err, user) => {
     if(err) return next(err);
     res.send({ token : user.generateJWT() });

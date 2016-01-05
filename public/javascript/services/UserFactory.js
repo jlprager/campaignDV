@@ -22,6 +22,7 @@
 				o.setToken(res.data.token);
 				q.resolve(res.data);
 			});
+			console.log(o.status)
 			return q.promise;
 		};
 
@@ -39,6 +40,8 @@
 			o.status._id = null;
 			o.status.steamID = null;
 			o.status.displayName = null;
+			o.status.uuid = null;
+			o.status.premiumStatus = null;
 		};
 
 		o.setUser = function(){
@@ -46,6 +49,27 @@
 			o.status._id = token._id;
 			o.status.email = token.email;
 			o.status.displayName = token.displayName;
+			o.status.uuid = token.uuid;
+			o.status.premiumStatus = token.premiumStatus;
+		};
+
+		o.postCharge = function(token){
+			var q = $q.defer();
+			var chargeObject = {};
+			chargeObject.uuid = o.status.uuid;
+			chargeObject.token = token;
+			$http.post('api/v1/users/charge', chargeObject, {
+				headers: {
+					authorization: 'Bearer ' + $window.localStorage.getItem('token')
+				}
+			}).then(function (res) {
+				o.status.premiumStatus = true;
+				q.resolve(res.data);
+			},function(err) {
+				q.reject();
+			});
+			return q.promise;
+
 		};
 
 		if(o.getToken()) o.setUser();

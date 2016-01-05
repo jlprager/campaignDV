@@ -27,7 +27,7 @@ router.get('/:candidate', (req, res, next) => {
     let timer = new Date(new Date().getTime() - (15 * 1000));
     Tweet.find({ $and: [ { created_at: { $gte: timer } }, { candidate: req.params.candidate } ] }).exec((err, result) => {
         if(err) return next(err);
-        if(!result) return('Unable to pull the last 15 seconds of tweets')
+        if(!result) return('Unable to pull the last 15 seconds of tweets');
         res.send(result);
     });
 });
@@ -43,34 +43,26 @@ function sentimentByCandidate(tweets) {
         poolSizeBush, bushPosPercent, bushNegPercent, bushNeutPercent;
 
     for (var i = 0; i < tweets.length; i++) {
-        if (tweets[i].candidate === 'bernie') {
+        if (tweets[i].candidate === 'Bernie Sanders') {
             bernie.push(tweets[i].sentiment);
             if (tweets[i].sentiment > 0) { posBernie.push(tweets[i].user) }
             else if (tweets[i].sentiment < 0) { negBernie.push(tweets[i].user) }
             else { neutBernie.push(tweets[i].user) }
         }
 
-        else if (tweets[i].candidate === 'clinton') {
+        else if (tweets[i].candidate === 'Hillary Clinton') {
             clinton.push(tweets[i].sentiment);
             if (tweets[i].sentiment > 0) { posClinton.push(tweets[i].user) }
             else if (tweets[i].sentiment < 0) { negClinton.push(tweets[i].user) }
             else { neutClinton.push(tweets[i].user) }
         }
 
-        else if (tweets[i].candidate === 'trump') {
+        else if (tweets[i].candidate === 'Donald Trump') {
             trump.push(tweets[i].sentiment);
             if (tweets[i].sentiment > 0) { posTrump.push(tweets[i].user) }
             else if (tweets[i].sentiment < 0) { negTrump.push(tweets[i].user) }
             else { neutTrump.push(tweets[i].user) }
         }
-
-        else if (tweets[i].candidate === 'bush') {
-            bush.push(tweets[i].sentiment);
-            if (tweets[i].sentiment > 0) { posBush.push(tweets[i].user) }
-            else if (tweets[i].sentiment < 0) { negBush.push(tweets[i].user) }
-            else { neutBush.push(tweets[i].user) }
-        }
-
     }
 
     poolSizeBernie = (posBernie.length + negBernie.length + neutBernie.length);
@@ -89,7 +81,6 @@ function sentimentByCandidate(tweets) {
     bushPosPercent = ((posBush.length) / (poolSizeBush));
     bushNegPercent = ((negBush.length) / (poolSizeBush));
     bushNeutPercent = ((neutBush.length) / (poolSizeBush));
-
 
     return {
         bernie: averageSentiment(bernie),
@@ -113,6 +104,5 @@ function averageSentiment(arr) {
     let average = sum / arr.length;
     return Number(Math.round(average + 'e2') + 'e-2');
 }
-
 
 module.exports = router;
