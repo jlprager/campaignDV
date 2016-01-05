@@ -32,6 +32,7 @@ button {
 
 ul {
 	background-color: rgba(0, 0, 0, 0) !important;
+
 }
 
 #demCandidate {
@@ -57,6 +58,7 @@ ul {
 
 #btnMenu {
 	margin-top: 5px;
+
 }
 
 #multiViz {
@@ -84,4 +86,12 @@ ul {
 .tweet-stream-div {
 	margin-top: 0px;
 	margin-bottom: 0px;
+}
+
+footer {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	margin-bottom: 15px;
+	text-align: center;
 }
