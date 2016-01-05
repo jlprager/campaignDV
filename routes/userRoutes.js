@@ -7,8 +7,13 @@ let User = mongoose.model("User");
 let jwt = require("express-jwt");
 let GOOGLE_SCOPES = ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'];
 let stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KEY);
+let auth = jwt({
+  userProperty: 'payload',
+  secret: process.env.JWTsecret
+})
 
-router.post('/charge', (req, res, next) => {
+router.post('/charge', auth, (req, res, next) => {
+  console.log(req.body);
   stripe.charges.create({
     amount: 2000,
     currency: 'usd',
