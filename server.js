@@ -17,6 +17,7 @@ require('./models/candidate');
 require('./models/tweet');
 require('./models/comment');
 require('./models/dailyStats');
+require('./models/invoice');
 require("./config/passport");
 let DailyStat = mongoose.model('DailyStat');
 let Candidate = mongoose.model("Candidate");
@@ -51,6 +52,7 @@ let commentRoutes = require('./routes/commentRoutes');
 let tweetRoutes = require('./routes/tweetRoutes');
 let emailRoutes = require('./routes/emailRoutes');
 let dailyStatRoutes = require('./routes/dailyStatRoutes');
+let invoiceRoutes = require('./routes/invoiceRoutes');
 
 app.use('/api/v1/users/', userRoutes);
 app.use('/api/v1/candidates/', candidateRoutes);
@@ -58,6 +60,7 @@ app.use('/api/v1/comments/', commentRoutes);
 app.use('/api/v1/tweets/', tweetRoutes);
 app.use('/api/v1/contact/', emailRoutes);
 app.use('/api/v1/dailystats', dailyStatRoutes);
+app.use('/api/v1/invoice/', invoiceRoutes);
 
 app.get('/*', function(req, res) {
     res.render('index');

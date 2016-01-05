@@ -6,8 +6,6 @@
 		o.status = {};
 
 		o.register = function(user) {
-			console.log('factory:');
-			console.log(user);
 			var q = $q.defer();
 			$http.post('/api/v1/users/register', user).then(function(res) {
 				o.setToken(res.data.token);
@@ -57,8 +55,9 @@
 			var q = $q.defer();
 			var chargeObject = {};
 			chargeObject.uuid = o.status.uuid;
+			chargeObject.email = o.status.email;
 			chargeObject.token = token;
-			$http.post('api/v1/users/charge', chargeObject, {
+			$http.post('api/v1/invoice/charge', chargeObject, {
 				headers: {
 					authorization: 'Bearer ' + $window.localStorage.getItem('token')
 				}
