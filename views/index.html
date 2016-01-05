@@ -22,7 +22,7 @@
     <div ng-controller="GlobalController as nav">
         <div class="pure-g" id="navBar">
             <div class="pure-u-1-3">
-                <h4>Company Name goes here</h4>
+                <h4 id= "companyName">Company Name goes here</h4>
             </div>
             <div class="pure-u-1-3">
                 <h4 ui-sref="Home">Logo goes here</h4>
@@ -44,7 +44,7 @@
                     </li> -->
                         <li class="pure-menu-selected pure-menu-item pure-menu-has-children pure-menu-allow-hover" ng-show='!nav.status._id'>
                             <button class="pure-menu-link pure-button pure-button-active">Sign In</button>
-                            <ul class="pure-menu-children">
+                            <ul class="pure-menu-children" id="THISUL">
                                 <li ui-sref="Log" class="pure-menu-link">Email</li>
                                 <li class="pure-menu-item"><a href="/api/v1/users/auth/facebook" target="_self" class="pure-menu-link">Facebook</a></li>
                                 <li class="pure-menu-item"><a href="/api/v1/users/auth/twitter" target="_self" class="pure-menu-link">Twitter</a></li>
@@ -63,11 +63,11 @@
         </div>
 
         <ui-view></ui-view>
-        
+
         <footer>
             <div class="pure-g">
-                <div class="pure-u-3-4"></div>
-                <div class="pure-u-1-4">
+                <div class="pure-u-1-3"></div>
+                <div class="pure-u-1-3">
                     <div class="pure-menu pure-menu-horizontal">
                         <ul class="pure-menu-list">
                             <li class="pure-menu-item pure-menu-selected">
@@ -79,6 +79,7 @@
                         </ul>
                     </div>
                 </div>
+                <div class="pure-u-1-3"></div>
             </div>
         </footer>
         <!-- External Libraries -->
