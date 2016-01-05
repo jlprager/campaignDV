@@ -70,7 +70,15 @@ ul {
 #btnMenu {
 	margin-top: 5px;
 	text-align: right;
-	padding-right: 10px;
+	padding-right: 20px;
+}
+
+.dropdown {
+	text-align: left;
+}
+
+#viz {
+	margin-top: 80px;
 }
 
 #multiViz {
@@ -95,6 +103,13 @@ ul {
 	margin-right: 5%;
 }
 
+#bernie,
+#hillary,
+#trump,
+#bush {
+	margin-top: 50%;
+}
+
 .tweet-stream-div {
 	margin-top: 0px;
 	margin-bottom: 0px;
@@ -107,3 +122,11 @@ footer {
 	margin-bottom: 10px;
 	text-align: center;
 }
+
+#registration {
+	text-align: center;
+}
+
+
+
+

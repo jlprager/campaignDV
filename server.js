@@ -65,7 +65,7 @@ app.get('/*', function(req, res) {
 
 
 //START OF TWEET STREAM
-
+/*
 var sentiment = require('sentiment');
 
 //tracked hashtags
@@ -381,6 +381,8 @@ var waitForTweets = function(db) {
 
     })
 }
+
+*/
 
 app.use((err, req, res, next) => {
     if (process.env.NODE_ENV !== "test") {
