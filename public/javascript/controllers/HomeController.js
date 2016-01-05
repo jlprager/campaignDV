@@ -12,10 +12,6 @@
 		vm.clinton;
 		vm.trump;
 		vm.bush;
-		vm.posBernie; vm.negBernie; vm.neutBernie;
-		vm.posClinton; vm.negClinton; vm.neutClinton;
-		vm.posTrump; vm.negTrump; vm.neutTrump;
-		vm.posBush; vm.negBush; vm.neutBush;
 
 		CandidateFactory.getPresidentialCandidates().then(function(res) {
 			vm.candidates = res;
@@ -37,12 +33,6 @@
 				vm.clinton = res.clinton;
 				vm.trump = res.trump;
 				vm.bush = res.bush;
-
-				vm.posBernie = res.posBernie; vm.negBernie = res.negBernie; vm.neutBernie = res.neutBernie; vm.berniePool = res.berniePool;
-				vm.posClinton = res.posClinton; vm.negClinton = res.negClinton; vm.neutClinton = res.neutClinton; vm.clintonPool = res.clintonPool;
-				vm.posTrump = res.posTrump; vm.negTrump = res.negTrump; vm.neutTrump = res.neutTrump; vm.trumpPool = res.trumpPool;
-				vm.posBush = res.posBush; vm.negBush = res.negBush; vm.neutBush = res.neutBush; vm.bushPool = res.bushPool;
-
 
 			var bernieImg = 100;
 			var hillaryImg = 100;
