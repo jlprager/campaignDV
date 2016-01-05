@@ -36,12 +36,6 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
-// CLEAR/SAVE STATS FOR THE DAY
-router.put('/clear', (req, res, next) => {
-  // Candidate.update({} )
-  console.log('testing, in candidateRoutes');
-});
-
 router.post('/', auth, (req, res, next) => {
   if (req.payload.premiumStatus === false) return next('You must register for a premium account');
   let candidate = new Candidate(req.body);

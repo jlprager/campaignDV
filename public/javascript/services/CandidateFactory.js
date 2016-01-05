@@ -26,16 +26,6 @@
             return q.promise;
         };
 
-        o.dailyClear = function() {
-          var q = $q.defer();
-          $http.put('/api/v1/candidates/clear').then(function(res) {
-            q.resolve(res.data);
-          }, function(err) {
-            q.reject();
-          });
-          return q.promise;
-        };
-
         return o;
     }
 })();

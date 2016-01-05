@@ -12,12 +12,12 @@ let passport = require("passport");
 let session = require('express-session');
 let sentiment = require('sentiment');
 let stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KEY);
+let dailyTimer = require('./timer.js');
 
 require("./models/user");
 require('./models/candidate');
 require('./models/tweet');
 require('./models/comment');
-require('./models/dailyStats');
 require("./config/passport");
 let Candidate = mongoose.model("Candidate");
 mongoose.connect(process.env.MONGO_URL);
@@ -61,7 +61,7 @@ app.get('/*', function(req, res) {
     res.render('index');
 });
 
-
+dailyTimer();
 
 //START OF TWEET STREAM
 
