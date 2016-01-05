@@ -9,20 +9,15 @@ let GOOGLE_SCOPES = ['https://www.googleapis.com/auth/userinfo.email', 'https://
 let stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KEY);
 
 router.post('/charge', (req, res, next) => {
-  console.log(req.body);
-  console.log(res);
   stripe.charges.create({
     amount: 2000,
     currency: 'usd',
     source: req.body.token,
     description: 'One time account upgrade for user # ' + req.body.uuid,
   }, function(err, charge) {
-    console.log(charge);
     if (err) return next(err);
-
       User.findOneAndUpdate({uuid: req.body.uuid}, {premiumStatus: true}, function(err, user) {
         if (err) throw err;
-        console.log(user);
         res.end();
       });    
   })
