@@ -26,6 +26,11 @@ html, button, input, select, textarea,
 	margin-bottom: 5px;
 }
 
+#companyName {
+	text-align: left;
+	padding-left: 10px;
+}
+
 button {
 	background-color: rgba(0, 0, 0, 0) !important;
 }
@@ -33,6 +38,13 @@ button {
 ul {
 	background-color: rgba(0, 0, 0, 0) !important;
 }
+
+/*#THISUL li {
+	text-align: center;
+	border-bottom: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+}*/
 
 #demCandidate {
 	background-color: #98B6EC;
@@ -57,6 +69,8 @@ ul {
 
 #btnMenu {
 	margin-top: 5px;
+	text-align: right;
+	padding-right: 10px;
 }
 
 #multiViz {
@@ -84,4 +98,12 @@ ul {
 .tweet-stream-div {
 	margin-top: 0px;
 	margin-bottom: 0px;
+}
+
+footer {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	margin-bottom: 10px;
+	text-align: center;
 }
