@@ -76,9 +76,9 @@ tweetReset();
 //START OF TWEET STREAM
 
 //tracked hashtags
-var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", "#Trump2016", "#WhyISupportTrump", "#backtowork", "#1DHistoryVideo", "#StolenOnStolen"];
+var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", "#Trump2016", "#WhyISupportTrump", "Oculus Rift", "#1DHistoryVideo", "#StolenOnStolen"];
 
-var bernieTags = ["#bernie2016", "#feelthebern", "#backtowork"];
+var bernieTags = ["#bernie2016", "#feelthebern", "oculus rift"];
 var clintonTags = ["#hillary2016", "#clinton2016", "#1dhistoryvideo"];
 var trumpTags = ["#trump2016", "#whyisupporttrump", "#stolenonstolen"];
 
@@ -86,7 +86,7 @@ var berniePos = ["#bernie2016", "#feelthebern"];
 var clintonPos = ["#hillary2016", "#clinton2016"];
 var trumpPos = ["#trump2016", "#whyisupporttrump"];
 
-var bernieNeg = ["#backtowork"];
+var bernieNeg = ["oculus rift"];
 var clintonNeg = ["#1dhistoryvideo"];
 var trumpNeg = ["#stolenonstolen"];
 
