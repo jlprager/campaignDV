@@ -9,7 +9,7 @@ module.exports = function() {
 
   function timer() {
       console.log('database reset initiated');
-      setTimeout(function() {
+      setInterval(function() {
 
         // -------------------------------------------------------
         // ---------------------BERNIE----------------------------
@@ -76,12 +76,13 @@ module.exports = function() {
         // -------------------------------------------------------
         // ----------------------TWEETS---------------------------
         // -------------------------------------------------------
-        Tweet.remove({}, (err, result) => {
-          if(err) console.log(err);
+        let ten = new Date(new Date().getTime() - (10 * 60 * 1000));
+        Tweet.remove({ created_at: { $lt: ten } }, (err, result) => {
+            if(err) console.log(err);
+            if(!result) return('Could not delete tweets older than 10 minutes.');
         });
+        console.log('Tweet collection deleted');
 
-
-          timer();
       }, 30000);
   }
 

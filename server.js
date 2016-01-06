@@ -67,7 +67,7 @@ app.get('/*', function(req, res) {
     res.render('index');
 });
 
-tweetReset();
+// tweetReset();
 
 // dailyTimer();
 
@@ -76,7 +76,7 @@ tweetReset();
 //START OF TWEET STREAM
 
 //tracked hashtags
-var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", "#Trump2016", "#WhyISupportTrump", "Oculus Rift", "#1DHistoryVideo", "#StolenOnStolen"];
+/*var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", "#Trump2016", "#WhyISupportTrump", "Oculus Rift", "#1DHistoryVideo", "#StolenOnStolen"];
 
 var bernieTags = ["#bernie2016", "#feelthebern", "oculus rift"];
 var clintonTags = ["#hillary2016", "#clinton2016", "#1dhistoryvideo"];
@@ -434,7 +434,7 @@ var waitForTweets = function(db) {
         }
 
     })
-};
+};*/
 
 
 
