@@ -2,15 +2,21 @@
 <h1 style="text-align: center;margin-top: 5%;"><i>Registration</i></h1>
 <form id="registration" class="pure-form pure-form-aligned" ng-submit="nav.register();">
     <fieldset>
-        <label for="email">Email</label>
+        <label>Email</label>
         <div class="pure-control-group">
-            <input id="email" type="email" ng-model="nav.user.email" placeholder="Email Required" required>
+            <input type="email" ng-model="nav.user.email" placeholder="Email Required">
         </div>
-        <label for="password">Password</label>
+        <label>Password</label>
         <div class="pure-control-group">
-            <input id="password" type="password" ng-model="nav.user.password" placeholder="Password Required" required>
+            <input type="password" ng-model="nav.user.password" placeholder="Password Required">
         </div>
         <button type="submit" class="pure-button pure-button-active">Register</button>
     </fieldset>
 </form>
 </div>
+
+<!-- <form ng-submit="nav.register();">
+<input type="text" ng-model="nav.user.email" placeholder="Email">
+<input type="text" ng-model="nav.user.password" placeholder="Password">
+<button type="submit">Sign in</button>
+</form> -->
