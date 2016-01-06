@@ -158,3 +158,5 @@ footer {
 .mainContent {
     height: 80%;
 }
+
+.clickable {cursor: pointer;}
