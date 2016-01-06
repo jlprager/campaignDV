@@ -3,7 +3,6 @@ angular.module("app").directive("myFooter", function() {
     restrict: 'A',
     templateUrl: '../templates/partials/footer.html',
     scope: true,
-    transclude : false,
-    controller: "GlobalController as vm"
+    transclude : false
     };
 });
