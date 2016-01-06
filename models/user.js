@@ -9,6 +9,7 @@ let UserSchema = new mongoose.Schema({
 	// email : String,
 	comments: [{ type : mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 	candidates: { type : mongoose.Schema.Types.ObjectId, ref: "Candidate"},
+	charges: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Invoice'}],
 	premiumStatus: { type : Boolean, default : false },
 	politicalLeaning: String,
 	UScitizen: Boolean,

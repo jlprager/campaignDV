@@ -19,6 +19,7 @@ require("./models/user");
 require('./models/candidate');
 require('./models/tweet');
 require('./models/comment');
+require('./models/invoice');
 require("./config/passport");
 let Candidate = mongoose.model("Candidate");
 mongoose.connect(process.env.MONGO_URL);
@@ -51,6 +52,7 @@ let candidateRoutes = require('./routes/candidateRoutes');
 let commentRoutes = require('./routes/commentRoutes');
 let tweetRoutes = require('./routes/tweetRoutes');
 let emailRoutes = require('./routes/emailRoutes');
+let invoiceRoutes = require('./routes/invoiceRoutes');
 let smsRoutes = require('./routes/smsRoutes');
 
 app.use('/api/v1/users/', userRoutes);
@@ -58,6 +60,7 @@ app.use('/api/v1/candidates/', candidateRoutes);
 app.use('/api/v1/comments/', commentRoutes);
 app.use('/api/v1/tweets/', tweetRoutes);
 app.use('/api/v1/contact/', emailRoutes);
+app.use('/api/v1/invoice/', invoiceRoutes);
 app.use('/api/v1/sms/', smsRoutes);
 
 app.get('/*', function(req, res) {
