@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
     let timer = new Date(new Date().getTime() - (5 * 60 * 1000));
     Tweet.find({ created_at: { $gte: timer } }).exec((err, result) => {
         if(err) return next(err);
-        if(!result) return('Unable to pull the last 5 minutes of tweets')
+        if(!result) return('Unable to pull the last 5 minutes of tweets');
         res.send(sentimentByCandidate(result));
     });
 });
