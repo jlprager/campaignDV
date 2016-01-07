@@ -8,7 +8,9 @@ let CandidateSchema = new mongoose.Schema({
 	dailyRating: {
 		posTweets: Number,
 		totalTweets: Number
-	}
+	},
+	comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]
+
 });
 
 module.exports = mongoose.model("Candidate", CandidateSchema);

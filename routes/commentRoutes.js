@@ -52,7 +52,7 @@ router.delete('/:id', (req, res, next) => {
   });
 });
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', auth, (req, res, next) => {
   if(!req.body.message) return next('Comment field is empty');
   Comment.update({ _id : req.params.id }, { message : req.body.message }, (err, result) => {
     if(err) return next(err);

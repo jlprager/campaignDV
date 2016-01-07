@@ -12,33 +12,6 @@ let auth = jwt({
   secret: process.env.JWTsecret
 })
 
-router.post('/charge', auth, (req, res, next) => {
-  // console.log('########req.header#######');
-  // console.log(req.header);
-  // console.log('#############END OF REQ.HEADER############')
-  // console.log('########req.body#######');
-  // console.log(req.body);
-  // console.log('#############END OF REQ.BODY############')
-  // console.log('#######req######');
-  // console.log(req);
-  // console.log('##########End Of REQ#########')
-  stripe.charges.create({
-    amount: 2000,
-    currency: 'usd',
-    source: req.body.token,
-    description: 'One time account upgrade for user # ' + req.body.uuid,
-  }, function(err, charge) {
-    console.log('########CHARGE########');
-    console.log(charge); 
-    console.log('###########END OF CHARGE#######');
-    if (err) return next(err);
-      User.findOneAndUpdate({uuid: req.body.uuid}, {premiumStatus: true}, function(err, user) {
-        if (err) throw err;
-        res.end();
-      });    
-  })
-});
-
 router.get("/auth/facebook", passport.authenticate("facebook", {
   scope: ['email']
 }));
@@ -100,6 +73,21 @@ router.post('/login', (req, res, next) => {
     res.send({ token : user.generateJWT() });
   })(req, res, next);
 });
+
+// router.post('/charge', auth, (req, res, next) => {
+//   stripe.charges.create({
+//     amount: 2000,
+//     currency: 'usd',
+//     source: req.body.token,
+//     description: 'One time account upgrade for user # ' + req.body.uuid,
+//   }, function(err, charge) {
+//     if (err) return next(err);
+//       User.findOneAndUpdate({uuid: req.body.uuid}, {premiumStatus: true}, function(err, user) {
+//         if (err) throw err;
+//         res.end();
+//       });    
+//   })
+// });
 
 
 module.exports = router;

@@ -36,8 +36,6 @@
 		o.removeToken = function(){
 			$window.localStorage.removeItem("token");
 			o.status._id = null;
-			o.status.steamID = null;
-			o.status.displayName = null;
 			o.status.uuid = null;
 			o.status.premiumStatus = null;
 		};
@@ -46,7 +44,6 @@
 			var token = JSON.parse(atob(o.getToken().split(".")[1]));
 			o.status._id = token._id;
 			o.status.email = token.email;
-			o.status.displayName = token.displayName;
 			o.status.uuid = token.uuid;
 			o.status.premiumStatus = token.premiumStatus;
 		};

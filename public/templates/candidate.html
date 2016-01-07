@@ -29,3 +29,25 @@
         </div>
     </div>
 </div>
+<div>
+<h2>&nbsp;&nbsp;&nbsp;What Do You Think?</h2>
+<form ng-submit='vm.createComment()' >
+    &nbsp;<input type='text' ng-model='vm.comment' placeholder='Write a comment...'>
+    <input type='submit' >
+</form>
+</div>
+<hr>
+<div ng-repeat='comment in vm.candidate.comments'>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;{{comment.message}}</p>
+    <div ng-show='nav.status._id === comment.user'>
+    &nbsp;<button ng-click='vm.deleteComment(comment)'>Delete</button>
+    <button ng-show='nav.status._id === comment.user' ng-click='vm.showUpdate(comment)'>Update Comment</button>
+    <form ng-show="vm.isEditing" ng-submit='vm.updateComment(comment)'>
+        <input type='text' ng-model='vm.editedComment.message'>
+        <input type='submit'>
+    </form>
+
+</div>
+<hr>
+
+
