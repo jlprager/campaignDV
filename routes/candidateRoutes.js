@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/presidential', (req, res, next) => {
-  Candidate.find({ $or: [ { name: 'Bernie Sanders' }, { name: 'Hillary Clinton' }, { name: 'Donald Trump' }, { name: 'Jeb Bush' } ] }).exec((err, result) => {
+  Candidate.find({ $or: [ { name: 'Bernie Sanders' }, { name: 'Hillary Clinton' }, { name: 'Donald Trump' }, { name: 'Temp' } ] }).exec((err, result) => {
     if(err) return next(err);
     if(!result) return('Could not find presidential candidates.');
     res.send(result);
