@@ -8,7 +8,11 @@
 
 		o.deleteComment = function(commentId) {
 			var q = $q.defer();
-			$http.delete('/api/v1/comments/' + commentId).then(function(res) {
+			$http.delete('/api/v1/comments/' + commentId,{
+				headers: {
+					authorization: 'Bearer ' + $window.localStorage.getItem('token')
+				}
+			}).then(function(res) {
 				q.resolve(res.data);
 				}, function(err) {
 					q.reject();

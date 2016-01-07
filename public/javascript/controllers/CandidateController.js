@@ -7,14 +7,74 @@
         var vm = this;
         vm.tweets;
         vm.timeoutHandler;
-        var candidateName;
         vm.comments;
         vm.isEditing = false;
-
+        let candidateName;
+        let dailyTotals = [], dailyDates = [];
 
         CandidateFactory.getCandidateById($stateParams.id).then(function(res) {
             vm.candidate = res;
             candidateName = res.name;
+            for (var i = 0; i < res.favorRatingTotals.length; i++) {
+              dailyTotals.push(res.favorRatingTotals[i].percentage * 100);
+              dailyDates.push(res.favorRatingTotals[i].date);
+            }
+
+            // -------------------------------------------------------
+            // ---------------------D3 VIZ----------------------------
+            // -------------------------------------------------------
+
+            // define graph dimensions
+            let m = [80, 80, 80, 80]; // margins
+            let w = 1000 - m[1] - m[3]; // width
+            let h = 400 - m[0] - m[2]; // height
+
+            // X scale will fit all values from dailyTotals[] within pixels 0-w
+            let x = d3.scale.linear().domain([0, dailyTotals.length - 1]).range([0, w]);
+            // Y scale will fit values from 0-100 within pixels h-0
+            let y = d3.scale.linear().domain([0, 100]).range([h, 0]);
+
+            // create a line function that can convert dailyTotals[] into x and y points
+            let line = d3.svg.line()
+                  .x(function(d,i) {
+                    return x(i);
+                  })
+                  .y(function(d) {
+                    return y(d);
+                  })
+
+            // Add an SVG(scalable vector graphics) element with the desired dimensions and margin.
+            let graph = d3.select("#dailyViz").append("svg:svg")
+                  .attr("width", w + m[1] + m[3])
+                  .attr("height", h + m[0] + m[2])
+                  .append("svg:g")
+                  .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+            let formatDate = function(d) {
+                return dailyDates[d];
+            }
+
+            // create xAxis
+            let xAxis = d3.svg.axis()
+                  .scale(x)
+                  .orient("bottom")
+                  .tickFormat(formatDate)
+                  .tickSize(-h);
+            // Add the x-axis.
+            graph.append("svg:g")
+                  .attr("class", "x axis")
+                  .attr("transform", "translate(0," + h + ")")
+                  .call(xAxis);
+            // create yAxis, use orient to put it on left side of graph
+            let yAxis = d3.svg.axis().scale(y).ticks(5).orient("left");
+            // Add the y-axis to the left, position with translate parameters
+            graph.append("svg:g")
+                  .attr("class", "y axis")
+                  .attr("transform", "translate(-25,0)")
+                  .call(yAxis);
+
+            graph.append("svg:path").attr("d", line(dailyTotals));
+
         }, function(err) {
             //
         });
@@ -75,7 +135,7 @@
         };
 
         vm.showUpdate = function(comment) {
-            vm.isEditing = true;
+            vm.isEditing = comment._id;
             // vm.commentToEdit = comment;
             vm.editedComment = angular.copy(comment);
         };
@@ -88,7 +148,7 @@
             CommentFactory.updateComment(vm.editedComment, comment).then(function(res){
                 vm.candidate.comments.splice(vm.candidate.comments.indexOf(comment), 1);
                 vm.candidate.comments.unshift(vm.editedComment);
-                vm.isEditing = false;
+                vm.isEditing = null;
                 vm.editedComment = null;
             }, function(err) {
                 alert('could not update comment');

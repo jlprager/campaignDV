@@ -11,7 +11,7 @@
 		vm.bernie;
 		vm.clinton;
 		vm.trump;
-		vm.bush;
+		vm.temp;
 
 		CandidateFactory.getPresidentialCandidates().then(function(res) {
 			vm.candidates = res;
@@ -27,28 +27,28 @@
 		// Updating client side every 15 seconds(this function). Pulling from last 5 minutes of data(tweetRoutes.js)
 		(function tick() {
 			TweetFactory.getRecentTweets().then(function(res) {
-				console.log(res);
+				// console.log(res);
 				vm.bernie = res.bernie;
 				vm.clinton = res.clinton;
 				vm.trump = res.trump;
-				vm.bush = res.bush;
+				vm.temp = res.temp;
 
 			var bernieImg = 100;
 			var hillaryImg = 100;
 			var trumpImg = 100;
-			var bushImg = 100;
+			var tempImg = 100;
 			var bernieResize = res.bernie/5;
 			var hillaryResize = res.clinton/5;
 			var trumpResize = res.trump/5;
-			var bushResize = res.bush/5;
+			var tempResize = res.temp/5;
 			bernieImg = (bernieImg + (bernieImg * bernieResize));
 			hillaryImg = (hillaryImg + (hillaryImg * hillaryResize));
 			trumpImg = (trumpImg + (trumpImg * trumpResize));
-			bushImg = (bushImg + (bushImg * bushResize));
+			tempImg = (tempImg + (tempImg * tempResize));
 			document.getElementById("bernie").height = bernieImg;
 			document.getElementById("hillary").height = hillaryImg;
 			document.getElementById("trump").height = trumpImg;
-			document.getElementById("bush").height = bushImg;
+			document.getElementById("temp").height = tempImg;
 
 				vm.timeoutHandler = $timeout(tick, 15000);
 

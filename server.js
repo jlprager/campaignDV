@@ -67,7 +67,7 @@ app.get('/*', function(req, res) {
     res.render('index');
 });
 
-tweetReset();
+// tweetReset();
 
 // dailyTimer();
 
@@ -76,20 +76,23 @@ tweetReset();
 //START OF TWEET STREAM
 
 //tracked hashtags
-/*var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", "#Trump2016", "#WhyISupportTrump", "Oculus Rift", "#1DHistoryVideo", "#StolenOnStolen"];
+
+var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", "#Trump2016", "#WhyISupportTrump", "Oculus Rift", "#1DHistoryVideo", "#StolenOnStolen", "#SandraBland", "#SELFIEFORSEB"];
 
 var bernieTags = ["#bernie2016", "#feelthebern", "oculus rift"];
 var clintonTags = ["#hillary2016", "#clinton2016", "#1dhistoryvideo"];
 var trumpTags = ["#trump2016", "#whyisupporttrump", "#stolenonstolen"];
+var tempTags = ["#sandrabland", "#selfieforseb"]
 
 var berniePos = ["#bernie2016", "#feelthebern"];
 var clintonPos = ["#hillary2016", "#clinton2016"];
 var trumpPos = ["#trump2016", "#whyisupporttrump"];
+var tempPos = ["#sandrabland"]
 
 var bernieNeg = ["oculus rift"];
 var clintonNeg = ["#1dhistoryvideo"];
 var trumpNeg = ["#stolenonstolen"];
-
+var tempNeg = ["#selfieforseb"];
 
 
 //array of overall tags
@@ -102,6 +105,8 @@ var clintonCount;
 var clintonPos;
 var trumpCount;
 var trumpPos;
+var tempCount;
+var tempPos;
 
 var Twit = require("twit");
 
@@ -178,6 +183,20 @@ var waitForTweets = function(db) {
     donald.save(function(err, donald) {
         if (err) return console.error(err)
         console.log("INIT " + donald.name);
+    });
+
+    var temp = new Candidate({
+        name: "Temp",
+        sentiment: 0,
+        dailyRaiting: {
+            posTweets: 0,
+            totalTweets: 0
+        }
+    })
+
+    temp.save(function(err, donald) {
+        if(err) return console.log(err)
+            console.log("INIT" + temp.name);
     });
 
     var stream = T.stream("statuses/filter", {
@@ -359,6 +378,7 @@ var waitForTweets = function(db) {
                 });
             }
         }
+
         for (var i = 0; i < trumpPos.length; i++) {
             //set to lowercase and compare
             if (data.text.toLowerCase().match(trumpPos[i])) {
@@ -433,10 +453,82 @@ var waitForTweets = function(db) {
             }
         }
 
+        for (var i = 0; i < tempPos.length; i++) {
+            //set to lowercase and compare
+            if (data.text.toLowerCase().match(tempPos[i])) {
+                sentiment(data.text, function(err, result) {
+                    if (result.score >= 0) {
+
+                        console.log("Saving to POSITIVE TEMP")
+                            //create new tweet
+                        var tweet = new Tweet({
+                            candidate: "Temp",
+                            user: data.user.screen_name,
+                            description: data.text,
+                            sentiment: result.score,
+                            created_at: data.created_at
+                        });
+
+                        //increment count (total count of tweets w/ bernieTags)
+                        tempCount++;
+                        tempPos++;
+
+                        Candidate.update({ name: 'Temp' }, { $inc: { 'dailyRating.posTweets':1}}, (err, res) => {
+                          if (err) console.log(err);
+                        });
+                        Candidate.update({ name: 'Temp' }, { $inc: { 'dailyRating.totalTweets':1}}, (err, res) => {
+                          if (err) console.log(err);
+                        });
+
+                        //save
+                        tweet.save(function(err, tweet) {
+                            if (err) return console.error(err)
+                            console.log(tweet.candidate + " (" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
+                            console.log("");
+                        });
+                    }
+                });
+            }
+        }
+
+        //iterates through bernieTags
+        for (var i = 0; i < tempNeg.length; i++) {
+            //set to lowercase and compare
+            if (data.text.toLowerCase().match(tempNeg[i])) {
+                sentiment(data.text, function(err, result) {
+                    if (result.score < 0) {
+                        console.log("Saving to NEGATIVE TEMP")
+                            //create new tweet
+                        var tweet = new Tweet({
+                            candidate: "Temp",
+                            user: data.user.screen_name,
+                            description: data.text,
+                            sentiment: result.score,
+                            created_at: data.created_at
+                        });
+
+                        //increment count (total count of tweets w/ bernieTags)
+                        tempCount++;
+
+                        Candidate.update({ name: 'Temp' }, { $inc: { 'dailyRating.totalTweets':1}}, (err, res) => {
+                          if (err) console.log(err);
+                        });
+
+                        //save
+                        tweet.save(function(err, tweet) {
+                            if (err) return console.error(err)
+                            console.log(tweet.candidate + " (" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
+                            console.log("");
+                        });
+
+                    }
+
+                });
+            }
+        }
+
     })
-};*/
-
-
+};
 
 app.use((err, req, res, next) => {
     if (process.env.NODE_ENV !== "test") {

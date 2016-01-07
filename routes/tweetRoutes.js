@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
     let timer = new Date(new Date().getTime() - (5 * 60 * 1000));
     Tweet.find({ created_at: { $gte: timer } }).exec((err, result) => {
         if(err) return next(err);
-        if(!result) return('Unable to pull the last 5 minutes of tweets')
+        if(!result) return('Unable to pull the last 5 minutes of tweets');
         res.send(sentimentByCandidate(result));
     });
 });
@@ -36,7 +36,7 @@ function sentimentByCandidate(tweets) {
     let bernie = [];
     let clinton = [];
     let trump = [];
-    let bush = [];
+    let temp = [];
 
     for (var i = 0; i < tweets.length; i++) {
         if (tweets[i].candidate === 'Bernie Sanders') {
@@ -50,6 +50,10 @@ function sentimentByCandidate(tweets) {
         else if (tweets[i].candidate === 'Donald Trump') {
             trump.push(tweets[i].sentiment);
         }
+
+        else if(tweets[i].candidate === "Temp") {
+            temp.push(tweets[i].sentiment);
+        }
     }
 
 
@@ -57,7 +61,7 @@ function sentimentByCandidate(tweets) {
         bernie: averageSentiment(bernie),
         clinton: averageSentiment(clinton),
         trump: averageSentiment(trump),
-        bush: averageSentiment(bush)
+        temp: averageSentiment(temp)
     }
 }
 
