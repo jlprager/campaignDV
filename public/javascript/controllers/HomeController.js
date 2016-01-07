@@ -27,7 +27,7 @@
 		// Updating client side every 15 seconds(this function). Pulling from last 5 minutes of data(tweetRoutes.js)
 		(function tick() {
 			TweetFactory.getRecentTweets().then(function(res) {
-				console.log(res);
+				// console.log(res);
 				vm.bernie = res.bernie;
 				vm.clinton = res.clinton;
 				vm.trump = res.trump;

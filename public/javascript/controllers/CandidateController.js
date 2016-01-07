@@ -7,14 +7,15 @@
         var vm = this;
         vm.tweets;
         vm.timeoutHandler;
-        var candidateName;
-        let dailyTotals = [];
+        let candidateName;
+        let dailyTotals = [], dailyDates = [];
 
         CandidateFactory.getCandidateById($stateParams.id).then(function(res) {
             vm.candidate = res;
             candidateName = res.name;
             for (var i = 0; i < res.favorRatingTotals.length; i++) {
               dailyTotals.push(res.favorRatingTotals[i].percentage * 100);
+              dailyDates.push(res.favorRatingTotals[i].date);
             }
 
             // -------------------------------------------------------
@@ -47,8 +48,16 @@
                   .append("svg:g")
                   .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
+            let formatDate = function(d) {
+                return dailyDates[d];
+            }
+
             // create xAxis
-            let xAxis = d3.svg.axis().scale(x).tickSize(-h);
+            let xAxis = d3.svg.axis()
+                  .scale(x)
+                  .orient("bottom")
+                  .tickFormat(formatDate)
+                  .tickSize(-h);
             // Add the x-axis.
             graph.append("svg:g")
                   .attr("class", "x axis")

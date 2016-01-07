@@ -18,7 +18,7 @@ module.exports = function() {
           if (err) console.log(err);
           let posTweetsB = result.dailyRating.posTweets;
           let totalTweetsB = result.dailyRating.totalTweets;
-          let bernieRating = { percentage : (posTweetsB/totalTweetsB), total : totalTweetsB, date : (new Date().toJSON().slice(0,10))};
+          let bernieRating = { percentage : (posTweetsB/totalTweetsB), total : totalTweetsB, date : (new Date().toJSON().slice(5,10))};
 
             Candidate.update({ name: "Bernie Sanders" }, { $push : { 'favorRatingTotals': bernieRating }}, (err, result) => {
               if (err) console.log(err);
@@ -38,7 +38,7 @@ module.exports = function() {
           if (err) console.log(err);
           let posTweetsC = result.dailyRating.posTweets;
           let totalTweetsC = result.dailyRating.totalTweets;
-          let clintonRating = { percentage : (posTweetsC/totalTweetsC), total : totalTweetsC, date : (new Date().toJSON().slice(0,10))};
+          let clintonRating = { percentage : (posTweetsC/totalTweetsC), total : totalTweetsC, date : (new Date().toJSON().slice(5,10))};
 
             Candidate.update({ name: "Hillary Clinton" }, { $push : { 'favorRatingTotals': clintonRating }}, (err, result) => {
               if (err) console.log(err);
@@ -59,7 +59,7 @@ module.exports = function() {
           if (err) console.log(err);
           let posTweetsT = result.dailyRating.posTweets;
           let totalTweetsT = result.dailyRating.totalTweets;
-          let trumpRating = { percentage : (posTweetsT/totalTweetsT), total : totalTweetsT, date : (new Date().toJSON().slice(0,10))};
+          let trumpRating = { percentage : (posTweetsT/totalTweetsT), total : totalTweetsT, date : (new Date().toJSON().slice(5,10))};
 
             Candidate.update({ name: "Donald Trump" }, { $push : { 'favorRatingTotals': trumpRating }}, (err, result) => {
               if (err) console.log(err);
