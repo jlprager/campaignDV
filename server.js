@@ -71,10 +71,10 @@ app.get('/*', function(req, res) {
 
 // dailyTimer();
 
-
+/*
 
 //START OF TWEET STREAM
-/*
+
 //tracked hashtags
 var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", "#Trump2016", "#WhyISupportTrump", "Oculus Rift", "#1DHistoryVideo", "#StolenOnStolen", "#SandraBland", "#SELFIEFORSEB"];
 
@@ -527,7 +527,9 @@ var waitForTweets = function(db) {
         }
 
     })
-};*/
+};
+
+*/
 
 
 

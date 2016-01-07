@@ -2,7 +2,7 @@
     <div class="pure-g contact" style="margin-top: 5%;">
         <div class="pure-u-1-2">
             <h1>Email Us</h1>
-            <form class="pure-form pure-form-aligned" ng-submit="vm.sendMail();">
+            <form class="pure-form pure-form-aligned" ng-submit="vm.sendMail()">
                 <fieldset>
                     <div class="pure-control-group">
                         <input class="pure-input-1-2" id="name" type="text" ng-model="vm.contactName" placeholder="Name">
@@ -14,7 +14,7 @@
                     <textarea class="pure-input-1-2" id="message" type="textbox" ng-model="vm.contactMsg" placeholder="Message"></textarea>
                     </div>
                 </fieldset>
-                <button type="submit" class="pure-button pure-button-active">Send Email</button>
+                <button class="pure-button pure-button-active">Send Email</button>
             </form>
         </div>
         <div class="pure-u-1-2">
@@ -37,3 +37,6 @@
         <div class="pure-u-1-4"></div>
     </div>
 </div>
+
+
+

@@ -9,7 +9,6 @@
         o.getRecentTweets = function() {
             var q = $q.defer();
             $http.get('/api/v1/tweets').then(function(res) {
-                console.log(res.data)
                 q.resolve(res.data);
             }, function(err) {
                 q.reject();
