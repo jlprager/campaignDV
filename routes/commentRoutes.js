@@ -38,7 +38,7 @@ router.post('/:id', auth, (req, res, next) => {
   });
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', auth, (req, res, next) => {
   Comment.remove({ _id : req.params.id }, (err, result) => {
     if(err) return next(err);
     Candidate.findOneAndUpdate({ 'comments' : req.params.id }, { $pull : { comments : req.params.id }}, (err, result) => {
@@ -52,7 +52,7 @@ router.delete('/:id', (req, res, next) => {
   });
 });
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', auth, (req, res, next) => {
   if(!req.body.message) return next('Comment field is empty');
   Comment.update({ _id : req.params.id }, { message : req.body.message }, (err, result) => {
     if(err) return next(err);

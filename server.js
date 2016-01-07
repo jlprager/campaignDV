@@ -76,6 +76,7 @@ app.get('/*', function(req, res) {
 //START OF TWEET STREAM
 
 //tracked hashtags
+
 var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", "#Trump2016", "#WhyISupportTrump", "Oculus Rift", "#1DHistoryVideo", "#StolenOnStolen", "#SandraBland", "#SELFIEFORSEB"];
 
 var bernieTags = ["#bernie2016", "#feelthebern", "oculus rift"];
@@ -528,10 +529,7 @@ var waitForTweets = function(db) {
 
     })
 };
-
 */
-
-
 
 app.use((err, req, res, next) => {
     if (process.env.NODE_ENV !== "test") {
