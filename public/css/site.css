@@ -164,3 +164,33 @@ footer {
 }
 
 .clickable {cursor: pointer;}
+
+
+/*----------------------------------
+--------D3 CHART STYLING------------
+-----------------------------------*/
+
+path {
+	stroke: green;
+	stroke-width: 5;
+	fill: none;
+}
+
+.axis {
+	shape-rendering: crispEdges;
+}
+.x.axis line {
+	stroke: darkgrey;
+}
+.x.axis .minor {
+	stroke-opacity: .5;
+}
+.x.axis path {
+	display: none;
+}
+.y.axis line, .y.axis path {
+	fill: none;
+	stroke: #000;
+}
+
+/*---------------------------------*/
