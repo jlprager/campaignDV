@@ -21,18 +21,21 @@
                         <div class="pure-u-1">
                             {{tweet.description}}
                         </div>
-                    </div>    
+                    </div>
                 </li>
             </ul>
         </div>
     </div>
-    <div>
+    <div ng-show="nav.status._id">
         <h2>&nbsp;&nbsp;&nbsp;What Do You Think?</h2>
         <form ng-submit='vm.createComment()'>
             &nbsp;
             <input type='text' ng-model='vm.comment' placeholder='Write a comment...'>
             <input type='submit'>
         </form>
+    </div>
+    <div ng-show="!nav.status._id">
+        <h2>&nbsp;&nbsp;&nbsp;<a ui-sref="Log">Sign in</a> to leave a comment.</h2>
     </div>
     <hr>
     <div ng-repeat='comment in vm.candidate.comments'>
@@ -48,4 +51,4 @@
         </div>
         <hr>
     </div>
-</div>    
+</div>
