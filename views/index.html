@@ -36,7 +36,7 @@
                             <button ui-sref="Home" class="pure-button pure-button-active"><i class="fa fa-home"></i></button>
                         </li>
                         <li class="pure-menu-item pure-menu-selected" ng-show='!nav.status._id'>
-                            <button ui-sref="Reg" class="pure-button pure-button-active">Register</button>
+                            <button class="pure-button pure-button-active" ng-click="nav.registerAlert();">Register</button>
                         </li>
                         <li class="pure-menu-selected pure-menu-item pure-menu-has-children pure-menu-allow-hover" ng-show='!nav.status._id'>
                             <button class="pure-menu-link pure-button pure-button-active">Sign In</button>
