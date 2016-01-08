@@ -36,7 +36,7 @@ router.post('/send', (req, res, next) => {
         twilio.sendMessage({
             to: phoneScrub(req.body.phoneNumber),
             from: process.env.TWILIO_PHONE_NUMBER,
-            body: 'Hi, ' + req.body.firstName + '! Your message was successfully sent!'
+            body: 'Hi, ' + req.body.firstName + '! Your message to candiVison was successfully sent!'
         }, (err, confirmSMS) => {
             if(err) return next(err);
             if(!confirmSMS) return next('Unable to confirm delivery of your text.')

@@ -48,26 +48,6 @@
 			o.status.premiumStatus = token.premiumStatus;
 		};
 
-		o.postCharge = function(token){
-			var q = $q.defer();
-			var chargeObject = {};
-			chargeObject.uuid = o.status.uuid;
-			chargeObject.email = o.status.email;
-			chargeObject.token = token;
-			$http.post('api/v1/invoice/charge', chargeObject, {
-				headers: {
-					authorization: 'Bearer ' + $window.localStorage.getItem('token')
-				}
-			}).then(function (res) {
-				o.status.premiumStatus = true;
-				q.resolve(res.data);
-			},function(err) {
-				q.reject();
-			});
-			return q.promise;
-
-		};
-
 		if(o.getToken()) o.setUser();
 
 		return o;
