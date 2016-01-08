@@ -95,7 +95,7 @@
                 vm.timeoutHandler = undefined;
             }
         });
-        
+
         CommentFactory.getAllCandidateComments($stateParams.id).then(function(res) {
             vm.candidate = res;
             console.log(vm.candidate.comments);

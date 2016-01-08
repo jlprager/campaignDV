@@ -19,9 +19,9 @@
         //     // console.log(vm.user + "AAAAAA")
         // };
 
-
         vm.register = function() {
             UserFactory.register(vm.user).then(function(res) {
+                // $state.go('Home');
             });
         };
 
@@ -35,6 +35,5 @@
             UserFactory.removeToken();
             $state.go('Home');
         };
-
     }
 })();

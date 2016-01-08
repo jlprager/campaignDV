@@ -72,7 +72,7 @@ app.get('/*', function(req, res) {
 // dailyTimer();
 
 
-/*
+
 //START OF TWEET STREAM
 
 //tracked hashtags
@@ -140,7 +140,9 @@ db.once("open", function() {
 
 var waitForTweets = function(db) {
     var collection = db.collection("tweets");
-    mongoose.connection.db.dropCollection('candidates', function(err, result) {});
+    mongoose.connection.db.dropCollection('candidates', function(err, result) {
+        if(err) return next(err);
+    });
 
 
     var bernie = new Candidate({
@@ -151,7 +153,7 @@ var waitForTweets = function(db) {
           posTweets: 0,
           totalTweets: 0
         }
-    })
+    });
 
     bernie.save(function(err, bernie) {
         if (err) return console.error(err)
@@ -166,7 +168,7 @@ var waitForTweets = function(db) {
           posTweets: 0,
           totalTweets: 0
         }
-    })
+    });
 
     hillary.save(function(err, hillary) {
         if (err) return console.error(err)
@@ -181,7 +183,7 @@ var waitForTweets = function(db) {
           posTweets: 0,
           totalTweets: 0
         }
-    })
+    });
 
     donald.save(function(err, donald) {
         if (err) return console.error(err)
@@ -196,7 +198,7 @@ var waitForTweets = function(db) {
             posTweets: 0,
             totalTweets: 0
         }
-    })
+    });
 
     temp.save(function(err, donald) {
         if(err) return console.log(err)
@@ -206,7 +208,7 @@ var waitForTweets = function(db) {
     var stream = T.stream("statuses/filter", {
         track: startTags,
         language: "en"
-    })
+    });
 
     stream.on('connect', function(request) {
         console.log("connect")
@@ -534,7 +536,6 @@ var waitForTweets = function(db) {
     })
 };
 
-*/
 
 app.use((err, req, res, next) => {
     if (process.env.NODE_ENV !== "test") {
