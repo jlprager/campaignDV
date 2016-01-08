@@ -71,8 +71,8 @@ app.get('/*', function(req, res) {
 
 // dailyTimer();
 
-/*
 
+/*
 //START OF TWEET STREAM
 
 //tracked hashtags
@@ -144,6 +144,7 @@ var waitForTweets = function(db) {
 
 
     var bernie = new Candidate({
+        id: 1,
         name: "Bernie Sanders",
         sentiment: 0,
         dailyRating: {
@@ -158,6 +159,7 @@ var waitForTweets = function(db) {
     });
 
     var hillary = new Candidate({
+        id: 2,
         name: "Hillary Clinton",
         sentiment: 0,
         dailyRating: {
@@ -172,6 +174,7 @@ var waitForTweets = function(db) {
     });
 
     var donald = new Candidate({
+        id: 3,
         name: "Donald Trump",
         sentiment: 0,
         dailyRating: {
@@ -186,6 +189,7 @@ var waitForTweets = function(db) {
     });
 
     var temp = new Candidate({
+        id: 4,
         name: "Temp",
         sentiment: 0,
         dailyRaiting: {
@@ -529,6 +533,7 @@ var waitForTweets = function(db) {
 
     })
 };
+
 */
 
 app.use((err, req, res, next) => {

@@ -29,7 +29,7 @@ router.get('/presidential', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-  Candidate.findOne({ _id: req.params.id }).exec((err, result) => {
+  Candidate.findOne({ id: req.params.id }).exec((err, result) => {
     if(err) return next(err);
     if(!result) return('Could not find candidate.');
     res.send(result);

@@ -2,6 +2,7 @@
 let mongoose = require("mongoose");
 
 let CandidateSchema = new mongoose.Schema({
+	id: Number,
 	name: String,
 	sentiment: Number,
 	favorRatingTotals: [],

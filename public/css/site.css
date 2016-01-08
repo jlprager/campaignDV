@@ -51,7 +51,7 @@ textarea,
     padding-top: 0;
 }
 
-button {
+.pure-button {
     background-color: rgba(0, 0, 0, 0) !important;
 }
 

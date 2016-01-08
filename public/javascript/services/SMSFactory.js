@@ -22,6 +22,7 @@
 				q.resolve(res.data);
 			}, function(err) {
 				q.reject();
+				console.log(err)
 			});
 			return q.promise;
 		};

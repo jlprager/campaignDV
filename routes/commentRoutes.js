@@ -12,7 +12,7 @@ let auth = jwt({
 });
 
 router.get('/:id', (req, res, next) => {
-  Candidate.findOne({ _id: req.params.id })
+  Candidate.findOne({ id: req.params.id })
   .populate('comments')
   .exec((err, result) => {
     if(err) return next(err);

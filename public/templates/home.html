@@ -30,7 +30,7 @@
     </div>
     <div class="pure-g" id="multiVizBtn">
         <div class="pure-u-1-4 pure-u-md-1-4" ng-repeat="candidate in vm.candidates">
-            <button ui-sref="Candidate({id: candidate._id})" class="pure-button pure-button-active">See {{candidate.name}}</button>
+            <button ui-sref="Candidate({id: candidate.id})" class="pure-button pure-button-active">See {{candidate.name}}</button>
         </div>
     </div>
 </div>
