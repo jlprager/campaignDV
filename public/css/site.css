@@ -68,13 +68,14 @@ ul {
 }*/
 
 #demCandidate {
-    background-color: #98B6EC;
+    background-color: rgba(147, 201, 237, 1);
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     z-index: -1;
-    position: absolute;
+    position: fixed;
+    height: 100%;
 }
 
 #repCandidate {
@@ -84,7 +85,8 @@ ul {
     left: 0;
     right: 0;
     z-index: -1;
-    position: absolute;
+    position: fixed;
+    height: 100%;
 }
 
 #btnMenu {
@@ -129,7 +131,7 @@ ul {
 #bernie,
 #hillary,
 #trump,
-#temp {
+#rubio {
     margin-top: 50%;
     max-height: 250px !important;
     min-height: 20px !important;
@@ -141,9 +143,11 @@ ul {
 }
 
 footer {
+    position: relative;
     width: 100%;
     margin-bottom: 10px;
     text-align: center;
+    display: inline;
 }
 
 #registration {
@@ -160,6 +164,7 @@ footer {
 }
 
 .mainContent {
+    position: relative;
     height: 80%;
 }
 
