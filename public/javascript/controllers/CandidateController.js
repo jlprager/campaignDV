@@ -3,7 +3,7 @@
     angular.module('app')
     .controller('CandidateController', CandidateController);
 
-    function CandidateController($scope, $timeout, $stateParams, TweetFactory, CandidateFactory, CommentFactory, UserFactory) {
+    function CandidateController($scope, $timeout, $stateParams, $animate, TweetFactory, CandidateFactory, CommentFactory, UserFactory) {
         var vm = this;
         vm.tweets;
         vm.timeoutHandler;
@@ -27,13 +27,21 @@
         }
 
         vm.showDaily = function() {
-          vm.weekly = false;
-          vm.daily = true;
+          $scope.weeklyV = "animated bounceOutRight";
+          setTimeout(function(){
+            vm.weekly = false;
+            vm.daily = true;
+            $scope.dailyV = "animated bounceInLeft";
+          }, 60);
         }
 
         vm.showWeekly = function() {
-          vm.daily = false;
-          vm.weekly = true;
+          $scope.dailyV = "animated bounceOutLeft";
+          setTimeout(function(){
+            vm.daily = false;
+            vm.weekly = true;
+            $scope.weeklyV = "animated bounceInRight";
+          }, 60)
         }
 
         vm.runViz = function() {

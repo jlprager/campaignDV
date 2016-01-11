@@ -14,8 +14,8 @@
               <button type="button" ng-click="vm.showWeekly();">Show by Week</button>
             </div>
             <div id="vizWidth"></div>
-            <div ng-show="vm.daily" id="dailyViz" style="width:{{vm.width}} !important;"></div>
-            <div ng-show="vm.weekly" id="weeklyViz" style="width:{{vm.width}} !important;"></div>
+            <div ng-class="dailyV" ng-show="vm.daily" id="dailyViz" style="width:{{vm.width}} !important;"></div>
+            <div ng-class="weeklyV" ng-show="vm.weekly" id="weeklyViz" style="width:{{vm.width}} !important;"></div>
         </div>
 
         <div class="pure-u-1 pure-u-md-1-3">
