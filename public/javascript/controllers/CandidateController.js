@@ -151,6 +151,11 @@
                 currentWeek.date = day[6].date;
                 weeklyData.push(currentWeek); weeklyPercent.push(currentWeek.percentage);
                 weeklyDates.push(currentWeek.date)
+                  if(weeklyDates.length == 8){
+                    weeklyDates.shift();
+                    weeklyPercent.shift();
+                    weeklyData.shift();
+                  }
                 day = [], runningWeekPercent = 0;
               }
             }

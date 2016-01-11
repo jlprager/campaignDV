@@ -35,7 +35,7 @@
                 <input class="pure-u-23-24" type="number" id="donation-amount" ng-model='vm.donationAmount' required>
             </div>
             <br>
-            <div>
+              <div>
             <div class="pure-u-1 pure-u-md-1">
                 <label for="expiry-month">Month</label>
                 <select placeholder="expiration month" id="expiry" data-stripe="exp-month" payments-validate="expiry" name="expiry" class="pure-input-1">
@@ -55,7 +55,7 @@
             </div>
             <div class="pure-u-1 pure-u-md-1-2">
                 <label for="expiry-year">Year</label>
-                
+
                 <select placeholder="expiration year" id="expiry" data-stripe="exp-year" payments-validate="expiry" name="expiry">
                     <option>2016</option>
                     <option>2017</option>
@@ -97,4 +97,3 @@
     <div ng-if="checkoutForm.cvc.$invalid">
         Error: invalid cvc!
     </div>
-
