@@ -202,7 +202,7 @@ var waitForTweets = function(db) {
 
     rubio.save(function(err, rubio) {
         if(err) return console.log(err)
-            console.log("INIT" + rubio.name);
+            console.log("INIT " + rubio.name);
     });
 
     var stream = T.stream("statuses/filter", {
