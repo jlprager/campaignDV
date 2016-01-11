@@ -20,7 +20,6 @@
 				o.setToken(res.data.token);
 				q.resolve(res.data);
 			});
-			console.log(o.status)
 			return q.promise;
 		};
 
@@ -38,6 +37,7 @@
 			o.status._id = null;
 			o.status.uuid = null;
 			o.status.premiumStatus = null;
+			o.status.email = null;
 		};
 
 		o.setUser = function(){

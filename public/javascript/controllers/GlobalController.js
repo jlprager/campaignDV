@@ -21,13 +21,17 @@
 
         vm.register = function() {
             UserFactory.register(vm.user).then(function(res) {
-                // $state.go('Home');
+                $state.go('Home');
+                nav.user.password = null;
+                nav.user.email = null;
             });
         };
 
         vm.login = function() {
             UserFactory.login(vm.user).then(function(res) {
                 $state.go('Home');
+                vm.user.password = null;
+                vm.user.email = null;
             });
         };
 
