@@ -6,7 +6,7 @@ let uuid = require('node-uuid');
 
 let UserSchema = new mongoose.Schema({
 	uuid: { type : String, default : uuid.v4() },
-	// email : String,
+	email : String,
 	comments: [{ type : mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 	candidates: { type : mongoose.Schema.Types.ObjectId, ref: "Candidate"},
 	charges: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Invoice'}],

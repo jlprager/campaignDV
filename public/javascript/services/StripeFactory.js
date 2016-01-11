@@ -4,12 +4,14 @@
 	function StripeFactory($q, $http, $window, UserFactory){
 		var o = {};
 
-		o.postCharge = function(token){
+		o.postCharge = function(token, donationAmount){
 			var q = $q.defer();
 			var chargeObject = {};
 			chargeObject.uuid = UserFactory.status.uuid;
 			chargeObject.email = UserFactory.status.email;
 			chargeObject.token = token;
+			chargeObject.amount = donationAmount;
+			console.log(chargeObject);
 			$http.post('api/v1/invoice/charge', chargeObject, {
 				headers: {
 					authorization: 'Bearer ' + $window.localStorage.getItem('token')
