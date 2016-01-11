@@ -71,7 +71,7 @@ app.get('/*', function(req, res) {
 
 // dailyTimer();
 
-
+/*
 
 //START OF TWEET STREAM
 
@@ -82,21 +82,21 @@ var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", 
 var bernieTags = ["#bernie2016", "#feelthebern", "oculus rift"];
 var clintonTags = ["#hillary2016", "#clinton2016", "#1dhistoryvideo"];
 var trumpTags = ["#trump2016", "#whyisupporttrump", "#stolenonstolen"];
-var tempTags = ["#sandrabland", "#selfieforseb"]
+var rubioTags = ["#rubio2016", "#marco2016"]
 
 var berniePos = ["#bernie2016", "#feelthebern"];
 var clintonPos = ["#hillary2016", "#clinton2016"];
 var trumpPos = ["#trump2016", "#whyisupporttrump"];
-var tempPos = ["#sandrabland"]
+var rubioPos = ["#rubio2016"]
 
 var bernieNeg = ["oculus rift"];
 var clintonNeg = ["#1dhistoryvideo"];
 var trumpNeg = ["#stolenonstolen"];
-var tempNeg = ["#selfieforseb"];
+var rubioNeg = ["#selfieforseb"];
 
 
 //array of overall tags
-// var candidateTags = [bernieTags, clintonTags, trumpTags, bushTags];
+// var candidateTags = [bernieTags, clintonTags, trumpTags, rubioTags];
 
 //localcount storage
 var bernieCount;
@@ -105,8 +105,8 @@ var clintonCount;
 var clintonPos;
 var trumpCount;
 var trumpPos;
-var tempCount;
-var tempPos;
+var rubioCount;
+var rubioPos;
 
 var Twit = require("twit");
 
@@ -190,9 +190,9 @@ var waitForTweets = function(db) {
         console.log("INIT " + donald.name);
     });
 
-    var temp = new Candidate({
+    var rubio = new Candidate({
         id: 4,
-        name: "Temp",
+        name: "Marco Rubio",
         sentiment: 0,
         dailyRaiting: {
             posTweets: 0,
@@ -200,9 +200,9 @@ var waitForTweets = function(db) {
         }
     });
 
-    temp.save(function(err, donald) {
+    rubio.save(function(err, rubio) {
         if(err) return console.log(err)
-            console.log("INIT" + temp.name);
+            console.log("INIT" + rubio.name);
     });
 
     var stream = T.stream("statuses/filter", {
@@ -349,7 +349,6 @@ var waitForTweets = function(db) {
             }
         }
 
-        //iterates through bernieTags
         for (var i = 0; i < clintonNeg.length; i++) {
             //set to lowercase and compare
             if (data.text.toLowerCase().match(clintonNeg[i])) {
@@ -365,7 +364,6 @@ var waitForTweets = function(db) {
                           created_at: data.created_at
                       });
 
-                      //increment count (total count of tweets w/ bernieTags)
                       clintonCount++;
 
                       Candidate.update({ name: 'Hillary Clinton' }, { $inc : { 'dailyRating.totalTweets':1}}, (err, res) => {
@@ -401,7 +399,6 @@ var waitForTweets = function(db) {
                             created_at: data.created_at
                         });
 
-                        //increment count (total count of tweets w/ bernieTags)
                         trumpCount++;
                         trumpPos++;
 
@@ -423,7 +420,6 @@ var waitForTweets = function(db) {
             }
         }
 
-        //iterates through bernieTags
         for (var i = 0; i < trumpNeg.length; i++) {
             //set to lowercase and compare
             if (data.text.toLowerCase().match(trumpNeg[i])) {
@@ -439,7 +435,6 @@ var waitForTweets = function(db) {
                             created_at: data.created_at
                         });
 
-                        //increment count (total count of tweets w/ bernieTags)
                         trumpCount++;
 
                         Candidate.update({ name: 'Donald Trump' }, { $inc: { 'dailyRating.totalTweets':1}}, (err, res) => {
@@ -459,16 +454,16 @@ var waitForTweets = function(db) {
             }
         }
 
-        for (var i = 0; i < tempPos.length; i++) {
+        for (var i = 0; i < rubioPos.length; i++) {
             //set to lowercase and compare
             if (data.text.toLowerCase().match(tempPos[i])) {
                 sentiment(data.text, function(err, result) {
                     if (result.score >= 0) {
 
-                        console.log("Saving to POSITIVE TEMP")
+                        console.log("Saving to POSITIVE RUBIO")
                             //create new tweet
                         var tweet = new Tweet({
-                            candidate: "Temp",
+                            candidate: "Marco Rubio",
                             user: data.user.screen_name,
                             description: data.text,
                             sentiment: result.score,
@@ -476,13 +471,13 @@ var waitForTweets = function(db) {
                         });
 
                         //increment count (total count of tweets w/ bernieTags)
-                        tempCount++;
-                        tempPos++;
+                        rubioCount++;
+                        rubioPos++;
 
-                        Candidate.update({ name: 'Temp' }, { $inc: { 'dailyRating.posTweets':1}}, (err, res) => {
+                        Candidate.update({ name: 'Marco Rubio' }, { $inc: { 'dailyRating.posTweets':1}}, (err, res) => {
                           if (err) console.log(err);
                         });
-                        Candidate.update({ name: 'Temp' }, { $inc: { 'dailyRating.totalTweets':1}}, (err, res) => {
+                        Candidate.update({ name: 'Marco Rubio' }, { $inc: { 'dailyRating.totalTweets':1}}, (err, res) => {
                           if (err) console.log(err);
                         });
 
@@ -497,26 +492,24 @@ var waitForTweets = function(db) {
             }
         }
 
-        //iterates through bernieTags
-        for (var i = 0; i < tempNeg.length; i++) {
+        for (var i = 0; i < rubioNeg.length; i++) {
             //set to lowercase and compare
             if (data.text.toLowerCase().match(tempNeg[i])) {
                 sentiment(data.text, function(err, result) {
                     if (result.score < 0) {
-                        console.log("Saving to NEGATIVE TEMP")
+                        console.log("Saving to NEGATIVE RUBIO")
                             //create new tweet
                         var tweet = new Tweet({
-                            candidate: "Temp",
+                            candidate: "Marco Rubio",
                             user: data.user.screen_name,
                             description: data.text,
                             sentiment: result.score,
                             created_at: data.created_at
                         });
 
-                        //increment count (total count of tweets w/ bernieTags)
                         tempCount++;
 
-                        Candidate.update({ name: 'Temp' }, { $inc: { 'dailyRating.totalTweets':1}}, (err, res) => {
+                        Candidate.update({ name: 'Marco Rubio' }, { $inc: { 'dailyRating.totalTweets':1}}, (err, res) => {
                           if (err) console.log(err);
                         });
 
@@ -535,7 +528,7 @@ var waitForTweets = function(db) {
 
     })
 };
-
+*/
 
 app.use((err, req, res, next) => {
     if (process.env.NODE_ENV !== "test") {
