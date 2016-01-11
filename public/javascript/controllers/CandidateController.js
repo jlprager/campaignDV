@@ -14,47 +14,32 @@
         let weeklyData = [], weeklyPercent = [], weeklyDates = [];
         let day = [], week = [], runningWeekPercent = 0;
         let m = {top: 30, right: 80, bottom: 30, left: 80}; //margins
-        let vizWidth = document.getElementById('dailyViz').clientWidth;
-        let vizWidthWeekly = document.getElementById('weeklyViz').clientWidth;
+        let vizWidth = document.getElementById('vizWidth').clientWidth;
         vm.width = vizWidth - m.right - m.left;
-        vm.weeklyWidth = vizWidthWeekly - m.right - m.left;
         let myEl = angular.element( document.querySelector( '#dailyViz') );
         let myElWeek = angular.element( document.querySelector( '#weeklyViz' ) );
 
 
-        window.onresize = resize;
-        function resize() {
-          vizWidth = document.getElementById('dailyViz').clientWidth;
-          vizWidthWeekly = document.getElementById('weeklyViz').clientWidth;
+        window.onresize = function() {
+          vizWidth = document.getElementById('vizWidth').clientWidth;
           vm.width = vizWidth - m.right - m.left;
-          vm.weeklyWidth = vizWidthWeekly - m.right - m.left;
           vm.runViz();
         }
 
         vm.showDaily = function() {
-          myEl.empty();
           vm.weekly = false;
           vm.daily = true;
-          vm.runViz();
         }
 
         vm.showWeekly = function() {
-          myElWeek.empty();
           vm.daily = false;
           vm.weekly = true;
-          vm.runViz();
         }
 
         vm.runViz = function() {
           myEl.empty();
           myElWeek.empty();
 
-          // -------------------------------------------------------
-          // ---------------------D3 VIZ----------------------------
-          // -------------------------------------------------------
-
-          // define graph dimensions
-          // vm.width = vizWidth - m.right - m.left;
           let height = 500 - m.top - m.bottom;
 
           // X scale will fit all values from dailyTotals[] within pixels 0-w
@@ -108,12 +93,10 @@
           // -----------------------------WEEKLY VIZ-------------------------------
           // ----------------------------------------------------------------------
 
-          // X scale will fit all values from dailyTotals[] within pixels 0-w
-          let xWeek = d3.scale.linear().domain([0, weeklyData.length - 1]).range([0, vm.weeklyWidth]);
+          let xWeek = d3.scale.linear().domain([0, weeklyData.length - 1]).range([0, vm.width]);
 
-          // Add an SVG(scalable vector graphics) element with the desired dimensions and margin.
           let graphWeek = d3.select("#weeklyViz").append("svg")
-                .attr("width", vm.weeklyWidth + m.right + m.left)
+                .attr("width", vm.width + m.right + m.left)
                 .attr("height", height + m.top + m.bottom)
                 .append("g")
                 .attr("transform", "translate(" + m.left + "," + m.top + ")");
