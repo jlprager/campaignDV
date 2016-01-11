@@ -71,7 +71,7 @@ app.get('/*', function(req, res) {
 
 // dailyTimer();
 
-/*
+
 
 //START OF TWEET STREAM
 
@@ -82,16 +82,16 @@ var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", 
 var bernieTags = ["#bernie2016", "#feelthebern", "oculus rift"];
 var clintonTags = ["#hillary2016", "#clinton2016", "#1dhistoryvideo"];
 var trumpTags = ["#trump2016", "#whyisupporttrump", "#stolenonstolen"];
-var rubioTags = ["#rubio2016", "#marco2016"]
+var rubioTags = ["#rubio2016", "#teammarco"]
 
-var berniePos = ["#bernie2016", "#feelthebern"];
-var clintonPos = ["#hillary2016", "#clinton2016"];
+var berniePos = ["#bernie2016", "#feelthebern, #runbernierun"];
+var clintonPos = ["#hillary2016", "#clinton2016, #imwithher"];
 var trumpPos = ["#trump2016", "#whyisupporttrump"];
-var rubioPos = ["#rubio2016"]
+var rubioPos = ["#rubio2016", "#teammarco"];
 
 var bernieNeg = ["oculus rift"];
-var clintonNeg = ["#1dhistoryvideo"];
-var trumpNeg = ["#stolenonstolen"];
+var clintonNeg = ["#notmyabuela", "#whyimnotvotingforhillary", "#StopHillary2016" ];
+var trumpNeg = ["#dumptrump"];
 var rubioNeg = ["#selfieforseb"];
 
 
@@ -456,7 +456,7 @@ var waitForTweets = function(db) {
 
         for (var i = 0; i < rubioPos.length; i++) {
             //set to lowercase and compare
-            if (data.text.toLowerCase().match(tempPos[i])) {
+            if (data.text.toLowerCase().match(rubioPos[i])) {
                 sentiment(data.text, function(err, result) {
                     if (result.score >= 0) {
 
@@ -494,7 +494,7 @@ var waitForTweets = function(db) {
 
         for (var i = 0; i < rubioNeg.length; i++) {
             //set to lowercase and compare
-            if (data.text.toLowerCase().match(tempNeg[i])) {
+            if (data.text.toLowerCase().match(rubioNeg[i])) {
                 sentiment(data.text, function(err, result) {
                     if (result.score < 0) {
                         console.log("Saving to NEGATIVE RUBIO")
@@ -528,7 +528,7 @@ var waitForTweets = function(db) {
 
     })
 };
-*/
+
 
 app.use((err, req, res, next) => {
     if (process.env.NODE_ENV !== "test") {
