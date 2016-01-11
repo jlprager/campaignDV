@@ -36,7 +36,8 @@
                 <input class="pure-u-23-24" type="number" id="donation-amount" ng-model='vm.donationAmount' required>
             </div>
             <br>
-            <div class="pure-u-1 pure-u-md-1-3">
+
+            <div class="pure-u-1 pure-u-md-1-2">
                 <label for="expiry-month">Month</label>
                 <select placeholder="expiration month" id="expiry" data-stripe="exp-month" payments-validate="expiry" name="expiry" class="pure-input-1-2">
                     <option>1</option>
@@ -56,7 +57,7 @@
             <div class="pure-u-1 pure-u-md-1-6">
                 <label for="expiry-year">Year</label>
                 
-                <select placeholder="expiration year" id="expiry" data-stripe="exp-year" payments-validate="expiry" name="expiry" class="pure-u-23-24">
+                <select placeholder="expiration year" id="expiry" data-stripe="exp-year" payments-validate="expiry" name="expiry" class="pure-u-1-2">
                     <option>2016</option>
                     <option>2017</option>
                     <option>2018</option>
@@ -82,7 +83,7 @@
                 <!-- <a href=""> -->
             </div>
             <br>
-        <button type="submit">Submit</button>
+        <button class="pure-button pure-button-active"type="submit">Submit</button>
     </fieldset>
 </form>
 <div ng-if="checkoutForm.card.$invalid">
