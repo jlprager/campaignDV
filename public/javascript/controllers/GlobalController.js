@@ -19,6 +19,22 @@
         //     // console.log(vm.user + "AAAAAA")
         // };
 
+        // vm.registerAlert = function() {
+        //     swal({
+        //         title: 'Input something',
+        //         text: '<input style="display:block;" type="text" id="input-field" />',
+        //         html: true,
+        //         showCancelButton: true,
+        //         closeOnConfirm: false
+        //         }, function() {
+        //         swal({
+        //             html: 'You entered: <strong>' + $('#input-field').val() + '</strong>'
+        //         });
+        //     });
+        // }
+
+        
+
         vm.register = function() {
             UserFactory.register(vm.user).then(function(res) {
                 $state.go('Home');

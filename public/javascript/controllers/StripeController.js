@@ -12,6 +12,7 @@
             console.log(response);
             // alert("Got Stripe token: " + response.id);
             StripeFactory.postCharge(response.id, vm.donationAmount).then(function(res) {
+              console.log(res);
             	$state.go('Home');//add some kind of toast here 'Account upgraded to Premium Status'
             });
           };
