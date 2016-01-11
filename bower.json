@@ -21,6 +21,6 @@
     "angular-sweetalert": "angular-h-sweetalert#~1.4.6"
   },
   "resolutions": {
-    "angular": ">=1.4.0"
+    "angular": "~1.4.7"
   }
 }
