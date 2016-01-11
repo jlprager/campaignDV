@@ -194,3 +194,6 @@ path {
 }
 
 /*---------------------------------*/
+.stripe-form {
+    display: inline-block;
+}
