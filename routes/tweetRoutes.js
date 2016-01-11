@@ -36,7 +36,7 @@ function sentimentByCandidate(tweets) {
     let bernie = [];
     let clinton = [];
     let trump = [];
-    let temp = [];
+    let rubio = [];
 
     for (var i = 0; i < tweets.length; i++) {
         if (tweets[i].candidate === 'Bernie Sanders') {
@@ -51,8 +51,8 @@ function sentimentByCandidate(tweets) {
             trump.push(tweets[i].sentiment);
         }
 
-        else if(tweets[i].candidate === "Temp") {
-            temp.push(tweets[i].sentiment);
+        else if(tweets[i].candidate === "Marco Rubio") {
+            rubio.push(tweets[i].sentiment);
         }
     }
 
@@ -61,7 +61,7 @@ function sentimentByCandidate(tweets) {
         bernie: averageSentiment(bernie),
         clinton: averageSentiment(clinton),
         trump: averageSentiment(trump),
-        temp: averageSentiment(temp)
+        rubio: averageSentiment(rubio)
     }
 }
 
