@@ -76,6 +76,7 @@ app.get('/*', function(req, res) {
 //START OF TWEET STREAM
 
 //tracked hashtags
+/*
 
 var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", "#Trump2016", "#WhyISupportTrump", "Oculus Rift", "#1DHistoryVideo", "#StolenOnStolen", "#SandraBland", "#SELFIEFORSEB"];
 
@@ -140,70 +141,70 @@ db.once("open", function() {
 
 var waitForTweets = function(db) {
     var collection = db.collection("tweets");
-    mongoose.connection.db.dropCollection('candidates', function(err, result) {
-        if(err) return next(err);
-    });
+    // mongoose.connection.db.dropCollection('candidates', function(err, result) {
+    //     if(err) return next(err);
+    // });
 
 
-    var bernie = new Candidate({
-        id: 1,
-        name: "Bernie Sanders",
-        sentiment: 0,
-        dailyRating: {
-          posTweets: 0,
-          totalTweets: 0
-        }
-    });
-
-    bernie.save(function(err, bernie) {
-        if (err) return console.error(err)
-        console.log("INIT " + bernie.name);
-    });
-
-    var hillary = new Candidate({
-        id: 2,
-        name: "Hillary Clinton",
-        sentiment: 0,
-        dailyRating: {
-          posTweets: 0,
-          totalTweets: 0
-        }
-    });
-
-    hillary.save(function(err, hillary) {
-        if (err) return console.error(err)
-        console.log("INIT " + hillary.name);
-    });
-
-    var donald = new Candidate({
-        id: 3,
-        name: "Donald Trump",
-        sentiment: 0,
-        dailyRating: {
-          posTweets: 0,
-          totalTweets: 0
-        }
-    });
-
-    donald.save(function(err, donald) {
-        if (err) return console.error(err)
-        console.log("INIT " + donald.name);
-    });
-
-    var temp = new Candidate({
-        id: 4,
-        name: "Temp",
-        sentiment: 0,
-        dailyRaiting: {
-            posTweets: 0,
-            totalTweets: 0
-        }
-    });
-
-    temp.save(function(err, donald) {
-        if(err) return console.log(err)
-            console.log("INIT" + temp.name);
-    });
+    // var bernie = new Candidate({
+    //     id: 1,
+    //     name: "Bernie Sanders",
+    //     sentiment: 0,
+    //     dailyRating: {
+    //       posTweets: 0,
+    //       totalTweets: 0
+    //     }
+    // });
+    //
+    // bernie.save(function(err, bernie) {
+    //     if (err) return console.error(err)
+    //     console.log("INIT " + bernie.name);
+    // });
+    //
+    // var hillary = new Candidate({
+    //     id: 2,
+    //     name: "Hillary Clinton",
+    //     sentiment: 0,
+    //     dailyRating: {
+    //       posTweets: 0,
+    //       totalTweets: 0
+    //     }
+    // });
+    //
+    // hillary.save(function(err, hillary) {
+    //     if (err) return console.error(err)
+    //     console.log("INIT " + hillary.name);
+    // });
+    //
+    // var donald = new Candidate({
+    //     id: 3,
+    //     name: "Donald Trump",
+    //     sentiment: 0,
+    //     dailyRating: {
+    //       posTweets: 0,
+    //       totalTweets: 0
+    //     }
+    // });
+    //
+    // donald.save(function(err, donald) {
+    //     if (err) return console.error(err)
+    //     console.log("INIT " + donald.name);
+    // });
+    //
+    // var temp = new Candidate({
+    //     id: 4,
+    //     name: "Temp",
+    //     sentiment: 0,
+    //     dailyRaiting: {
+    //         posTweets: 0,
+    //         totalTweets: 0
+    //     }
+    // });
+    //
+    // temp.save(function(err, donald) {
+    //     if(err) return console.log(err)
+    //         console.log("INIT" + temp.name);
+    // });
 
     var stream = T.stream("statuses/filter", {
         track: startTags,
@@ -535,7 +536,7 @@ var waitForTweets = function(db) {
 
     })
 };
-
+*/
 
 app.use((err, req, res, next) => {
     if (process.env.NODE_ENV !== "test") {
