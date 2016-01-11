@@ -13,12 +13,14 @@ let auth = jwt({
 
 router.post('/charge', auth, (req, res, next) => {
   console.log(req.body);
-  stripe.charges.create({
-    amount: 2000,
+ stripe.charges.create({
+    amount: req.body.amount,
     currency: 'usd',
     source: req.body.token,
-    description: 'One time account upgrade for user # ' + req.body.uuid,
+    description: 'One time account upgrade for user # ' + req.body.uuid
   }, function(err, charge) {
+    console.log('########charge#####');
+      console.log(charge);
     let invoice = new Invoice();
     invoice.completeChargeResponse = charge;
     invoice.user.email = req.email;
@@ -30,6 +32,10 @@ router.post('/charge', auth, (req, res, next) => {
     invoice.paid = charge.paid;
     invoice.createdBy = req.payload._id;
     invoice.save((err, result) => {
+      
+      console.log('#########invoice#######');
+      console.log(invoice);
+
       if(err) return next(err);
       if(!result) return next('Could not create that charge');
 

@@ -11,7 +11,7 @@
         vm.bernie;
         vm.clinton;
         vm.trump;
-        vm.temp;
+        vm.rubio;
 
         CandidateFactory.getPresidentialCandidates().then(function(res) {
             vm.candidates = res;
@@ -30,24 +30,25 @@
                 vm.bernie = res.bernie;
                 vm.clinton = res.clinton;
                 vm.trump = res.trump;
-                vm.temp = res.temp;
+                vm.rubio = res.rubio;
 
                 var bernieImg = 100;
                 var hillaryImg = 100;
                 var trumpImg = 100;
-                var tempImg = 100;
+                var rubioImg = 100;
                 var bernieResize = res.bernie / 5;
                 var hillaryResize = res.clinton / 5;
                 var trumpResize = res.trump / 5;
-                var tempResize = res.temp / 5;
+                var rubioResize = res.rubio / 5;
                 bernieImg = (bernieImg + (bernieImg * bernieResize));
                 hillaryImg = (hillaryImg + (hillaryImg * hillaryResize));
                 trumpImg = (trumpImg + (trumpImg * trumpResize));
-                tempImg = (tempImg + (tempImg * tempResize));
+                rubioImg = (rubioImg + (rubioImg * rubioResize));
                 document.getElementById("bernie").height = bernieImg;
+                // document.getElementById("bernie").style.margin-top = (50%-bernieImg);
                 document.getElementById("hillary").height = hillaryImg;
                 document.getElementById("trump").height = trumpImg;
-                document.getElementById("temp").height = tempImg;
+                document.getElementById("rubio").height = rubioImg;
 
                 vm.timeoutHandler = $timeout(tick, 15000);
 
