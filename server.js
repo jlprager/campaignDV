@@ -195,7 +195,7 @@ var waitForTweets = function(db) {
         id: 4,
         name: "Marco Rubio",
         sentiment: 0,
-        dailyRaiting: {
+        dailyRating: {
             posTweets: 0,
             totalTweets: 0
         }

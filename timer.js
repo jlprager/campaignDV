@@ -73,6 +73,27 @@ module.exports = function() {
           });
 
 
+          // -------------------------------------------------------
+          // ----------------------RUBIO----------------------------
+          // -------------------------------------------------------
+          Candidate.findOne({ name: "Marco Rubio" }, { 'dailyRating':1 }, (err, result) => {
+            if (err) console.log(err);
+            let posTweetsR = result.dailyRating.posTweets;
+            let totalTweetsR = result.dailyRating.totalTweets;
+            let rubioRating = { percentage : ((posTweetsR/totalTweetsR) * 100), total : totalTweetsR, date : (new Date().toJSON().slice(5,10))};
+
+              Candidate.update({ name: "Marco Rubio" }, { $push : { 'favorRatingTotals': rubioRating }}, (err, result) => {
+                if (err) console.log(err);
+                Candidate.update({ name: "Marco Rubio" }, { $set : { 'dailyRating.totalTweets': 0 }}, (err, result) => {
+                  if (err) console.log(err);
+                });
+                Candidate.update({ name: "Marco Rubio" }, { $set : { 'dailyRating.posTweets': 0 }}, (err, result) => {
+                  if (err) console.log(err);
+                });
+              });
+            });
+
+
         // -------------------------------------------------------
         // ----------------------TWEETS---------------------------
         // -------------------------------------------------------
@@ -82,9 +103,7 @@ module.exports = function() {
             if(!result) return('Could not delete tweets older than 10 minutes.');
         });
         console.log('Tweet collection deleted');
-      }, 30000);
-//    ^^^^^^^^^^^  MAKE THIS 24 HOURS -------------------------------------
-//    ---------------------------------------------------------------------
+      }, 86400000);
 
   }
 
