@@ -5,14 +5,13 @@
 
         function StripeController(StripeFactory, $state) {
           var vm = this;
-          vm.donationAmount = null;
+          vm.donationAmount = 20.00;
 
           vm.stripeCallback = function(status, response) {
             console.log(status);
             console.log(response);
             // alert("Got Stripe token: " + response.id);
             StripeFactory.postCharge(response.id, vm.donationAmount).then(function(res) {
-              console.log(res);
             	$state.go('Home');//add some kind of toast here 'Account upgraded to Premium Status'
             });
           };

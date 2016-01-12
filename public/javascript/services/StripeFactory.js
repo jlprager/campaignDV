@@ -10,7 +10,7 @@
 			chargeObject.uuid = UserFactory.status.uuid;
 			chargeObject.email = UserFactory.status.email;
 			chargeObject.token = token;
-			chargeObject.amount = donationAmount;
+			chargeObject.amount = donationAmount *100;
 			console.log(chargeObject);
 			$http.post('api/v1/invoice/charge', chargeObject, {
 				headers: {
