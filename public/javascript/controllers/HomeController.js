@@ -3,7 +3,7 @@
     angular.module('app')
         .controller('HomeController', HomeController)
 
-    function HomeController($scope, $state, $location, $timeout, UserFactory, TweetFactory, CandidateFactory) {
+    function HomeController($scope, $state, $location, $timeout, UserFactory, TweetFactory, CandidateFactory, $window) {
         var vm = this;
         var url = $location.search();
         var size = 0;
@@ -22,6 +22,7 @@
         if (url.code) {
             UserFactory.setToken(url.code);
             $location.search("code", null);
+            $location.hash('');
         }
 
         // Updating client side every 15 seconds(this function). Pulling from last 5 minutes of data(tweetRoutes.js)
