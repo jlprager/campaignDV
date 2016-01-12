@@ -151,6 +151,10 @@ footer {
 
 .clickable {cursor: pointer;}
 
+.modal-content {
+    background-color: rgba(229, 213, 251, 0.8);
+}
+
 
 /*----------------------------------
 --------D3 CHART STYLING------------

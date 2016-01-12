@@ -1,6 +1,6 @@
 (function() {
 	'use strict';
-	angular.module('app', ['ui.router', 'stripe'])
+	angular.module('app', ['ui.router', 'stripe', 'ui.bootstrap'])
 	.config(Config)
 
 	function Config($stateProvider, $urlRouterProvider, $urlMatcherFactoryProvider, $locationProvider) {
@@ -44,9 +44,6 @@
 			url: '/stripe',
 			templateUrl: '/templates/stripe.html',
 			controller: 'StripeController as vm'
-		}).state('Thanks', {
-		    url: '/thanks',
-		    templateUrl: '/templates/thanks.html'
 		});
 		$urlRouterProvider.otherwise('/');
 		$urlMatcherFactoryProvider.caseInsensitive(true);
