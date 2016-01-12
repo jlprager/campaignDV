@@ -1,4 +1,4 @@
-<div class="mainContent">
+<div>
     <div id="demCandidate" ng-show="vm.candidate.name == 'Bernie Sanders' || vm.candidate.name == 'Hillary Clinton'"></div>
     <div id="repCandidate" ng-show="vm.candidate.name == 'Donald Trump'"></div>
     <div class="pure-g">
@@ -14,8 +14,8 @@
               <button type="button" ng-click="vm.showWeekly();">Show by Week</button>
             </div>
             <div id="vizWidth"></div>
-            <div ng-show="vm.daily" id="dailyViz" style="width:{{vm.width}} !important;"></div>
-            <div ng-show="vm.weekly" id="weeklyViz" style="width:{{vm.width}} !important;"></div>
+            <div ng-class="dailyV" ng-show="vm.daily" id="dailyViz" style="width:{{vm.width}} !important;"></div>
+            <div ng-class="weeklyV" ng-show="vm.weekly" id="weeklyViz" style="width:{{vm.width}} !important;"></div>
         </div>
 
         <div class="pure-u-1 pure-u-md-1-3">
@@ -43,8 +43,9 @@
     </div>
     <div ng-show="!nav.status._id">
         <h2>&nbsp;&nbsp;&nbsp;<a ui-sref="Log">Sign in</a> to leave a comment.</h2>
+        <hr>
     </div>
-    <hr>
+    
     <div ng-repeat='comment in vm.candidate.comments'>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;{{comment.message}}</p>
         <div ng-show='nav.status._id === comment.user'>

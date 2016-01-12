@@ -76,7 +76,7 @@ app.get('/*', function(req, res) {
 //START OF TWEET STREAM
 
 //tracked hashtags
-/*
+
 
 var startTags = ["#Bernie2016", "#FeelTheBern", "#Hillary2016", "#Clinton2016", "#Trump2016", "#WhyISupportTrump", "Oculus Rift", "#1DHistoryVideo", "#StolenOnStolen", "#SandraBland", "#SELFIEFORSEB"];
 
@@ -195,7 +195,7 @@ var waitForTweets = function(db) {
         id: 4,
         name: "Marco Rubio",
         sentiment: 0,
-        dailyRaiting: {
+        dailyRating: {
             posTweets: 0,
             totalTweets: 0
         }
@@ -203,7 +203,7 @@ var waitForTweets = function(db) {
 
     rubio.save(function(err, rubio) {
         if(err) return console.log(err)
-            console.log("INIT" + rubio.name);
+            console.log("INIT " + rubio.name);
     });
 
     var stream = T.stream("statuses/filter", {
@@ -529,7 +529,7 @@ var waitForTweets = function(db) {
 
     })
 };
-*/
+
 
 app.use((err, req, res, next) => {
     if (process.env.NODE_ENV !== "test") {

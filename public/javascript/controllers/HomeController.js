@@ -31,6 +31,7 @@
                 vm.clinton = res.clinton;
                 vm.trump = res.trump;
                 vm.rubio = res.rubio;
+                console.log(res);
 
                 var bernieImg = 100;
                 var hillaryImg = 100;
@@ -45,10 +46,13 @@
                 trumpImg = (trumpImg + (trumpImg * trumpResize));
                 rubioImg = (rubioImg + (rubioImg * rubioResize));
                 document.getElementById("bernie").height = bernieImg;
-                // document.getElementById("bernie").style.margin-top = (50%-bernieImg);
+                document.getElementById("bernie").style.marginTop = (175 - (bernieImg / 2)) + "px";
                 document.getElementById("hillary").height = hillaryImg;
+                document.getElementById("hillary").style.marginTop = (175 - (hillaryImg / 2)) + "px";
                 document.getElementById("trump").height = trumpImg;
+                document.getElementById("trump").style.marginTop = (175 - (trumpImg / 2)) + "px";
                 document.getElementById("rubio").height = rubioImg;
+                document.getElementById("rubio").style.marginTop = (175 - (rubioImg / 2)) + "px";
 
                 vm.timeoutHandler = $timeout(tick, 15000);
 

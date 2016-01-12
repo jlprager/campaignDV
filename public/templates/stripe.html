@@ -5,7 +5,6 @@
         <input placeholder="expiration year" data-stripe="exp-year" payments-validate="expiry" name="expiry" />
         <input placeholder="cvc" data-stripe="cvc" payments-validate="cvc" name="cvc" />
         <input placeholder="amount" data-stripe="amount" payments-validate="amount" name="amount" type='number' />
-
         <button type="submit">Submit</button>
     </form>
     <div ng-if="checkoutForm.card.$invalid">
@@ -17,8 +16,8 @@
     <div ng-if="checkoutForm.cvc.$invalid">
         Error: invalid cvc!
     </div>
-
 </div> -->
+
 <div class='pure-g'>
     <div class='pure-u-1-4 pure-u-md-1-6'>
     </div>
