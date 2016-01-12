@@ -7,11 +7,10 @@
 		o.postCharge = function(token, donationAmount){
 			var q = $q.defer();
 			var chargeObject = {};
-			chargeObject.uuid = UserFactory.status.uuid;
 			chargeObject.email = UserFactory.status.email;
 			chargeObject.token = token;
+			//setting amount on the chargeObject to user-selected amount and changing to cents
 			chargeObject.amount = donationAmount *100;
-			console.log(chargeObject);
 			$http.post('api/v1/invoice/charge', chargeObject, {
 				headers: {
 					authorization: 'Bearer ' + $window.localStorage.getItem('token')
