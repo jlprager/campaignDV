@@ -20,11 +20,6 @@ body {
     padding-left: 4em;
 }
 
-/*img {
-    max-height: 250px !important;
-    min-height: 20px !important;
-}*/
-
 html,
 button,
 input,
@@ -35,20 +30,14 @@ textarea,
 }
 
 #navBar {
-    text-align: center;
     margin-bottom: 5px;
 }
 
-#companyName {
-    text-align: left;
-    padding-left: 10px;
-}
 
 #logo {
     height: 40px;
-    text-align: center;
-    margin-top: 0;
-    padding-top: 0;
+    text-align: left;
+    padding-left: 20px;
 }
 
 .pure-button {
@@ -59,13 +48,6 @@ ul {
     background-color: rgba(0, 0, 0, 0) !important;
 }
 
-
-/*#THISUL li {
-	text-align: center;
-	border-bottom: 1px solid black;
-	border-left: 1px solid black;
-	border-right: 1px solid black;
-}*/
 
 #demCandidate {
     background-color: rgba(147, 201, 237, 1);
@@ -156,7 +138,6 @@ footer {
 
 #login {
     text-align: center;
-    margin-top: 5%;
 }
 
 .contact {
@@ -169,6 +150,10 @@ footer {
 }
 
 .clickable {cursor: pointer;}
+
+.modal-content {
+    background-color: rgba(229, 213, 251, 0.8);
+}
 
 
 /*----------------------------------

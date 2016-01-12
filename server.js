@@ -155,12 +155,12 @@ var waitForTweets = function(db) {
     //       totalTweets: 0
     //     }
     // });
-    //
+
     // bernie.save(function(err, bernie) {
     //     if (err) return console.error(err)
     //     console.log("INIT " + bernie.name);
     // });
-    //
+
     // var hillary = new Candidate({
     //     id: 2,
     //     name: "Hillary Clinton",
@@ -170,12 +170,12 @@ var waitForTweets = function(db) {
     //       totalTweets: 0
     //     }
     // });
-    //
+
     // hillary.save(function(err, hillary) {
     //     if (err) return console.error(err)
     //     console.log("INIT " + hillary.name);
     // });
-    //
+
     // var donald = new Candidate({
     //     id: 3,
     //     name: "Donald Trump",
@@ -185,12 +185,12 @@ var waitForTweets = function(db) {
     //       totalTweets: 0
     //     }
     // });
-    //
+
     // donald.save(function(err, donald) {
     //     if (err) return console.error(err)
     //     console.log("INIT " + donald.name);
     // });
-    //
+
     // var rubio = new Candidate({
     //     id: 4,
     //     name: "Marco Rubio",
@@ -200,7 +200,7 @@ var waitForTweets = function(db) {
     //         totalTweets: 0
     //     }
     // });
-    //
+
     // rubio.save(function(err, rubio) {
     //     if(err) return console.log(err)
     //         console.log("INIT " + rubio.name);

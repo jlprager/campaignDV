@@ -12,38 +12,41 @@ let auth = jwt({
 })
 
 router.post('/charge', auth, (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
  stripe.charges.create({
     amount: req.body.amount,
     currency: 'usd',
     source: req.body.token,
-    description: 'One time account upgrade for user # ' + req.body.uuid
+    description: 'One time account upgrade for user # ' + req.payload._id
   }, function(err, charge) {
-    console.log('########charge#####');
-      console.log(charge);
-    let invoice = new Invoice();
-    invoice.completeChargeResponse = charge;
-    invoice.user.email = req.email;
-    invoice.user.uuid = req.uuid;
-    invoice.amount = req.body.amount;
-    invoice.amount_refunded = charge.amount_refunded;
-    invoice.chargeId = charge.id;
-    invoice.description = charge.description;
-    invoice.paid = charge.paid;
-    invoice.createdBy = req.payload._id;
-    invoice.save((err, result) => {
-      
-      console.log('#########invoice#######');
-      console.log(invoice);
+    // console.log('########charge#####');
+    //   console.log(charge);
+    //   console.log(err);
+    if (charge){
+      let invoice = new Invoice();
+      invoice.completeChargeResponse = charge;
+      invoice.user.email = req.email;
+      invoice.user._id = req.payload._id;
+      invoice.amount = req.body.amount;
+      invoice.amount_refunded = charge.amount_refunded;
+      invoice.chargeId = charge.id;
+      invoice.description = charge.description;
+      invoice.paid = charge.paid;
+      invoice.createdBy = req.payload._id;
+      invoice.save((err, result) => {
+        
+        // console.log('#########invoice#######');
+        // console.log(invoice);
 
-      if(err) return next(err);
-      if(!result) return next('Could not create that charge');
-    
-      User.findOneAndUpdate({ uuid: req.body.uuid}, { premiumStatus: true, $push: { charges: result._id }}, (err, result) => {
-        if (err) throw err;
-        res.end();
-      });
-    });    
+        if(err) return next(err);
+        if(!result) return next('Could not create that charge');
+      
+        User.findOneAndUpdate({ _id: req.payload._id}, { premiumStatus: true, $push: { charges: result._id }}, (err, result) => {
+          if (err) throw err;
+          res.end();
+        });
+      });   
+    }; if(err) return next(err);
   });
 });
 

@@ -74,20 +74,4 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-// router.post('/charge', auth, (req, res, next) => {
-//   stripe.charges.create({
-//     amount: 2000,
-//     currency: 'usd',
-//     source: req.body.token,
-//     description: 'One time account upgrade for user # ' + req.body.uuid,
-//   }, function(err, charge) {
-//     if (err) return next(err);
-//       User.findOneAndUpdate({uuid: req.body.uuid}, {premiumStatus: true}, function(err, user) {
-//         if (err) throw err;
-//         res.end();
-//       });    
-//   })
-// });
-
-
 module.exports = router;

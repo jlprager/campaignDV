@@ -10,10 +10,11 @@
           vm.stripeCallback = function(status, response) {
             console.log(status);
             console.log(response);
-            // alert("Got Stripe token: " + response.id);
             StripeFactory.postCharge(response.id, vm.donationAmount).then(function(res) {
               console.log(res);
-            	$state.go('Thanks');//add some kind of toast here 'Account upgraded to Premium Status'
+              swal("Thank you for your donation!", "You have been upgraded to a premium account!", "success");
+            }, function(err) {
+                swal('Unable to process donation.', "Please check your payment information and try again.", 'error');
             });
           };
         }
