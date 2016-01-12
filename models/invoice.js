@@ -5,7 +5,7 @@ let InvoiceSchema = new mongoose.Schema({
 	completeChargeResponse: {},
 	user: {
 		email: String,
-		uuid: String
+		_id: String
 		},
 	amount: Number,
 	amount_refunded: Number,

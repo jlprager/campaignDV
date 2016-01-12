@@ -8,13 +8,14 @@
           vm.donationAmount = 20.00;
 
           vm.stripeCallback = function(status, response) {
-            console.log(status);
-            console.log(response);
-            // alert("Got Stripe token: " + response.id);
+            // console.log(status);
+            // console.log(response);
             StripeFactory.postCharge(response.id, vm.donationAmount).then(function(res) {
-              console.log(res);
+              // console.log(res);
               swal("Thank you for your donation!", "You have been upgraded to a premium account!", "success");
-            	// $state.go('Thanks');//add some kind of toast here 'Account upgraded to Premium Status'
+              $state.go('Home');
+            }, function(err) {
+                swal('Unable to process donation.', "Please check your payment information and try again.", 'error');
             });
           };
         }

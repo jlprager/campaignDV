@@ -140,7 +140,7 @@ db.once("open", function() {
 
 
 var waitForTweets = function(db) {
-     var collection = db.collection("tweets");
+    var collection = db.collection("tweets");
     // mongoose.connection.db.dropCollection('candidates', function(err, result) {
     //     if(err) return next(err);
     // });

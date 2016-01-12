@@ -1,6 +1,6 @@
 (function() {
 	'use strict';
-	angular.module('app', ['ui.router', 'stripe', 'ui.bootstrap'])
+	angular.module('app', ['ui.router', 'stripe', 'ui.bootstrap', 'ng-currency'])
 	.config(Config)
 
 	function Config($stateProvider, $urlRouterProvider, $urlMatcherFactoryProvider, $locationProvider) {

@@ -19,6 +19,7 @@
     "helmet": "^1.0.1",
     "jsonwebtoken": "^5.5.0",
     "mongoose": "^4.3.4",
+    "ng-currency": "^0.8.8",
     "node-uuid": "^1.4.7",
     "nodemailer": "^1.11.0",
     "passport": "^0.3.2",
