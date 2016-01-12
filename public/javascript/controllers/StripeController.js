@@ -5,7 +5,7 @@
 
         function StripeController(StripeFactory, $state) {
           var vm = this;
-          vm.donationAmount = null;
+          vm.donationAmount = 20.00;
 
           vm.stripeCallback = function(status, response) {
             console.log(status);
