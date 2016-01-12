@@ -38,14 +38,8 @@ router.post('/charge', auth, (req, res, next) => {
 
       if(err) return next(err);
       if(!result) return next('Could not create that charge');
-
-    // User.update({ _id : req.payload.id }), { $push: { charges: result._id }}, (err, user) => {
-    //   if (err) return next(err);
-    // }
     
       User.findOneAndUpdate({ uuid: req.body.uuid}, { premiumStatus: true, $push: { charges: result._id }}, (err, result) => {
-        // function(err, user) {
-        console.log
         if (err) throw err;
         res.end();
       });

@@ -201,4 +201,15 @@ path {
 /*---------------------------------*/
 .stripe-form {
     display: inline-block;
+}/*
+#donation-amount {
+    position: relative;
 }
+#donation-amount input {
+    padding-left: 30px;
+}
+#donation-amount i{
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+}*/
