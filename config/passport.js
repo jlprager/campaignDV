@@ -3,7 +3,6 @@ let passport = require("passport");
 let LocalStrategy = require("passport-local").Strategy;
 let FacebookStrategy = require("passport-facebook").Strategy;
 let TwitterStrategy = require("passport-twitter").Strategy;
-// let GooglePlusStrategy = require("passport-google-plus").Strategy;
 let GoogleStrategy = require("passport-google-oauth2").Strategy;
 let mongoose = require("mongoose");
 let User = mongoose.model("User");

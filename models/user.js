@@ -41,11 +41,6 @@ let UserSchema = new mongoose.Schema({
 		token: String,
 		email: String,
 		name: String
-	},
-	//URI : api.tumblr.com/v2/user/info
-	//** Maybe not tumblr. API doesn't produce enough info.
-	tumblr: {
-		displayName: String
 	}
 });
 

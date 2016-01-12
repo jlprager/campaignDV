@@ -22,7 +22,7 @@ router.post('/receive', (req, res, next) => {
 
 // POST /api/v1/sms/send/
 router.post('/send', (req, res, next) => {
-
+    console.log(req.body);
     if(!req.body || !req.body.firstName || !req.body.phoneNumber || !req.body.message)
         return next('Please include your first name, phone number and message.');
     twilio.sendMessage({
