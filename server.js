@@ -71,7 +71,7 @@ app.get('/*', function(req, res) {
 
 // dailyTimer();
 
-
+/*
 
 //START OF TWEET STREAM
 
@@ -529,6 +529,8 @@ var waitForTweets = function(db) {
 
     })
 };
+
+*/
 
 
 app.use((err, req, res, next) => {

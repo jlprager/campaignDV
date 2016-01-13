@@ -24,9 +24,6 @@
                 if (isConfirm) {
                     swal("Sent!", "Thank you for your email!", "success");
                     vm.sendMail();
-                    vm.contactName = "";
-                    vm.contactEmail = "";
-                    vm.contactMsg = "";
                 } else {
                     swal("Cancelled!", "Your message has not been sent", "error");
                 }
@@ -49,9 +46,6 @@
                 if (isConfirm) {
                     swal("Sent!", "Thank you for your text!", "success");
                     vm.sendSMS();
-                    vm.sms.firstName = "";
-                    vm.sms.phoneNumber = "";
-                    vm.sms.message = "";
                 } else {
                     swal("Cancelled!", "Your text has not been sent", "error");
                 }
@@ -60,9 +54,12 @@
 
 
         vm.sendSMS = function() {
-            console.log(vm.sms)
-            SMSFactory.sendSMS(vm.sms).then(function(res) {}, function(err) {
-                //
+            SMSFactory.sendSMS(vm.sms).then(function(res) {
+                vm.sms.firstName = "";
+                vm.sms.phoneNumber = "";
+                vm.sms.message = "";
+            }, function(err) {
+            
             });
         };
 
@@ -72,7 +69,11 @@
                 contactEmail: vm.contactEmail,
                 contactMsg: vm.contactMsg
             });
-            EmailFactory.sendMail(data).then(function(res) {}, function(err) {});
+            EmailFactory.sendMail(data).then(function(res) {
+                
+            }, function(err) {
+
+            });
         };
     }
 })();

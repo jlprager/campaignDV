@@ -6,10 +6,10 @@
 	function SMSFactory($http, $q) {
 		var o = {};
 
-		o.receiveSMS = function(sms) {
+		o.receiveSMSCode = function(sms) {
 			var q = $q.defer();
-			$http.post('/api/v1/sms/receive', sms).then(function(res) {
-				q.resolve(res.data);
+			$http.post('/api/v1/sms/receiveCode', sms).then(function(res) {
+				q.resolve();
 			}, function(err) {
 				q.reject();
 			});
@@ -19,10 +19,9 @@
 		o.sendSMS = function(sms) {
 			var q = $q.defer();
 			$http.post('/api/v1/sms/send', sms).then(function(res) {
-				q.resolve(res.data);
+				q.resolve();
 			}, function(err) {
 				q.reject();
-				console.log(err)
 			});
 			return q.promise;
 		};
