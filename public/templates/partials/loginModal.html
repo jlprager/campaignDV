@@ -13,13 +13,13 @@
                 <input id="password" type="password" ng-model="vm.user.password" placeholder="Password Required">
             </div>
         </fieldset>
-        <button class="pure-button pure-button-active" ui-sref="PasswordReset" ng-click="cancel()">Forgotten Password</p>
+        <button class="pure-button pure-button-active" type="submit" ng-click="ok()">Login</button>
     </form>
     <div ng-show="vm.loading">
         <h1>Please wait...</h1>
     </div>
 </div>
 <div class="modal-footer" style="text-align:center;">
-    <button class="pure-button pure-button-active" type="button" ng-click="cancel()" style="backgrond-color: red;">Cancel</button>
-    <button class="pure-button pure-button-active" type="button" ng-click="ok()">Login</button>
+    <button class="pure-button pure-button-active" type="button" ng-click="cancel()">Cancel</button>
+    <button class="pure-button pure-button-active" type="button" ui-sref="PasswordReset" ng-click="cancel()">Forgotten Password</button>
 </div>
