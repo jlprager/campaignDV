@@ -16,11 +16,13 @@ let UserSchema = new mongoose.Schema({
 	profilePic: String,
 	age: Number,
 	gender: String,
+	passwordResetCode: Number,
 	emailRegis: {
 		name: String,
 		userName: String,
 		password: String,
-		email: String
+		email: String,
+		phoneNumber: String
 	},
 	facebook: {
 		id: String,

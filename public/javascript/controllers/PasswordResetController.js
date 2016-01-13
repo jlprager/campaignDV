@@ -1,58 +1,55 @@
 (function() {
     'use strict';
     angular.module('app')
-    .controller('PasswordResetController', PasswordResetController);
+        .controller('PasswordResetController', PasswordResetController);
 
-    function PasswordResetController(EmailFactory, SMSFactory, $state, $stateParams) {
+    function PasswordResetController(EmailFactory, SMSFactory, UserFactory, $state, $stateParams) {
         var vm = this;
-
-        vm.sms.code = Math.random().toFixed(5)*10000;
-        // let hello = Math.random().toFixed(5)*10000;
-
-        console.log("Inside PasswordResetController vm.sms.code = ", vm.sms.code);
-        vm.codeValidated = "";
-
-        vm.validateCode() = function() {
-          if (vm.sms.code = vm.code) {
-            vm.codeValidated = "true";
-            console.log("Inside PasswordResetController vm.codeValidated = ", vm.codeValidated);
-          }
-          else {
-            vm.codeValidated = "false";
-            console.log("Inside PasswordResetController vm.codeValidated = ", vm.codeValidated);
-          }
-        }
-
-        vm.resetPassword() = function(){
-          console.log("Inside PasswordResetController:resetPassword()");
-        }
-
-
+        var registeredPh;
+        var registeredEmail;
+        vm.user = {};
+        vm.data = {};
+        vm.code = {};
+        vm.sentCode = false;
+        vm.sentEmail = false;
+        vm.codeValidated = false;
+        vm.wrongCode = false;
+        vm.unregisteredPhone = false;
+        vm.unregisteredEmail = false;
+        vm.user.phoneNumber = "";
+        vm.user.email = "";
+        vm.data.generatedCode = code;
+        vm.data.email = vm.user.email;
+        // 1st section *******************************************************
         vm.sendCode = function() {
+            console.log(vm.user);
+            if (vm.user.phoneNumber) {
+                SMSFactory.receiveSMSCode(vm.user).then(function(res) {
+                    vm.sentCode = true;
+                    vm.code.phoneNumber = vm.user.phoneNumber;
+                }, function(err) {});
+            }
 
-          if (vm.sendCodeMethod=="sms") {
-            vm.receiveSMS = function() {
-                SMSFactory.receiveSMS(vm.sms).then(function(res) {
-                  $state.go('PasswordResetConfirmation');
-                }, function(err) {
-                });
-            };
-          }
+            if (vm.user.email) {
+                EmailFactory.receiveEmailCode(vm.user).then(function(res) {
+                    vm.sentEmail = true;
+                    vm.code.email = vm.user.email;
+                }, function(err) {});
+            }
+        };
 
-          if (vm.sendCodeMethod=="email") {
-            vm.sendMail = function() {
-              var data = ({
-                  contactName :   vm.contactName,
-                  contactEmail :  vm.contactEmail,
-                  contactMsg :    vm.contactMsg
-              });
-              EmailFactory.sendMail(data).then(function(res) {
-                $state.go('PasswordResetConfirmation');
-              }, function(err) {
-              });
-            };
-          }
-        } // End sendCode() function
 
+        // 2nd section *******************************************************
+        vm.validateCode = function() {
+            SMSFactory.validateCode(vm.code).then(function(res) {
+                $state.go("Home");
+            });
+        };
+
+        vm.validateEmailCode = function() {
+          EmailFactory.validateEmailCode(vm.code).then(function(res) {
+            $state.go("Home");
+          });
+        };
     }
 })();
