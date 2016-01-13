@@ -132,11 +132,9 @@ footer {
     display: inline;
 }
 
-#registration {
-    text-align: center;
-}
-
-#login {
+#registration,
+#login,
+#validation {
     text-align: center;
 }
 
