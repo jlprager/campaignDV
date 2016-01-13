@@ -508,7 +508,7 @@ var waitForTweets = function(db) {
                             created_at: data.created_at
                         });
 
-                        tempCount++;
+                        rubioCount++;
 
                         Candidate.update({ name: 'Marco Rubio' }, { $inc: { 'dailyRating.totalTweets':1}}, (err, res) => {
                           if (err) console.log(err);
