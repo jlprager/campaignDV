@@ -366,6 +366,7 @@ angular.module('stripe', []).directive('stripeForm', ['$window', function ($wind
                 if (isConfirm) {
                     swal("Sent!", "Thank you for your email!", "success");
                     vm.sendMail();
+                    $state.go("Home");
                 } else {
                     swal("Cancelled!", "Your message has not been sent", "error");
                 }
@@ -388,6 +389,7 @@ angular.module('stripe', []).directive('stripeForm', ['$window', function ($wind
                 if (isConfirm) {
                     swal("Sent!", "Thank you for your text!", "success");
                     vm.sendSMS();
+                    $state.go("Home");
                 } else {
                     swal("Cancelled!", "Your text has not been sent", "error");
                 }
@@ -720,7 +722,7 @@ angular.module('stripe', []).directive('stripeForm', ['$window', function ($wind
             // console.log(response);
             StripeFactory.postCharge(response.id, vm.donationAmount).then(function (res) {
                 // console.log(res);
-                swal("Thank you for your donation!", "You have been upgraded to a premium account!", "success");
+                swal("Thank you for your donation!", "You are now a sustaining member.", "success");
                 $state.go('Home');
             }, function (err) {
                 swal('Unable to process donation.', "Please check your payment information and try again.", 'error');

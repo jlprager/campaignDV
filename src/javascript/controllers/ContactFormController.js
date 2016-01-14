@@ -24,6 +24,7 @@
                 if (isConfirm) {
                     swal("Sent!", "Thank you for your email!", "success");
                     vm.sendMail();
+                    $state.go("Home");
                 } else {
                     swal("Cancelled!", "Your message has not been sent", "error");
                 }
@@ -46,6 +47,7 @@
                 if (isConfirm) {
                     swal("Sent!", "Thank you for your text!", "success");
                     vm.sendSMS();
+                    $state.go("Home");
                 } else {
                     swal("Cancelled!", "Your text has not been sent", "error");
                 }
