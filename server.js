@@ -26,7 +26,7 @@ mongoose.connect(process.env.MONGO_URL);
 
 app.set('views', './views');
 app.engine('.html', require('ejs').renderFile);
-app.use(express.static('./public'));
+app.use(express.static('./dist'));
 app.use(express.static('./bower_components'));
 app.set('view engine', 'html');
 app.set('view options', {

@@ -9,15 +9,15 @@
         vm.timeoutHandler;
         vm.comments;
         vm.isEditing = false, vm.daily = true, vm.weekly = false;
-        let candidateName;
-        let dailyTotals = [], dailyDates = [], favorData = [];
-        let weeklyData = [], weeklyPercent = [], weeklyDates = [];
-        let day = [], week = [], runningWeekPercent = 0;
-        let m = {top: 30, right: 80, bottom: 30, left: 80}; //margins
-        let vizWidth = document.getElementById('vizWidth').clientWidth;
+        var candidateName;
+        var dailyTotals = [], dailyDates = [], favorData = [];
+        var weeklyData = [], weeklyPercent = [], weeklyDates = [];
+        var day = [], week = [], runningWeekPercent = 0;
+        var m = {top: 30, right: 80, bottom: 30, left: 80}; //margins
+        var vizWidth = document.getElementById('vizWidth').clientWidth;
         vm.width = vizWidth - m.right - m.left;
-        let myEl = angular.element( document.querySelector( '#dailyViz') );
-        let myElWeek = angular.element( document.querySelector( '#weeklyViz' ) );
+        var myEl = angular.element( document.querySelector( '#dailyViz') );
+        var myElWeek = angular.element( document.querySelector( '#weeklyViz' ) );
 
 
         window.onresize = function() {
@@ -48,15 +48,15 @@
           myEl.empty();
           myElWeek.empty();
 
-          let height = 500 - m.top - m.bottom;
+          var height = 500 - m.top - m.bottom;
 
           // X scale will fit all values from dailyTotals[] within pixels 0-w
-          let x = d3.scale.linear().domain([0, dailyDates.length - 1]).range([0, vm.width]);
+          var x = d3.scale.linear().domain([0, dailyDates.length - 1]).range([0, vm.width]);
           // Y scale will fit values from 0-100 within pixels h-0
-          let y = d3.scale.linear().domain([0, 100]).range([height, 0]);
+          var y = d3.scale.linear().domain([0, 100]).range([height, 0]);
 
           // create a line function that can convert dailyTotals[] into x and y points
-          let line = d3.svg.line()
+          var line = d3.svg.line()
                 .x(function(d,i) {
                   return x(i);
                 })
@@ -65,18 +65,18 @@
                 })
 
           // Add an SVG(scalable vector graphics) element with the desired dimensions and margin.
-          let graph = d3.select("#dailyViz").append("svg")
+          var graph = d3.select("#dailyViz").append("svg")
                 .attr("width", vm.width + m.right + m.left)
                 .attr("height", height + m.top + m.bottom)
                 .append("g")
                 .attr("transform", "translate(" + m.left + "," + m.top + ")");
 
-          let formatDate = function(d) {
+          var formatDate = function(d) {
               return dailyDates[d];
           }
 
           // create xAxis
-          let xAxis = d3.svg.axis()
+          var xAxis = d3.svg.axis()
                 .scale(x)
                 .orient("bottom")
                 .ticks(dailyDates.length - 1)
@@ -88,7 +88,7 @@
                 .attr("transform", "translate(0," + height + ")")
                 .call(xAxis);
           // create yAxis, use orient to put it on left side of graph
-          let yAxis = d3.svg.axis().scale(y).ticks(10).orient("left");
+          var yAxis = d3.svg.axis().scale(y).ticks(10).orient("left");
           // Add the y-axis to the left, position with translate parameters
           graph.append("g")
                 .attr("class", "y axis")
@@ -101,15 +101,15 @@
           // -----------------------------WEEKLY VIZ-------------------------------
           // ----------------------------------------------------------------------
 
-          let xWeek = d3.scale.linear().domain([0, weeklyData.length - 1]).range([0, vm.width]);
+          var xWeek = d3.scale.linear().domain([0, weeklyData.length - 1]).range([0, vm.width]);
 
-          let graphWeek = d3.select("#weeklyViz").append("svg")
+          var graphWeek = d3.select("#weeklyViz").append("svg")
                 .attr("width", vm.width + m.right + m.left)
                 .attr("height", height + m.top + m.bottom)
                 .append("g")
                 .attr("transform", "translate(" + m.left + "," + m.top + ")");
 
-          let lineWeek = d3.svg.line()
+          var lineWeek = d3.svg.line()
                 .x(function(d,i) {
                   return xWeek(i);
                 })
@@ -117,11 +117,11 @@
                   return y(d);
                 })
 
-          let formatDateWeek = function(d) {
+          var formatDateWeek = function(d) {
               return weeklyDates[d];
           }
 
-          let xAxisWeek = d3.svg.axis()
+          var xAxisWeek = d3.svg.axis()
                 .scale(xWeek)
                 .orient("bottom")
                 .ticks(weeklyDates.length - 1)
@@ -154,7 +154,7 @@
               day.push(res.favorRatingTotals[a]);
               runningWeekPercent += res.favorRatingTotals[a].percentage;
               if (day.length == 7) {
-                let currentWeek = {};
+                var currentWeek = {};
                 currentWeek.percentage = ((runningWeekPercent / 7));
                 currentWeek.date = day[6].date;
                 weeklyData.push(currentWeek); weeklyPercent.push(currentWeek.percentage);
