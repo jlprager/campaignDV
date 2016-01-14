@@ -85,6 +85,345 @@ angular.module('stripe', []).directive('stripeForm', ['$window', function ($wind
 
 (function () {
     'use strict';
+    angular.module('app').factory('CandidateFactory', CandidateFactory);
+
+    function CandidateFactory($http, $q) {
+        var o = {};
+
+        o.getPresidentialCandidates = function () {
+            var q = $q.defer();
+            $http.get('/api/v1/candidates/presidential').then(function (res) {
+                q.resolve(res.data);
+            }, function (err) {
+                q.reject();
+            });
+            return q.promise;
+        };
+
+        o.getCandidateById = function (id) {
+            var q = $q.defer();
+            $http.get('/api/v1/candidates/' + id).then(function (res) {
+                q.resolve(res.data);
+            }, function (err) {
+                q.reject();
+            });
+            return q.promise;
+        };
+
+        return o;
+    }
+})();
+
+(function () {
+    'use strict';
+    angular.module('app').factory('CommentFactory', CommentFactory);
+
+    function CommentFactory($http, $q, $window) {
+        var o = {};
+
+        o.deleteComment = function (commentId) {
+            var q = $q.defer();
+            $http.delete('/api/v1/comments/' + commentId, {
+                headers: {
+                    authorization: 'Bearer ' + $window.localStorage.getItem('token')
+                }
+            }).then(function (res) {
+                q.resolve(res.data);
+            }, function (err) {
+                q.reject();
+
+            });
+            return q.promise;
+        };
+
+        o.getAllCandidateComments = function (candidateId) {
+            var q = $q.defer();
+            $http.get('/api/v1/comments/' + candidateId).then(function (res) {
+                q.resolve(res.data);
+            }, function (err) {
+                q.reject();
+            });
+            return q.promise;
+        };
+
+        o.createComment = function (comment, candidateId) {
+            var q = $q.defer();
+            $http.post('/api/v1/comments/' + candidateId, {
+                message: comment
+            }, {
+                headers: {
+                    authorization: 'Bearer ' + $window.localStorage.getItem('token')
+                }
+            }).then(function (res) {
+                q.resolve(res.data);
+            }, function (err) {
+                q.reject();
+            });
+            return q.promise;
+        };
+
+        o.updateComment = function (newComment, oldComment) {
+            var q = $q.defer();
+            $http.put('/api/v1/comments/' + oldComment._id, newComment, {
+                headers: {
+                    authorization: 'Bearer ' + $window.localStorage.getItem('token')
+                }
+            }).then(function (res) {
+                q.resolve(res.data)
+            }, function (err) {
+                q.reject();
+            });
+            return q.promise;
+        };
+
+        return o;
+    };
+})();
+(function () {
+    'use strict';
+    angular.module('app').factory('EmailFactory', EmailFactory);
+
+    function EmailFactory($http, $q) {
+        var o = {};
+
+        o.receiveEmailCode = function (user) {
+            var q = $q.defer();
+            $http.post("/api/v1/contact/receiveCode", user).then(function (res) {
+                q.resolve();
+            }, function (err) {
+                q.reject();
+            });
+            return q.promise;
+        }
+
+        o.validateEmailCode = function (code) {
+            var q = $q.defer();
+            $http.post("/api/v1/contact/validate", code).then(function (res) {
+                q.resolve();
+            });
+            return q.promise;
+        };
+
+        o.sendMail = function (data) {
+            var q = $q.defer();
+            $http.post('/api/v1/contact/send', data).then(function (res) {
+                q.resolve(res.data);
+            }, function (err) {
+                q.reject();
+            });
+            return q.promise;
+        };
+        o.sendMailCode = function (data) {
+            var q = $q.defer();
+            $http.post('/api/v1/contact/sendCode', data).then(function (res) {
+                q.resolve(res.data);
+            }, function (err) {
+                q.reject();
+            });
+            return q.promise;
+        };
+        return o;
+    }
+})();
+(function () {
+    'use strict';
+    angular.module('app').factory('SMSFactory', SMSFactory);
+
+    function SMSFactory($http, $q) {
+        var o = {};
+
+        o.receiveSMSCode = function (sms) {
+            console.log(sms);
+            var q = $q.defer();
+            $http.post('/api/v1/sms/receiveCode', sms).then(function (res) {
+                q.resolve();
+            }, function (err) {
+                q.reject();
+            });
+            return q.promise;
+        };
+
+        o.sendSMS = function (sms) {
+            var q = $q.defer();
+            $http.post('/api/v1/sms/send', sms).then(function (res) {
+                q.resolve();
+            }, function (err) {
+                q.reject();
+            });
+            return q.promise;
+        };
+
+        o.validateCode = function (code) {
+            var q = $q.defer();
+            $http.post("/api/v1/sms/validate", code).then(function (res) {
+                q.resolve();
+            });
+            return q.promise;
+        };
+
+        return o;
+    }
+})();
+
+(function () {
+    'use strict';
+    angular.module('app').factory('SentimentFactory', SentimentFactory);
+
+    function SentimentFactory($http, $q) {
+        var o = {};
+
+
+
+        return o;
+    }
+})();
+
+(function () {
+    "use strict";
+    angular.module("app").factory("StripeFactory", StripeFactory);
+
+    function StripeFactory($q, $http, $window, UserFactory) {
+        var o = {};
+
+        o.postCharge = function (token, donationAmount) {
+            var q = $q.defer();
+            var chargeObject = {};
+            chargeObject.email = UserFactory.status.email;
+            chargeObject.token = token;
+            //setting amount on the chargeObject to user-selected amount and changing to cents
+            chargeObject.amount = donationAmount * 100;
+            $http.post('api/v1/invoice/charge', chargeObject, {
+                headers: {
+                    authorization: 'Bearer ' + $window.localStorage.getItem('token')
+                }
+            }).then(function (res) {
+                UserFactory.status.premiumStatus = true;
+                q.resolve(res.data);
+            }, function (err) {
+                q.reject();
+            });
+            return q.promise;
+
+        };
+
+        return o;
+    }
+})();
+(function () {
+    'use strict';
+    angular.module('app').factory('TweetFactory', TweetFactory);
+
+    function TweetFactory($http, $q, $timeout) {
+        var o = {};
+
+        o.getRecentTweets = function () {
+            var q = $q.defer();
+            $http.get('/api/v1/tweets').then(function (res) {
+                q.resolve(res.data);
+            }, function (err) {
+                q.reject();
+            });
+            return q.promise;
+        };
+
+        o.getCandidateTweets = function (candidate) {
+            var q = $q.defer();
+            $http.get('/api/v1/tweets/' + candidate).then(function (res) {
+                q.resolve(res.data);
+            }, function (err) {
+                q.reject();
+            });
+            return q.promise;
+        };
+
+        return o;
+    }
+})();
+
+(function () {
+    "use strict";
+    angular.module("app").factory("UserFactory", UserFactory);
+
+    function UserFactory($q, $http, $window) {
+        var o = {};
+        o.status = {};
+
+        o.register = function (user) {
+            var q = $q.defer();
+            $http.post('/api/v1/users/register', user).then(function (res) {
+                o.setToken(res.data.token);
+                q.resolve(res.data);
+            });
+            return q.promise;
+        };
+
+        o.resetPassword = function (user) {
+            var q = $q.defer();
+            $http.post('/api/v1/users/resetPassword', user).then(function (res) {
+                q.resolve();
+            });
+            return q.promise;
+        };
+
+        o.phoneExists = function (user) {
+            var q = $q.defer();
+            $http.post('/api/v1/users/registeredPhone', user).then(function (res) {
+                q.resolve(res.data);
+            });
+            return q.promise;
+        };
+
+        o.emailExists = function (user) {
+            var q = $q.defer();
+            $http.post('/api/v1/users/registeredEmail', user).then(function (res) {
+                q.resolve(res.data);
+            });
+            return q.promise;
+        };
+
+
+        o.login = function (user) {
+            var q = $q.defer();
+            $http.post('/api/v1/users/login', user).then(function (res) {
+                o.setToken(res.data.token);
+                q.resolve(res.data);
+            });
+            return q.promise;
+        };
+
+        o.getToken = function () {
+            return $window.localStorage.getItem("token");
+        };
+
+        o.setToken = function (token) {
+            $window.localStorage.setItem("token", token);
+            o.setUser();
+        };
+
+        o.removeToken = function () {
+            $window.localStorage.removeItem("token");
+            o.status._id = null;
+            o.status.uuid = null;
+            o.status.premiumStatus = null;
+            o.status.email = null;
+        };
+
+        o.setUser = function () {
+            var token = JSON.parse(atob(o.getToken().split(".")[1]));
+            o.status._id = token._id;
+            o.status.email = token.email;
+            o.status.uuid = token.uuid;
+            o.status.premiumStatus = token.premiumStatus;
+        };
+
+        if (o.getToken()) o.setUser();
+
+        return o;
+    }
+})();
+
+(function () {
+    'use strict';
     angular.module('app').controller('CandidateController', CandidateController);
 
     function CandidateController($scope, $timeout, $stateParams, $animate, TweetFactory, CandidateFactory, CommentFactory, UserFactory) {
@@ -742,342 +1081,4 @@ angular.module('stripe', []).directive('stripeForm', ['$window', function ($wind
             $location.search("code", null);
         }
     };
-})();
-(function () {
-    'use strict';
-    angular.module('app').factory('CandidateFactory', CandidateFactory);
-
-    function CandidateFactory($http, $q) {
-        var o = {};
-
-        o.getPresidentialCandidates = function () {
-            var q = $q.defer();
-            $http.get('/api/v1/candidates/presidential').then(function (res) {
-                q.resolve(res.data);
-            }, function (err) {
-                q.reject();
-            });
-            return q.promise;
-        };
-
-        o.getCandidateById = function (id) {
-            var q = $q.defer();
-            $http.get('/api/v1/candidates/' + id).then(function (res) {
-                q.resolve(res.data);
-            }, function (err) {
-                q.reject();
-            });
-            return q.promise;
-        };
-
-        return o;
-    }
-})();
-
-(function () {
-    'use strict';
-    angular.module('app').factory('CommentFactory', CommentFactory);
-
-    function CommentFactory($http, $q, $window) {
-        var o = {};
-
-        o.deleteComment = function (commentId) {
-            var q = $q.defer();
-            $http.delete('/api/v1/comments/' + commentId, {
-                headers: {
-                    authorization: 'Bearer ' + $window.localStorage.getItem('token')
-                }
-            }).then(function (res) {
-                q.resolve(res.data);
-            }, function (err) {
-                q.reject();
-
-            });
-            return q.promise;
-        };
-
-        o.getAllCandidateComments = function (candidateId) {
-            var q = $q.defer();
-            $http.get('/api/v1/comments/' + candidateId).then(function (res) {
-                q.resolve(res.data);
-            }, function (err) {
-                q.reject();
-            });
-            return q.promise;
-        };
-
-        o.createComment = function (comment, candidateId) {
-            var q = $q.defer();
-            $http.post('/api/v1/comments/' + candidateId, {
-                message: comment
-            }, {
-                headers: {
-                    authorization: 'Bearer ' + $window.localStorage.getItem('token')
-                }
-            }).then(function (res) {
-                q.resolve(res.data);
-            }, function (err) {
-                q.reject();
-            });
-            return q.promise;
-        };
-
-        o.updateComment = function (newComment, oldComment) {
-            var q = $q.defer();
-            $http.put('/api/v1/comments/' + oldComment._id, newComment, {
-                headers: {
-                    authorization: 'Bearer ' + $window.localStorage.getItem('token')
-                }
-            }).then(function (res) {
-                q.resolve(res.data)
-            }, function (err) {
-                q.reject();
-            });
-            return q.promise;
-        };
-
-        return o;
-    };
-})();
-(function () {
-    'use strict';
-    angular.module('app').factory('EmailFactory', EmailFactory);
-
-    function EmailFactory($http, $q) {
-        var o = {};
-
-        o.receiveEmailCode = function (user) {
-            var q = $q.defer();
-            $http.post("/api/v1/contact/receiveCode", user).then(function (res) {
-                q.resolve();
-            }, function (err) {
-                q.reject();
-            });
-            return q.promise;
-        }
-
-        o.validateEmailCode = function (code) {
-            var q = $q.defer();
-            $http.post("/api/v1/contact/validate", code).then(function (res) {
-                q.resolve();
-            });
-            return q.promise;
-        };
-
-        o.sendMail = function (data) {
-            var q = $q.defer();
-            $http.post('/api/v1/contact/send', data).then(function (res) {
-                q.resolve(res.data);
-            }, function (err) {
-                q.reject();
-            });
-            return q.promise;
-        };
-        o.sendMailCode = function (data) {
-            var q = $q.defer();
-            $http.post('/api/v1/contact/sendCode', data).then(function (res) {
-                q.resolve(res.data);
-            }, function (err) {
-                q.reject();
-            });
-            return q.promise;
-        };
-        return o;
-    }
-})();
-(function () {
-    'use strict';
-    angular.module('app').factory('SMSFactory', SMSFactory);
-
-    function SMSFactory($http, $q) {
-        var o = {};
-
-        o.receiveSMSCode = function (sms) {
-            console.log(sms);
-            var q = $q.defer();
-            $http.post('/api/v1/sms/receiveCode', sms).then(function (res) {
-                q.resolve();
-            }, function (err) {
-                q.reject();
-            });
-            return q.promise;
-        };
-
-        o.sendSMS = function (sms) {
-            var q = $q.defer();
-            $http.post('/api/v1/sms/send', sms).then(function (res) {
-                q.resolve();
-            }, function (err) {
-                q.reject();
-            });
-            return q.promise;
-        };
-
-        o.validateCode = function (code) {
-            var q = $q.defer();
-            $http.post("/api/v1/sms/validate", code).then(function (res) {
-                q.resolve();
-            });
-            return q.promise;
-        };
-
-        return o;
-    }
-})();
-
-(function () {
-    'use strict';
-    angular.module('app').factory('SentimentFactory', SentimentFactory);
-
-    function SentimentFactory($http, $q) {
-        var o = {};
-
-
-
-        return o;
-    }
-})();
-
-(function () {
-    "use strict";
-    angular.module("app").factory("StripeFactory", StripeFactory);
-
-    function StripeFactory($q, $http, $window, UserFactory) {
-        var o = {};
-
-        o.postCharge = function (token, donationAmount) {
-            var q = $q.defer();
-            var chargeObject = {};
-            chargeObject.email = UserFactory.status.email;
-            chargeObject.token = token;
-            //setting amount on the chargeObject to user-selected amount and changing to cents
-            chargeObject.amount = donationAmount * 100;
-            $http.post('api/v1/invoice/charge', chargeObject, {
-                headers: {
-                    authorization: 'Bearer ' + $window.localStorage.getItem('token')
-                }
-            }).then(function (res) {
-                UserFactory.status.premiumStatus = true;
-                q.resolve(res.data);
-            }, function (err) {
-                q.reject();
-            });
-            return q.promise;
-
-        };
-
-        return o;
-    }
-})();
-(function () {
-    'use strict';
-    angular.module('app').factory('TweetFactory', TweetFactory);
-
-    function TweetFactory($http, $q, $timeout) {
-        var o = {};
-
-        o.getRecentTweets = function () {
-            var q = $q.defer();
-            $http.get('/api/v1/tweets').then(function (res) {
-                q.resolve(res.data);
-            }, function (err) {
-                q.reject();
-            });
-            return q.promise;
-        };
-
-        o.getCandidateTweets = function (candidate) {
-            var q = $q.defer();
-            $http.get('/api/v1/tweets/' + candidate).then(function (res) {
-                q.resolve(res.data);
-            }, function (err) {
-                q.reject();
-            });
-            return q.promise;
-        };
-
-        return o;
-    }
-})();
-
-(function () {
-    "use strict";
-    angular.module("app").factory("UserFactory", UserFactory);
-
-    function UserFactory($q, $http, $window) {
-        var o = {};
-        o.status = {};
-
-        o.register = function (user) {
-            var q = $q.defer();
-            $http.post('/api/v1/users/register', user).then(function (res) {
-                o.setToken(res.data.token);
-                q.resolve(res.data);
-            });
-            return q.promise;
-        };
-
-        o.resetPassword = function (user) {
-            var q = $q.defer();
-            $http.post('/api/v1/users/resetPassword', user).then(function (res) {
-                q.resolve();
-            });
-            return q.promise;
-        };
-
-        o.phoneExists = function (user) {
-            var q = $q.defer();
-            $http.post('/api/v1/users/registeredPhone', user).then(function (res) {
-                q.resolve(res.data);
-            });
-            return q.promise;
-        };
-
-        o.emailExists = function (user) {
-            var q = $q.defer();
-            $http.post('/api/v1/users/registeredEmail', user).then(function (res) {
-                q.resolve(res.data);
-            });
-            return q.promise;
-        };
-
-
-        o.login = function (user) {
-            var q = $q.defer();
-            $http.post('/api/v1/users/login', user).then(function (res) {
-                o.setToken(res.data.token);
-                q.resolve(res.data);
-            });
-            return q.promise;
-        };
-
-        o.getToken = function () {
-            return $window.localStorage.getItem("token");
-        };
-
-        o.setToken = function (token) {
-            $window.localStorage.setItem("token", token);
-            o.setUser();
-        };
-
-        o.removeToken = function () {
-            $window.localStorage.removeItem("token");
-            o.status._id = null;
-            o.status.uuid = null;
-            o.status.premiumStatus = null;
-            o.status.email = null;
-        };
-
-        o.setUser = function () {
-            var token = JSON.parse(atob(o.getToken().split(".")[1]));
-            o.status._id = token._id;
-            o.status.email = token.email;
-            o.status.uuid = token.uuid;
-            o.status.premiumStatus = token.premiumStatus;
-        };
-
-        if (o.getToken()) o.setUser();
-
-        return o;
-    }
 })();
