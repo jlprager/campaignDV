@@ -85,12 +85,12 @@ var clintonTags = ["#hillary2016", "#clinton2016", "#ohhillno", "#stophillary201
 var trumpTags = ["#trump2016", "#whyisupporttrump", "#dumptrump", "#fucktrump", "#gopdebate", "#megan"];
 var rubioTags = ["#rubio2016", "#teammarco", "#norubio", "#rubiolies", "#oscarssowhite", "#chipkelly"]
 
-var berniePos = ["#bernie2016", "#feelthebern", "#mirandasingsonnetflix"];
+var berniePos = ["#bernie2016", "#feelthebern", "#davidbowie"];
 var clintonPos = ["#hillary2016", "#clinton2016", "#bbcqt"];
 var trumpPos = ["#trump2016", "#makeamericagreatagain", "#gopdebate"];
 var rubioPos = ["#rubio2016", "#teammarco", "#oscarssowhite"];
 
-var bernieNeg = ["#nobernie", "#stopsanders", "#davidbowie"];
+var bernieNeg = ["#nobernie", "#stopsanders", "#mirandasingsonnetflix"];
 var clintonNeg = ["ohhillno", "#stophillary2016", "#alanrickman"];
 var trumpNeg = ["#dumptrump", "#fucktrump", "#megan"];
 var rubioNeg = ["#norubio", "#rubiolies", "#chipkelly"];
