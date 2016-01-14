@@ -78,9 +78,9 @@ dailyTimer();
 //tracked hashtags
 
 
-var startTags = ["#Bernie2016", "#FeelTheBern", "#NoBernie", "#StopSanders", "#Hillary2016", "#Clinton2016", "#OhHillNo", "#StopHillary2016", "#Trump2016", "#MakeAmericaGreatAgain", "#DumpTrump", "#FuckTrump", "#Rubio2016", "#TeamMarco", "#NoRubio", "#RubioLies", "#MirandaSingsOnNetflix", "#GOPDebate", "#bbcqt", "#OscarsSoWhite", "#IDidntWinPowerBallSoNow", "#ChipKelly", "#Megan", "#AlanRickman"];
+var startTags = ["#Bernie2016", "#FeelTheBern", "#NoBernie", "#StopSanders", "#Hillary2016", "#Clinton2016", "#OhHillNo", "#StopHillary2016", "#Trump2016", "#MakeAmericaGreatAgain", "#DumpTrump", "#FuckTrump", "#Rubio2016", "#TeamMarco", "#NoRubio", "#RubioLies", "#MirandaSingsOnNetflix", "#GOPDebate", "#bbcqt", "#OscarsSoWhite", "#DavidBowie", "#ChipKelly", "#Megan", "#AlanRickman"];
 
-var bernieTags = ["#bernie2016", "#feelthebern", "#nobernie", "#stopsanders", "#mirandasingsonnetflix", "#ididntwinthepowerballsonow"];
+var bernieTags = ["#bernie2016", "#feelthebern", "#nobernie", "#stopsanders", "#mirandasingsonnetflix", "#davidbowie"];
 var clintonTags = ["#hillary2016", "#clinton2016", "#ohhillno", "#stophillary2016", "#bbcqt", "#alanrickman"];
 var trumpTags = ["#trump2016", "#whyisupporttrump", "#dumptrump", "#fucktrump", "#gopdebate", "#megan"];
 var rubioTags = ["#rubio2016", "#teammarco", "#norubio", "#rubiolies", "#oscarssowhite", "#chipkelly"]
@@ -90,7 +90,7 @@ var clintonPos = ["#hillary2016", "#clinton2016", "#bbcqt"];
 var trumpPos = ["#trump2016", "#makeamericagreatagain", "#gopdebate"];
 var rubioPos = ["#rubio2016", "#teammarco", "#oscarssowhite"];
 
-var bernieNeg = ["#nobernie", "#stopsanders", "#ididntwinthepowerballsonow"];
+var bernieNeg = ["#nobernie", "#stopsanders", "#davidbowie"];
 var clintonNeg = ["ohhillno", "#stophillary2016", "#alanrickman"];
 var trumpNeg = ["#dumptrump", "#fucktrump", "#megan"];
 var rubioNeg = ["#norubio", "#rubiolies", "#chipkelly"];
