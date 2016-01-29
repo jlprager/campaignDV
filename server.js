@@ -256,11 +256,23 @@ var waitForTweets = function(db) {
                         bernieCount++;
                         berniePos++;
 
-                        Candidate.update({ name : "Bernie Sanders" }, { $inc : { 'dailyRating.posTweets':1 }}, (err, result) => {
-                          if (err) console.log(err);
+                        Candidate.update({
+                            name: "Bernie Sanders"
+                        }, {
+                            $inc: {
+                                'dailyRating.posTweets': 1
+                            }
+                        }, (err, result) => {
+                            if (err) console.log(err);
                         });
-                        Candidate.update({ name : "Bernie Sanders" }, { $inc : { 'dailyRating.totalTweets':1 }}, (err, result) => {
-                          if (err) console.log(err);
+                        Candidate.update({
+                            name: "Bernie Sanders"
+                        }, {
+                            $inc: {
+                                'dailyRating.totalTweets': 1
+                            }
+                        }, (err, result) => {
+                            if (err) console.log(err);
                         });
 
 
@@ -282,6 +294,7 @@ var waitForTweets = function(db) {
             if (data.text.toLowerCase().match(bernieNeg[i])) {
                 sentiment(data.text, function(err, result) {
                     if (result.score < 0) {
+                        if (result.score < -10) result.score = -10;
                         console.log("Saving to NEGATIVE BERNIE")
                             //create new tweet
                         var tweet = new Tweet({
@@ -295,8 +308,14 @@ var waitForTweets = function(db) {
                         //increment count (total count of tweets w/ bernieTags)
                         bernieCount++;
 
-                        Candidate.update({ name : "Bernie Sanders" }, { $inc : { 'dailyRating.totalTweets':1 }}, (err, result) => {
-                          if (err) console.log(err);
+                        Candidate.update({
+                            name: "Bernie Sanders"
+                        }, {
+                            $inc: {
+                                'dailyRating.totalTweets': 1
+                            }
+                        }, (err, result) => {
+                            if (err) console.log(err);
                         });
 
                         //save
@@ -318,26 +337,38 @@ var waitForTweets = function(db) {
                 sentiment(data.text, function(err, result) {
                     if (result.score >= 0) {
 
-                      console.log("Saving to POSITIVE CLINTON")
-                          //create new tweet
-                      var tweet = new Tweet({
-                          candidate: "Hillary Clinton",
-                          user: data.user.screen_name,
-                          description: data.text,
-                          sentiment: result.score,
-                          created_at: data.created_at
-                      });
+                        console.log("Saving to POSITIVE CLINTON")
+                            //create new tweet
+                        var tweet = new Tweet({
+                            candidate: "Hillary Clinton",
+                            user: data.user.screen_name,
+                            description: data.text,
+                            sentiment: result.score,
+                            created_at: data.created_at
+                        });
 
-                      //increment count (total count of tweets w/ bernieTags)
-                      clintonCount++;
-                      clintonPos++;
+                        //increment count (total count of tweets w/ bernieTags)
+                        clintonCount++;
+                        clintonPos++;
 
-                      Candidate.update({ name: 'Hillary Clinton' }, { $inc : { 'dailyRating.posTweets':1 }}, (err, res) => {
-                        if (err) console.log(err);
-                      });
-                      Candidate.update({ name: 'Hillary Clinton' }, { $inc : { 'dailyRating.totalTweets':1 }}, (err, res) => {
-                        if (err) console.log(err);
-                      });
+                        Candidate.update({
+                            name: 'Hillary Clinton'
+                        }, {
+                            $inc: {
+                                'dailyRating.posTweets': 1
+                            }
+                        }, (err, res) => {
+                            if (err) console.log(err);
+                        });
+                        Candidate.update({
+                            name: 'Hillary Clinton'
+                        }, {
+                            $inc: {
+                                'dailyRating.totalTweets': 1
+                            }
+                        }, (err, res) => {
+                            if (err) console.log(err);
+                        });
 
                         //save
                         tweet.save(function(err, tweet) {
@@ -355,28 +386,36 @@ var waitForTweets = function(db) {
             if (data.text.toLowerCase().match(clintonNeg[i])) {
                 sentiment(data.text, function(err, result) {
                     if (result.score < 0) {
-                      console.log("Saving to NEGATIVE CLINTON")
-                          //create new tweet
-                      var tweet = new Tweet({
-                          candidate: "Hillary Clinton",
-                          user: data.user.screen_name,
-                          description: data.text,
-                          sentiment: result.score,
-                          created_at: data.created_at
-                      });
+                        if (result.score < -10) result.score = -10;
 
-                      clintonCount++;
+                        console.log("Saving to NEGATIVE CLINTON")
+                            //create new tweet
+                        var tweet = new Tweet({
+                            candidate: "Hillary Clinton",
+                            user: data.user.screen_name,
+                            description: data.text,
+                            sentiment: result.score,
+                            created_at: data.created_at
+                        });
 
-                      Candidate.update({ name: 'Hillary Clinton' }, { $inc : { 'dailyRating.totalTweets':1}}, (err, res) => {
-                        if (err) console.log(err);
-                      });
+                        clintonCount++;
 
-                      //save
-                      tweet.save(function(err, tweet) {
-                          if (err) return console.error(err)
-                          console.log(tweet.candidate + " (" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
-                          console.log("");
-                      });
+                        Candidate.update({
+                            name: 'Hillary Clinton'
+                        }, {
+                            $inc: {
+                                'dailyRating.totalTweets': 1
+                            }
+                        }, (err, res) => {
+                            if (err) console.log(err);
+                        });
+
+                        //save
+                        tweet.save(function(err, tweet) {
+                            if (err) return console.error(err)
+                            console.log(tweet.candidate + " (" + tweet.created_at + ") scored " + tweet.sentiment + ": " + tweet.description);
+                            console.log("");
+                        });
 
                     }
 
@@ -403,11 +442,23 @@ var waitForTweets = function(db) {
                         trumpCount++;
                         trumpPos++;
 
-                        Candidate.update({ name: 'Donald Trump' }, { $inc: { 'dailyRating.posTweets':1}}, (err, res) => {
-                          if (err) console.log(err);
+                        Candidate.update({
+                            name: 'Donald Trump'
+                        }, {
+                            $inc: {
+                                'dailyRating.posTweets': 1
+                            }
+                        }, (err, res) => {
+                            if (err) console.log(err);
                         });
-                        Candidate.update({ name: 'Donald Trump' }, { $inc: { 'dailyRating.totalTweets':1}}, (err, res) => {
-                          if (err) console.log(err);
+                        Candidate.update({
+                            name: 'Donald Trump'
+                        }, {
+                            $inc: {
+                                'dailyRating.totalTweets': 1
+                            }
+                        }, (err, res) => {
+                            if (err) console.log(err);
                         });
 
                         //save
@@ -426,6 +477,8 @@ var waitForTweets = function(db) {
             if (data.text.toLowerCase().match(trumpNeg[i])) {
                 sentiment(data.text, function(err, result) {
                     if (result.score < 0) {
+                        if (result.score < -10) result.score = -10;
+
                         console.log("Saving to NEGATIVE TRUMP")
                             //create new tweet
                         var tweet = new Tweet({
@@ -438,8 +491,14 @@ var waitForTweets = function(db) {
 
                         trumpCount++;
 
-                        Candidate.update({ name: 'Donald Trump' }, { $inc: { 'dailyRating.totalTweets':1}}, (err, res) => {
-                          if (err) console.log(err);
+                        Candidate.update({
+                            name: 'Donald Trump'
+                        }, {
+                            $inc: {
+                                'dailyRating.totalTweets': 1
+                            }
+                        }, (err, res) => {
+                            if (err) console.log(err);
                         });
 
                         //save
@@ -475,11 +534,23 @@ var waitForTweets = function(db) {
                         rubioCount++;
                         rubioPos++;
 
-                        Candidate.update({ name: 'Marco Rubio' }, { $inc: { 'dailyRating.posTweets':1}}, (err, res) => {
-                          if (err) console.log(err);
+                        Candidate.update({
+                            name: 'Marco Rubio'
+                        }, {
+                            $inc: {
+                                'dailyRating.posTweets': 1
+                            }
+                        }, (err, res) => {
+                            if (err) console.log(err);
                         });
-                        Candidate.update({ name: 'Marco Rubio' }, { $inc: { 'dailyRating.totalTweets':1}}, (err, res) => {
-                          if (err) console.log(err);
+                        Candidate.update({
+                            name: 'Marco Rubio'
+                        }, {
+                            $inc: {
+                                'dailyRating.totalTweets': 1
+                            }
+                        }, (err, res) => {
+                            if (err) console.log(err);
                         });
 
                         //save
@@ -498,6 +569,8 @@ var waitForTweets = function(db) {
             if (data.text.toLowerCase().match(rubioNeg[i])) {
                 sentiment(data.text, function(err, result) {
                     if (result.score < 0) {
+                        if (result.score < -10) result.score = -10;
+
                         console.log("Saving to NEGATIVE RUBIO")
                             //create new tweet
                         var tweet = new Tweet({
@@ -510,8 +583,14 @@ var waitForTweets = function(db) {
 
                         rubioCount++;
 
-                        Candidate.update({ name: 'Marco Rubio' }, { $inc: { 'dailyRating.totalTweets':1}}, (err, res) => {
-                          if (err) console.log(err);
+                        Candidate.update({
+                            name: 'Marco Rubio'
+                        }, {
+                            $inc: {
+                                'dailyRating.totalTweets': 1
+                            }
+                        }, (err, res) => {
+                            if (err) console.log(err);
                         });
 
                         //save

@@ -51,6 +51,11 @@
                 trumpImg = (trumpImg + (trumpImg * trumpResize));
                 rubioImg = (rubioImg + (rubioImg * rubioResize));
 
+                if (bernieImg < 20) bernieImg = 20;
+                if (hillaryImg < 20) hillaryImg = 20;
+                if (trumpImg < 20) trumpImg = 20;
+                if (rubioImg < 20) rubioImg = 20;
+
                 //dom
                 document.getElementById("bernie").height = bernieImg;
                 document.getElementById("bernie").style.marginTop = (175 - (bernieImg / 2)) + "px";
